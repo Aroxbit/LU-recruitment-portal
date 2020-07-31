@@ -11,7 +11,7 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <title>Lucknow University Recruitment Portal</title>
+    <title>Lucknow University Recruitment Portal - Registration</title>
   </head>
 
   <body>
@@ -49,19 +49,20 @@
         <div class="d-flex justify-content-center">
           <form class="card registration-form mt-3 p-3">
             <div class="form-group">
-              <label for="exampleInputEmail1">Email Address *</label>
+              <label>Email Address *</label>
               <input
                 type="email"
                 class="form-control"
                 placeholder="Enter email"
               />
-              <small id="emailHelp" class="form-text text-muted">
-                We'll never share your email with anyone else.
+              <small class="form-text text-muted">
+                Please note all the communication related to your application
+                will be sent to this email id.
               </small>
             </div>
 
             <div class="form-group">
-              <label for="exampleInputEmail1">Confirm Email Address *</label>
+              <label>Confirm Email Address *</label>
               <input
                 type="email"
                 class="form-control"
@@ -70,7 +71,7 @@
             </div>
 
             <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
+              <label>Password</label>
               <input
                 type="password"
                 class="form-control"
@@ -79,7 +80,7 @@
             </div>
 
             <div class="form-group">
-              <label for="exampleInputPassword1">Confirm Password *</label>
+              <label>Confirm Password *</label>
               <input
                 type="password"
                 class="form-control"
@@ -133,6 +134,9 @@
                 type="text"
                 placeholder="Father's Name"
               />
+              <small class="form-text text-muted">
+                Don't add any salutations like Mr. / Dr. etc. before the Name.
+              </small>
             </div>
 
             <div class="text-center">[OR]</div>
@@ -144,6 +148,10 @@
                 type="text"
                 placeholder="Mother's Name"
               />
+              <small class="form-text text-muted">
+                Don't add any salutations like Ms. / Mrs. / Dr. etc. before the
+                Name.
+              </small>
             </div>
 
             <div class="form-group">
@@ -165,9 +173,17 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Register</button>
+
+            <div class="text-center mt-3">
+              Already Registered? <a href="/signin.html">Back to Login</a>
+            </div>
           </form>
         </div>
       </div>
     </div>
+
+    <footer class="text-center pt-4 pb-4">
+      © 2020 Lucknow University
+    </footer>
   </body>
 </html>
