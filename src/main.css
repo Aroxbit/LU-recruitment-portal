@@ -1,0 +1,23 @@
+.navbar {
+  border-bottom: 1px solid #aaaaaa;
+}
+
+.is-mobile {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    display: block;
+  }
+
+  /* is-desktop only visible on tablet and desktop */
+  .is-desktop {
+    display: none;
+  }
+
+  /* is-mobile only visible to mobile users */
+  .is-mobile {
+    display: block;
+  }
+}
