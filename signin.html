@@ -17,7 +17,7 @@
   <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-light border-bottom">
-      <a href="#" class="navbar-brand">
+      <a href="/index.html" class="navbar-brand">
         <!-- Desktop Logo-->
         <img
           class="d-sm-none d-md-block"
@@ -36,31 +36,40 @@
       </a>
 
       <div class="inline-flex">
-        <a href="/registration.html" class="btn btn-primary">Register</a>
-        <a href="/signin.html" class="btn btn-info">Sign In</a>
+        <button class="btn btn-primary">Register</button>
+        <button class="btn btn-info">Sign In</button>
       </div>
     </nav>
 
     <div class="container-fluid">
-      <div class="content">
+      <div class="content pb-3">
         <!-- Heading -->
-        <h4 class="text-center mt-3">
-          Welcome to Lucknow University Recruitment Portal
-        </h4>
+        <h4 class="text-center mt-3">Sign In</h4>
 
-        <h5>Important Instruction for Candidates</h5>
-        <div class="row">
-          <!-- Instruction List -->
-          <div class="col-md-8 col-sm-11 card ml-2 mr-2 p-2"></div>
+        <div class="d-flex justify-content-center">
+          <form class="card form-width-400 mt-3 p-3">
+            <div class="form-group">
+              <label>Email Address *</label>
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter email"
+                required
+              />
+            </div>
 
-          <div class="col-md-3 col-sm-12 col-xs-12">
-            <div class="card p-2">
-              <h5 class="text-center">Registration</h5>
+            <div class="form-group">
+              <label>Password *</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Password"
+                required
+              />
             </div>
-            <div class="card mt-2 p-2">
-              <h5 class="text-center danger-text">Notification Details</h5>
-            </div>
-          </div>
+
+            <button type="submit" class="btn btn-primary">Sign In</button>
+          </form>
         </div>
       </div>
     </div>
