@@ -42,7 +42,152 @@
       </div>
 
       <!-- Form Section -->
-      <div class="col"></div>
+      <div class="col p-2">
+        <b>Note:</b>
+        <ul>
+          <li>
+            Upload file must be less than 300 KB
+          </li>
+          <li>If you do not upload relevent documents, your application may get rejected.</li>
+        </ul>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Name of the Document / Certificate</th>
+              <th scope="col">View File</th>
+              <th scope="col">Upload</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- 10th form -->
+            <tr scope="col">
+              <td>
+                10th standard or equivalent
+              </td>
+              <td>
+                <a href="#">Click here to view the document</a>
+              </td>
+
+              <form action="">
+                <td>
+                  <input onchange="validate()" type="file" required />
+                </td>
+
+                <td>
+                  <button class="btn btn-primary">Upload</button>
+                </td>
+              </form>
+            </tr>
+
+            <!-- 12th form -->
+            <tr scope="col">
+              <td>
+                12th standard or equivalent
+              </td>
+              <td>
+                <a href="#">Click here to view the document</a>
+              </td>
+
+              <form action="">
+                <td>
+                  <input onchange="validate()" type="file" required />
+                </td>
+
+                <td>
+                  <button class="btn btn-primary">Upload</button>
+                </td>
+              </form>
+            </tr>
+
+            <!-- Undergraduate Form -->
+            <tr scope="col">
+              <td>
+                Undergraduate
+              </td>
+              <td>
+                <a href="#">Click here to view the document</a>
+              </td>
+
+              <form action="">
+                <td>
+                  <input onchange="validate()" type="file" required />
+                </td>
+
+                <td>
+                  <button class="btn btn-primary">Upload</button>
+                </td>
+              </form>
+            </tr>
+
+            <!-- Postgraduate Form -->
+            <tr scope="col">
+              <td>
+                Postgraduate
+              </td>
+              <td>
+                <a href="#">Click here to view the document</a>
+              </td>
+
+              <form action="">
+                <td>
+                  <input onchange="validate()" type="file" required />
+                </td>
+
+                <td>
+                  <button class="btn btn-primary">Upload</button>
+                </td>
+              </form>
+            </tr>
+
+            <!-- SET / SLET Form -->
+            <tr scope="col">
+              <td>
+                NET / SLET / SET / GATE
+              </td>
+              <td>
+                <a href="#">Click here to view the document</a>
+              </td>
+
+              <form action="">
+                <td>
+                  <input onchange="validate()" type="file" required />
+                </td>
+
+                <td>
+                  <button class="btn btn-primary">Upload</button>
+                </td>
+              </form>
+            </tr>
+
+            <!-- Other form -->
+            <tr scope="col">
+              <td>
+                Other Degree
+              </td>
+              <td>
+                <a href="#">Click here to view the document</a>
+              </td>
+
+              <form action="">
+                <td>
+                  <input onchange="validate()" type="file" required />
+                </td>
+
+                <td>
+                  <button class="btn btn-primary">Upload</button>
+                </td>
+              </form>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="text-center">
+          <a href="./researchDegree.php" class="btn btn-primary">Continue</a>
+        </div>
+      </div>
     </div>
   </div>
 </body>
