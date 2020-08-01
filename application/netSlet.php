@@ -25,9 +25,9 @@
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
           <a href="./candidate.php" class="list-group-item">Candidate Details</a>
-          <a href="./uploadPhoto.php" class="list-group-item active">Upload Photo And Signature</a>
+          <a href="./uploadPhoto.php" class="list-group-item">Upload Photo And Signature</a>
           <a href="./academicDetails.php" class="list-group-item">Academic Details</a>
-          <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
+          <a href="./netSlet.php" class="list-group-item active">NET / SLET / SET / GATE</a>
           <a href="./uploadDocuments.php" class="list-group-item">Upload Documents</a>
           <a href="./researchDegree.php" class="list-group-item">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
@@ -42,7 +42,90 @@
       </div>
 
       <!-- Form Section -->
-      <div class="col"></div>
+      <div class="col">
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">SI No.</th>
+              <th scope="col">NET / SLET / SET / GATE Type</th>
+              <th scope="col">Name Of Agency</th>
+              <th scope="col">Year Of Award</th>
+              <th scope="col">Subject</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td>SET</td>
+              <td>Arunachal Pradesh</td>
+              <td>2020</td>
+              <td>Computer Science</td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">NET / SLET / SET / GATE</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Details of NET / SLET / SET / GATE conducted by UGC/CSIR/ICAR State? *</td>
+
+                <td>
+                  <select class="custom-select" required>
+                    <option>Select Type</option>
+                    <option value="NET">NET</option>
+                    <option value="SLET">SLET</option>
+                    <option value="SET">SET</option>
+                    <option value="GATE">GATE</option>
+                  </select>
+                </td>
+
+              </tr>
+
+              <tr scope="row">
+                <td>Name Of The Agency *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Agency Name" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Year Of Award *</td>
+
+                <td>
+                  <input type="number" class="form-control" placeholder="Enter Year" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Subject *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Subject" required />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+            <a href="./uploadDocuments.php" class="btn btn-primary">Continue</a>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </body>
