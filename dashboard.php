@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['email'])){
+if (!isset($_SESSION['email'])) {
   header("Location: index.php");
 }
 ?>
@@ -23,10 +23,10 @@ if(!isset($_SESSION['email'])){
   <nav class="navbar navbar-light border-bottom">
     <a href="./" class="navbar-brand">
       <!-- Desktop Logo-->
-      <img class="d-sm-none d-md-block" src="./assets/logo.png" alt="Logo" width="300" />
+      <img class="d-none d-md-block" src="./assets/logo.png" alt="Logo" width="300" />
 
       <!-- Mobile Logo -->
-      <img class="d-none d-sm-block d-md-none" src="./assets/LU_Logo.png" alt="Lucknow University Logo" width="100" />
+      <img class="d-sm-block d-md-none" src="./assets/LU_Logo.png" alt="Lucknow University Logo" width="100" />
     </a>
 
     <div class="inline-flex">
