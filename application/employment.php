@@ -42,7 +42,124 @@
       </div>
 
       <!-- Form Section -->
-      <div class="col"></div>
+      <div class="col">
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">S. N.</th>
+              <th scope="col">Designation</th>
+              <th scope="col">Nature Of Job / Post</th>
+              <th scope="col">Date Joined</th>
+              <th scope="col">Date Left</th>
+              <th scope="col">Pay Scale / Brand with Grade Pay</th>
+              <th scope="col">Reason for leaving</th>
+              <th scope="col">Encl. No.</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">Employment Details</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Designation *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Designation" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Nature Of Job / Post *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Example: Permanent, Temporary">
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Date Joined *</td>
+
+                <td>
+                  <input type="date" class="form-control" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Date Left *</td>
+
+                <td>
+                  <input type="date" class="form-control" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Pay Scale / Brand with Grade Pay *</td>
+
+                <td>
+                  <input type="number" class="form-control" placeholder="Enter Pay Scale" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Reason for leaving *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter reason for leaving" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Relevent Document *</td>
+                <td>
+                  <input type="file" class="form-control" />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Encl. No.</td>
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Encl. No." />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </form>
+
+        <hr />
+
+        <div class="text-center">
+          <a href="#" class="btn btn-primary">Continue</a>
+        </div>
+      </div>
     </div>
   </div>
 </body>
