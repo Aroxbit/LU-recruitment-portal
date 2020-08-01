@@ -25,8 +25,8 @@
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
           <a href="./candidate.php" class="list-group-item">Candidate Details</a>
-          <a href="./uploadPhoto.php" class="list-group-item active">Upload Photo And Signature</a>
-          <a href="./academicDetails.php" class="list-group-item">Academic Details</a>
+          <a href="./uploadPhoto.php" class="list-group-item">Upload Photo And Signature</a>
+          <a href="./academicDetails.php" class="list-group-item active">Academic Details</a>
           <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
           <a href="./uploadDocuments.php" class="list-group-item">Upload Documents</a>
           <a href="./researchDegree.php" class="list-group-item">Research Degree</a>
