@@ -17,7 +17,7 @@
   <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-light border-bottom">
-      <a href="/index.html" class="navbar-brand">
+      <a href="./index.php" class="navbar-brand">
         <!-- Desktop Logo-->
         <img
           class="d-sm-none d-md-block"
@@ -36,8 +36,8 @@
       </a>
 
       <div class="inline-flex">
-        <a href="/registration.html" class="btn btn-primary">Register</a>
-        <a href="/signin.html" class="btn btn-info">Sign In</a>
+        <a href="./registration.php" class="btn btn-primary">Register</a>
+        <a href="./signin.php" class="btn btn-info">Sign In</a>
       </div>
     </nav>
 
