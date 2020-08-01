@@ -195,7 +195,7 @@
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-primary type=" submit">Save & Continue</button>
+            <button class="btn btn-primary" type="submit">Save & Continue</button>
           </div>
         </form>
       </div>
