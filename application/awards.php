@@ -42,7 +42,109 @@
       </div>
 
       <!-- Form Section -->
-      <div class="col"></div>
+      <!-- Form Section -->
+      <div class="col">
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">SI No.</th>
+              <th scope="col">Fellowship / Award Name</th>
+              <th scope="col">Level</th>
+              <th scope="col">Name of Academic Body / Association</th>
+              <th scope="col">Year</th>
+              <th scope="col">API score</th>
+              <th scope="col">Encl. No.</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">Fellowship / Award</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Fellowship / Award Name *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Fellowship / Award Name" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Level *</td>
+
+                <td>
+                  <select class="custom-select" required>
+                    <option>Select Level</option>
+                    <option value="University">University</option>
+                    <option value="State">State</option>
+                    <option value="National">National</option>
+                    <option value="International">International</option>
+                  </select>
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Year *</td>
+
+                <td>
+                  <input type="number" class="form-control" placeholder="Enter Year" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Name of University / Institution *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter University/Institution" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>API score *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter API Score" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Encl. No.</td>
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Encl. No." />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+            <a href="./uploadDocuments.php" class="btn btn-primary">Continue</a>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </body>
