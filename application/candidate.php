@@ -24,20 +24,20 @@
     <div class="row">
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
-          <a href="./candidate.php" class="list-group-item active">Candidate Details</a>
-          <a href="./uploadPhoto.php" class="list-group-item">Upload Photo And Signature</a>
-          <a href="#" class="list-group-item">Academic Details</a>
-          <a href="#" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="#" class="list-group-item">Upload Documents</a>
-          <a href="#" class="list-group-item">Research Degree</a>
-          <a href="#" class="list-group-item">Fellowship / Awards</a>
-          <a href="#" class="list-group-item">Employment Details</a>
-          <a href="#" class="list-group-item">Field Of Specialization</a>
-          <a href="#" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
-          <a href="#" class="list-group-item">Research & Academic Contributions</a>
-          <a href="#" class="list-group-item">API score</a>
-          <a href="#" class="list-group-item">Other Details</a>
-          <a href="#" class="list-group-item">Declaration</a>
+          <a href="./candidate.php" class="list-group-item">Candidate Details</a>
+          <a href="./uploadPhoto.php" class="list-group-item active">Upload Photo And Signature</a>
+          <a href="./academicDetails.php" class="list-group-item">Academic Details</a>
+          <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
+          <a href="./uploadDocuments.php" class="list-group-item">Upload Documents</a>
+          <a href="./researchDegree.php" class="list-group-item">Research Degree</a>
+          <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
+          <a href="./employment.php" class="list-group-item">Employment Details</a>
+          <a href="./fields.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
+          <a href="./academicContributions.php" class="list-group-item">Research & Academic Contributions</a>
+          <a href="./apiScore.php" class="list-group-item">API score</a>
+          <a href="./otherDetails.php" class="list-group-item">Other Details</a>
+          <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
 
@@ -68,6 +68,26 @@
             </div>
 
             <div class="form-group">
+              <label>Date Of Birth (As recorded in High School or equivalent Certificate) *</label>
+              <input class="form-control" type="date" required />
+            </div>
+
+            <div class="form-group">
+              <label>Gender *</label>
+              <select class="form-control" required>
+                <option>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Physical Disability, if any</label>
+              <input class="form-control" type="text" placeholder="Enter Disabilities" />
+            </div>
+
+            <div class="form-group">
               <label>Father's Name</label>
               <input class="form-control" type="text" placeholder="Father's Name" />
               <small class="form-text text-muted">
@@ -84,25 +104,18 @@
             </div>
 
             <div class="form-group">
-              <label>Date Of Birth (As recorded in High School or equivalent Certificate) *</label>
-              <input class="form-control" type="date" required />
-            </div>
-
-            <div class="form-group">
-              <label>Gender *</label>
-              <select class="form-control" required>
-                <option>Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div class="form-group">
               <label>Nationality *</label>
-              <select class="form-control" required>
-                <option value="Indian">Indian</option>
-              </select>
+              <input class="form-control" type="text" placeholder="Enter Nationality" required />
+            </div>
+
+            <div class="form-group">
+              <label>Applicant's mother tongue *</label>
+              <input class="form-control" type="text" placeholder="Enter Mother Tongue" required />
+            </div>
+
+            <div class="form-group">
+              <label>What other languages can the applicant fluenty speak, read, write, (sperate using comma) *</label>
+              <input class="form-control" type="text" placeholder="Enter Languages" />
             </div>
 
             <div class="form-group">

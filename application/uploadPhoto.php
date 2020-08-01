@@ -26,18 +26,18 @@
         <div class="list-group">
           <a href="./candidate.php" class="list-group-item">Candidate Details</a>
           <a href="./uploadPhoto.php" class="list-group-item active">Upload Photo And Signature</a>
-          <a href="#" class="list-group-item">Academic Details</a>
-          <a href="#" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="#" class="list-group-item">Upload Documents</a>
-          <a href="#" class="list-group-item">Research Degree</a>
-          <a href="#" class="list-group-item">Fellowship / Awards</a>
-          <a href="#" class="list-group-item">Employment Details</a>
-          <a href="#" class="list-group-item">Field Of Specialization</a>
-          <a href="#" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
-          <a href="#" class="list-group-item">Research & Academic Contributions</a>
-          <a href="#" class="list-group-item">API score</a>
-          <a href="#" class="list-group-item">Other Details</a>
-          <a href="#" class="list-group-item">Declaration</a>
+          <a href="./academicDetails.php" class="list-group-item">Academic Details</a>
+          <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
+          <a href="./uploadDocuments.php" class="list-group-item">Upload Documents</a>
+          <a href="./researchDegree.php" class="list-group-item">Research Degree</a>
+          <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
+          <a href="./employment.php" class="list-group-item">Employment Details</a>
+          <a href="./fields.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
+          <a href="./academicContributions.php" class="list-group-item">Research & Academic Contributions</a>
+          <a href="./apiScore.php" class="list-group-item">API score</a>
+          <a href="./otherDetails.php" class="list-group-item">Other Details</a>
+          <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
 
