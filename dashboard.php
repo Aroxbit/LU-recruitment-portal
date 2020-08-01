@@ -38,7 +38,7 @@ if (!isset($_SESSION['email'])) {
   <div class="container-fluid">
     <div class="content d-flex justify-content-center p-4">
       <div class="list-group form-width-400">
-        <a href="#" class="list-group-item list-group-item-action">
+        <a href="./application/candidate.php" class="list-group-item list-group-item-action">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" />
             <circle cx="12" cy="7" r="4" />

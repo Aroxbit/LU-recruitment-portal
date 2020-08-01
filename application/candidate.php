@@ -43,15 +43,23 @@
 
       <!-- Form Section -->
       <div class="col">
-        <div class="d-flex p-2 align-items-center">
-          <!-- Post applying for -->
-          <h4>Assistant Professor</h4>
-          <div class="ml-2">(Post Code: 012122)</div>
-        </div>
-
         <div class="d-flex justify-content-center">
 
           <form method="" action="" class="mt-3 p-3 w-75">
+            <label>Post</label>
+
+            <select name="post" class="form-control mb-2 mr-sm-2" required>
+              <option value="">Select Post</option>
+              <option value="Assistant Professor">Assistant Professor</option>
+              <option value="Associate Professor">Associate Professor</option>
+              <option value="Professor">Professor</option>
+            </select>
+
+            <div class="form-group">
+              <label for="Post Code">Post Code</label>
+              <input class="form-control" type="text" name="Post Code" placeholder="Enter Post Code" />
+            </div>
+
             <div class="form-group">
               <label>Candidate Name *</label>
               <div class="form-row">

@@ -42,7 +42,133 @@
       </div>
 
       <!-- Form Section -->
-      <div class="col"></div>
+      <div class="col">
+        <form class="mt-4" action="">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">S.N.</th>
+                <th scope="col">Examination</th>
+                <th scope="col">Year of Passing</th>
+                <th scope="col">Name of the Board/University</th>
+                <th scope="col">Division / Class / Grade</th>
+                <th scope="col">Percentage</th>
+                <th scope="col">Marks Obtained</th>
+                <th scope="col">Total Marks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>10th Class or Equivalent *</td>
+                <td><input class="form-control" type="number" placeholder="Year" required /></td>
+                <td><input class="form-control" type="text" placeholder="Name" required /></td>
+                <td>
+                  <select class="custom-select" name="division" required>
+                    <option>Select Division</option>
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                  </select>
+                </td>
+                <td><input class="form-control" type="number" placeholder="Percent" required /></td>
+                <td><input class="form-control" type="number" placeholder="Marks Obtained" required /></td>
+                <td><input class="form-control" type="number" placeholder="Total" required /></td>
+              </tr>
+
+              <tr>
+                <th scope="row">2</th>
+                <td>10+2/High Secondary or Equivalent *</td>
+                <td><input class="form-control" type="number" placeholder="Year" /></td>
+                <td><input class="form-control" type="text" placeholder="Name" /></td>
+                <td>
+                  <select class="custom-select" name="division">
+                    <option>Select Division</option>
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                  </select>
+                </td>
+                <td><input class="form-control" type="number" placeholder="Percent" /></td>
+                <td><input class="form-control" type="number" placeholder="Marks Obtained" /></td>
+                <td><input class="form-control" type="number" placeholder="Total" /></td>
+              </tr>
+
+              <tr>
+                <th scope="row">3</th>
+                <td>Graduate Degree</td>
+                <td><input class="form-control" type="number" placeholder="Year" /></td>
+                <td><input class="form-control" type="text" placeholder="Name" /></td>
+                <td>
+                  <select class="custom-select" name="division">
+                    <option>Select Division</option>
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                  </select>
+                </td>
+                <td><input class="form-control" type="number" placeholder="Percent" /></td>
+                <td><input class="form-control" type="number" placeholder="Marks Obtained" /></td>
+                <td><input class="form-control" type="number" placeholder="Total" /></td>
+              </tr>
+
+              <tr>
+                <th>4</th>
+                <td>Master Degree</td>
+                <td><input class="form-control" type="number" placeholder="Year" /></td>
+                <td><input class="form-control" type="text" placeholder="Name" /></td>
+                <td>
+                  <select class="custom-select" name="division">
+                    <option>Select Division</option>
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                  </select>
+                </td>
+                <td><input class="form-control" type="number" placeholder="Percent" /></td>
+                <td><input class="form-control" type="number" placeholder="Marks Obtained" /></td>
+                <td><input class="form-control" type="number" placeholder="Total" /></td>
+              </tr>
+
+              <tr>
+                <th>5</th>
+                <td>NET / JRF / SLET / GATE</td>
+                <td><input class="form-control" type="number" placeholder="Year" /></td>
+                <td><input class="form-control" type="text" placeholder="Name" /></td>
+                <td>
+                  <select class="custom-select" name="division">
+                    <option>Select Division</option>
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                  </select>
+                </td>
+                <td><input class="form-control" type="number" placeholder="Percent" /></td>
+                <td><input class="form-control" type="number" placeholder="Marks Obtained" /></td>
+                <td><input class="form-control" type="number" placeholder="Total" /></td>
+              </tr>
+
+              <tr>
+                <th>6</th>
+                <td>Other Degree (if any)</td>
+                <td><input class="form-control" type="number" placeholder="Year" /></td>
+                <td><input class="form-control" type="text" placeholder="Name" /></td>
+                <td>
+                  <select class="custom-select" name="division">
+                    <option>Select Division</option>
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                  </select>
+                </td>
+                <td><input class="form-control" type="number" placeholder="Percent" /></td>
+                <td><input class="form-control" type="number" placeholder="Marks Obtained" /></td>
+                <td><input class="form-control" type="number" placeholder="Total" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
     </div>
   </div>
 </body>
