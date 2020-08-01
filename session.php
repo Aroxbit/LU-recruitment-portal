@@ -3,23 +3,17 @@ session_start();
 ?>
 
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "123";
-    $dbname = "recruitment";
+    $email = $_POST["email"];
+    $pass = $_POST["pass"];
+
+    require_once('./database.php');
     
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
-    $result = mysqli_query($conn,"SELECT * FROM user WHERE email='" . $_POST["email"] . "' and pass = '". $_POST["pass"]."'");
+    $result = mysqli_query($dbc,"SELECT * FROM users WHERE email='" . $email . "' and pass = '". $pass."'");
     $count  = mysqli_num_rows($result);
     if($count==0) {
       echo "Wrong Email or Password";
     } else {
-        $_SESSION["email"] = $_POST["email"];
+        $_SESSION["email"] = $email;
         header("Location: dashboard.php");
         die();
     }
