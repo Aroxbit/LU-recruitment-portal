@@ -36,7 +36,7 @@
         <form method="post" action="register.php" class="card registration-form mt-3 p-3">
           <div class="form-group">
             <label>Email Address *</label>
-            <input name="email" type="email" class="form-control" placeholder="Enter email" />
+            <input name="email" type="email" class="form-control" placeholder="Enter email" required />
             <small class="form-text text-muted">
               Please note all the communication related to your application
               will be sent to this email id.
@@ -45,43 +45,46 @@
 
           <div class="form-group">
             <label>Confirm Email Address *</label>
-            <input type="email" class="form-control" placeholder="Confirm email" />
+            <input type="email" class="form-control" placeholder="Confirm email" required />
           </div>
 
           <div class="form-group">
             <label>Password</label>
-            <input name="pass" type="password" class="form-control" placeholder="Password" />
+            <input name="pass" type="password" class="form-control" placeholder="Password" required />
           </div>
 
           <div class="form-group">
             <label>Confirm Password *</label>
-            <input type="password" class="form-control" placeholder="Password" />
+            <input type="password" class="form-control" placeholder="Password" required />
           </div>
 
           <div class="form-group">
             <label>Candidate Name</label>
             <div class="form-row">
               <div class="col">
-                <input name="fname" type="text" class="form-control" placeholder="First name" />
+                <input name="fname" type="text" class="form-control" placeholder="First name" required />
               </div>
               <div class="col">
                 <input name="mname" type="text" class="form-control" placeholder="Middle name" />
               </div>
               <div class="col">
-                <input name="lname" type="text" class="form-control" placeholder="Last name" />
+                <input name="lname" type="text" class="form-control" placeholder="Last name" required />
               </div>
             </div>
           </div>
 
           <div class="form-group">
             <label>Date Of Birth *</label>
-            <input class="form-control" type="date" />
+            <input class="form-control" type="date" required />
           </div>
 
           <div class="form-group">
             <label>Gender *</label>
-            <select class="form-control">
+            <select class="form-control" required>
               <option>Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
             </select>
           </div>
 
@@ -106,12 +109,12 @@
 
           <div class="form-group">
             <label>Mobile No. *</label>
-            <input class="form-control" type="text" placeholder="Mobile No." />
+            <input class="form-control" type="text" placeholder="Mobile No." required />
           </div>
 
           <div class="form-group">
             <label>Confirm Mobile No. *</label>
-            <input class="form-control" type="text" placeholder="Mobile No." />
+            <input class="form-control" type="text" placeholder="Mobile No." required />
           </div>
 
           <button type="submit" class="btn btn-primary">Register</button>
