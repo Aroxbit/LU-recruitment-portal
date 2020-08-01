@@ -1,3 +1,57 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+
+$post = "";
+$post_code = "";
+$first_name = "";
+$last_name = "";
+$dob = "";
+$gender = "";
+$disability = "";
+$father_name = "";
+$mother_name = "";
+$nationality = "";
+$mother_tongue = "";
+$languages = "";
+$category = "";
+$category_for = "";
+$category_in = "";
+$marital_status = "";
+
+
+require_once('../database.php');
+$sql = "SELECT * FROM candidate WHERE user='14sarthi@gmail.com' LIMIT 1";
+$result = mysqli_query($dbc, $sql);
+$row = mysqli_fetch_assoc($result);
+$count  = mysqli_num_rows($result);
+if($count==0) {
+  echo "Nothing found!";
+} else{
+  print_r($row);
+
+  $post = $row["post"]; 
+  $post_code = $row["post_code"]; 
+  $first_name = $row["first_name"]; 
+  $last_name = $row["last_name"]; 
+  $dob = $row["dob"]; 
+  $gender = $row["gender"]; 
+  $disability = $row["disability"]; 
+  $father_name = $row["father_name"]; 
+  $mother_name = $row["mother_name"]; 
+  $nationality = $row["nationality"]; 
+  $mother_tongue = $row["mother_tongue"]; 
+  $languages = $row["languages"]; 
+  $category = $row["category"]; 
+  $category_for = $row["category_for"]; 
+  $category_in = $row["category_in"]; 
+  $marital_status = $row["marital_status"];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +99,7 @@
       <div class="col">
         <div class="d-flex justify-content-center">
 
-          <form method="" action="" class="mt-3 p-3 w-75">
+          <form method="post" action="uploadPhoto.php" class="mt-3 p-3 w-75">
             <label>Post</label>
 
             <select name="post" class="form-control mb-2 mr-sm-2" required>
@@ -57,17 +111,17 @@
 
             <div class="form-group">
               <label for="Post Code">Post Code</label>
-              <input class="form-control" type="text" name="Post Code" placeholder="Enter Post Code" />
+              <input name="post_code" class="form-control" type="text" name="Post Code" placeholder="Enter Post Code"/>
             </div>
 
             <div class="form-group">
               <label>Candidate Name *</label>
               <div class="form-row">
                 <div class="col">
-                  <input name="fname" type="text" class="form-control" placeholder="First name" required />
+                  <input name="first_name" type="text" class="form-control" placeholder="First name" required  value="<?php echo $first_name ?>"/>
                 </div>
                 <div class="col">
-                  <input name="lname" type="text" class="form-control" placeholder="Last name" required />
+                  <input name="last_name" type="text" class="form-control" placeholder="Last name" required />
                 </div>
               </div>
               <small class="form-text text-muted">
@@ -77,13 +131,13 @@
 
             <div class="form-group">
               <label>Date Of Birth (As recorded in High School or equivalent Certificate) *</label>
-              <input class="form-control" type="date" required />
+              <input name="dob" class="form-control" type="date" required value="<?php echo $dob ?>"/>
             </div>
 
             <div class="form-group">
               <label>Gender *</label>
-              <select class="form-control" required>
-                <option>Select Gender</option>
+              <select name="gender" class="form-control" required value="male">
+                <option value="">Select Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
@@ -92,12 +146,12 @@
 
             <div class="form-group">
               <label>Physical Disability, if any</label>
-              <input class="form-control" type="text" placeholder="Enter Disabilities" />
+              <input name="disability" class="form-control" type="text" placeholder="Enter Disabilities" />
             </div>
 
             <div class="form-group">
               <label>Father's Name</label>
-              <input class="form-control" type="text" placeholder="Father's Name" />
+              <input name="father_name" class="form-control" type="text" placeholder="Father's Name" />
               <small class="form-text text-muted">
                 In capital letters only.
               </small>
@@ -105,7 +159,7 @@
 
             <div class="form-group">
               <label>Mother's Name</label>
-              <input class="form-control" type="text" placeholder="Mother's Name" />
+              <input name="mother_name" class="form-control" type="text" placeholder="Mother's Name" />
               <small class="form-text text-muted">
                 In capital letters only.
               </small>
@@ -113,22 +167,22 @@
 
             <div class="form-group">
               <label>Nationality *</label>
-              <input class="form-control" type="text" placeholder="Enter Nationality" required />
+              <input name="nationality" class="form-control" type="text" placeholder="Enter Nationality" required />
             </div>
 
             <div class="form-group">
               <label>Applicant's mother tongue *</label>
-              <input class="form-control" type="text" placeholder="Enter Mother Tongue" required />
+              <input name="mother_tongue" class="form-control" type="text" placeholder="Enter Mother Tongue" required />
             </div>
 
             <div class="form-group">
               <label>What other languages can the applicant fluenty speak, read, write, (sperate using comma) *</label>
-              <input class="form-control" type="text" placeholder="Enter Languages" />
+              <input name="languages" class="form-control" type="text" placeholder="Enter Languages" />
             </div>
 
             <div class="form-group">
               <label>Category *</label>
-              <select class="form-control" required>
+              <select name="category" class="form-control" required>
                 <option>Select Category</option>
                 <option value="General">General</option>
                 <option value="OBC">OBC</option>
@@ -138,7 +192,7 @@
 
             <div class="form-group">
               <label>Category Applied For *</label>
-              <select class="form-control" required>
+              <select name="category_for" class="form-control" required>
                 <option>Select Category Applying For</option>
                 <option value="R">R</option>
                 <option value="UR">UR</option>
@@ -147,7 +201,7 @@
 
             <div class="form-group">
               <label>Category In General Category *</label>
-              <select class="form-control" required>
+              <select name="category_in" class="form-control" required>
                 <option>Select Consider In General Category</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
@@ -157,7 +211,7 @@
             <!-- Marital Status -->
             <div class="form-group">
               <label>Marital Status *</label>
-              <select class="form-control" required>
+              <select name="marital_status" class="form-control" required>
                 <option>Select Marital Status</option>
                 <option value="Married">Married</option>
                 <option value="Unmarried">Unmarried</option>

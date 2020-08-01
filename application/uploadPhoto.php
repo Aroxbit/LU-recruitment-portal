@@ -1,3 +1,58 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+
+$uid = $_SESSION['email'];
+
+
+if(isset($_POST["post"])){
+  $post = $_POST["post"]; 
+  $post_code = $_POST["post_code"]; 
+  $first_name = $_POST["first_name"]; 
+  $last_name = $_POST["last_name"]; 
+  $dob = $_POST["dob"]; 
+  $gender = $_POST["gender"]; 
+  $disability = $_POST["disability"]; 
+  $father_name = $_POST["father_name"]; 
+  $mother_name = $_POST["mother_name"]; 
+  $nationality = $_POST["nationality"]; 
+  $mother_tongue = $_POST["mother_tongue"]; 
+  $languages = $_POST["languages"]; 
+  $category = $_POST["category"]; 
+  $category_for = $_POST["category_for"]; 
+  $category_in = $_POST["category_in"]; 
+  $marital_status = $_POST["marital_status"]; 
+  $user = $_SESSION["email"];
+
+
+  require_once('../database.php');
+
+  $sql_ = "SELECT * FROM candidate WHERE user='$uid' LIMIT 1";
+  $result_ = mysqli_query($dbc, $sql_);
+  $count_  = mysqli_num_rows($result_);
+  if($count_ > 0) {
+    if ($dbc->query("DELETE FROM candidate WHERE user='$uid'") === TRUE) {
+      echo "Record deleted successfully";
+    } else {
+      echo "Error deleting record: " . $conn->error;
+    }
+  }
+
+  $sql = "INSERT INTO candidate (post, post_code, first_name, last_name, dob, gender, disability, father_name, mother_name, nationality, mother_tongue, languages, category, category_for, category_in, marital_status, user)
+  VALUES ('$post', '$post_code', '$first_name', '$last_name', '$dob', '$gender', '$disability', '$father_name', '$mother_name', '$nationality', '$mother_tongue', '$languages', '$category', '$category_for', '$category_in', '$marital_status', '$user')";
+
+  if ($dbc->query($sql) === TRUE) {
+    echo "Saved.";
+  } else {
+  echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
