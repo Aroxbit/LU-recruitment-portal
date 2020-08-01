@@ -42,7 +42,92 @@
       </div>
 
       <!-- Form Section -->
-      <div class="col"></div>
+      <div class="col">
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">SI No.</th>
+              <th scope="col">Name of degree</th>
+              <th scope="col">Title</th>
+              <th scope="col">Date of Award of degree.</th>
+              <th scope="col">Institution / University</th>
+              <th scope="col">Encl. No.</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td>SET</td>
+              <td>AAA</td>
+              <td>2020</td>
+              <td>Computer Science</td>
+              <td>21012</td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">Research Degree</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Degree Name *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Degree Name" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Degree Title *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Degree title" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Year Of Award *</td>
+
+                <td>
+                  <input type="number" class="form-control" placeholder="Enter Year" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>University / Institution *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter University/Institution" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Encl. No.</td>
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Encl. No." />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+            <a href="./uploadDocuments.php" class="btn btn-primary">Continue</a>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </body>
