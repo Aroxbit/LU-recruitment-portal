@@ -62,22 +62,22 @@
             <label>Candidate Name</label>
             <div class="form-row">
               <div class="col">
-                <input name="fname" type="text" class="form-control" placeholder="First name" required />
+                <input name="first_name" type="text" class="form-control" placeholder="First name" required />
               </div>
               <div class="col">
-                <input name="lname" type="text" class="form-control" placeholder="Last name" required />
+                <input name="last_name" type="text" class="form-control" placeholder="Last name" required />
               </div>
             </div>
           </div>
 
           <div class="form-group">
             <label>Date Of Birth *</label>
-            <input class="form-control" type="date" required />
+            <input name="dob" class="form-control" type="date" required />
           </div>
 
           <div class="form-group">
             <label>Gender *</label>
-            <select class="form-control" required>
+            <select name="gender" class="form-control" required>
               <option>Select Gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -87,7 +87,7 @@
 
           <div class="form-group">
             <label>Mobile No. *</label>
-            <input class="form-control" type="text" placeholder="Mobile No." required />
+            <input name="phone" class="form-control" type="text" placeholder="Mobile No." required />
           </div>
 
           <div class="form-group">
