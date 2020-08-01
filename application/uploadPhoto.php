@@ -49,35 +49,94 @@
           <div class="ml-2">(Post Code: 012122)</div>
         </div>
 
-        <div class="d-flex justify-content-center">
 
-          <form method="" action="" class="mt-3 p-3">
-            <div class="form-group">
-              <label>Candidate Name *</label>
-              <div class="form-row">
-                <div class="col">
-                  <input name="fname" type="text" class="form-control" placeholder="First name" required />
-                </div>
-                <div class="col">
-                  <input name="mname" type="text" class="form-control" placeholder="Middle name" />
-                </div>
-                <div class="col">
-                  <input name="lname" type="text" class="form-control" placeholder="Last name" required />
-                </div>
-              </div>
-              <small class="form-text text-muted">
-                In capital letters only.
-              </small>
+        <div class="row width-100">
+
+          <form method="" action="" class="mt-3 p-3 col text-center">
+
+            <h5 class="mb-3">Upload Photo</h5>
+
+            <!-- Uploaded Image -->
+            <img id="photo-preview" class="border" src="../assets/img-placeholder.jpg" alt="Passport Size Photo" width="120" height="150">
+
+
+            <div class="form-group mt-2">
+              <label for="photo-input">Passport Size Photo, colour Photo. Upload size must be less than 100 KB</label>
+              <input onchange="handlePhotoValidation()" type="file" accept="image/*" class="form-control-file" id="photo-input" required>
             </div>
 
-            <div class="text-center mt-3 mb-5">
-              <button class="btn btn-primary" type="submit">Save & Continue</button>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">Submit</button>
             </div>
           </form>
+
+          <form method="" action="" class="mt-3 p-3 col text-center">
+
+
+            <h5 class="mb-3">Upload Signature</h5>
+
+            <img id="signature-preview" class="border" src="../assets/signature-placeholder.png" alt="Signature" width="300" height="150">
+
+            <div class="form-group mt-2">
+              <label for="photo-input">Passport Size Photo, colour Photo. Upload size must be less than 50 KB</label>
+              <input onchange="handleSignatureValidation()" type="file" class="form-control-file" id="photo-input" required>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+        <hr />
+        <div class="text-center mt-4">
+          <a class="btn btn-primary text-white">Continue</a>
         </div>
       </div>
     </div>
   </div>
 </body>
+
+<script>
+  // Allows Preview of the image
+  function handlePhotoValidation() {
+    let input = event.target;
+
+    if (input.files[0].size > 100000) {
+      alert("Image size cannot be more than 100 KB.");
+      input.value = "";
+
+    } else {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          document.getElementById('photo-preview').src = e.target.result;
+        }
+
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+      }
+    }
+  }
+
+  function handleSignatureValidation() {
+    let input = event.target;
+
+    if (input.files[0].size > 50000) {
+      alert("Image size cannot be more than 50 KB.");
+      input.value = "";
+
+    } else {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          document.getElementById('signature-preview').src = e.target.result;
+        }
+
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+      }
+    }
+  }
+</script>
 
 </html>
