@@ -58,6 +58,7 @@
               </tr>
             </thead>
             <tbody>
+              <!-- 10th -->
               <tr>
                 <th scope="row">1</th>
                 <td>10th Class or Equivalent *</td>
@@ -76,45 +77,58 @@
                 <td><input class="form-control" type="number" placeholder="Total" required /></td>
               </tr>
 
+              <!-- 10+2 -->
               <tr>
                 <th scope="row">2</th>
                 <td>10+2/High Secondary or Equivalent *</td>
-                <td><input class="form-control" type="number" placeholder="Year" /></td>
-                <td><input class="form-control" type="text" placeholder="Name" /></td>
+                <td><input class="form-control" type="number" placeholder="Year" required /></td>
+                <td><input class="form-control" type="text" placeholder="Name" required /></td>
                 <td>
-                  <select class="custom-select" name="division">
+                  <select class="custom-select" name="division" required>
                     <option>Select Division</option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
                     <option value="Third">Third</option>
                   </select>
                 </td>
-                <td><input class="form-control" type="number" placeholder="Percent" /></td>
-                <td><input class="form-control" type="number" placeholder="Marks Obtained" /></td>
-                <td><input class="form-control" type="number" placeholder="Total" /></td>
+                <td><input class="form-control" type="number" placeholder="Percent" required /></td>
+                <td><input class="form-control" type="number" placeholder="Marks Obtained" required /></td>
+                <td><input class="form-control" type="number" placeholder="Total" required /></td>
               </tr>
 
+              <!-- Undergraduate -->
               <tr>
                 <th scope="row">3</th>
-                <td>Graduate Degree</td>
-                <td><input class="form-control" type="number" placeholder="Year" /></td>
-                <td><input class="form-control" type="text" placeholder="Name" /></td>
                 <td>
-                  <select class="custom-select" name="division">
+                  Undergraduate Degree
+                  <input class="form-control" type="text" placeholder="Type" required />
+                  <label>Subjects: </label>
+                  <input class="form-control" type="text" placeholder="Enter Subjects" required />
+                </td>
+                <td><input class="form-control" type="number" placeholder="Year" required /></td>
+                <td><input class="form-control" type="text" placeholder="Name" required /></td>
+                <td>
+                  <select class="custom-select" name="division" required>
                     <option>Select Division</option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
                     <option value="Third">Third</option>
                   </select>
                 </td>
-                <td><input class="form-control" type="number" placeholder="Percent" /></td>
-                <td><input class="form-control" type="number" placeholder="Marks Obtained" /></td>
-                <td><input class="form-control" type="number" placeholder="Total" /></td>
+                <td><input class="form-control" type="number" placeholder="Percent" required /></td>
+                <td><input class="form-control" type="number" placeholder="Marks Obtained" required /></td>
+                <td><input class="form-control" type="number" placeholder="Total" required /></td>
               </tr>
 
+              <!-- Master -->
               <tr>
                 <th>4</th>
-                <td>Master Degree</td>
+                <td>
+                  Master Degree
+                  <input class="form-control" type="text" placeholder="Type" />
+                  <label>Subjects: </label>
+                  <input class="form-control" type="text" placeholder="Enter Subjects" />
+                </td>
                 <td><input class="form-control" type="number" placeholder="Year" /></td>
                 <td><input class="form-control" type="text" placeholder="Name" /></td>
                 <td>
@@ -130,9 +144,15 @@
                 <td><input class="form-control" type="number" placeholder="Total" /></td>
               </tr>
 
+              <!-- NET -->
               <tr>
                 <th>5</th>
-                <td>NET / JRF / SLET / GATE</td>
+                <td>
+                  NET / JRF / SLET / GATE
+                  <input class="form-control" type="text" placeholder="Type" />
+                  <label>Subjects: </label>
+                  <input class="form-control" type="text" placeholder="Enter Subjects" />
+                </td>
                 <td><input class="form-control" type="number" placeholder="Year" /></td>
                 <td><input class="form-control" type="text" placeholder="Name" /></td>
                 <td>
@@ -148,9 +168,15 @@
                 <td><input class="form-control" type="number" placeholder="Total" /></td>
               </tr>
 
+              <!-- Others -->
               <tr>
                 <th>6</th>
-                <td>Other Degree (if any)</td>
+                <td>Other Degree (if any)
+                  <input class="form-control" type="text" placeholder="Type" />
+                  <label>Subjects: </label>
+                  <input class="form-control" type="text" placeholder="Enter Subjects" />
+                </td>
+
                 <td><input class="form-control" type="number" placeholder="Year" /></td>
                 <td><input class="form-control" type="text" placeholder="Name" /></td>
                 <td>
@@ -167,6 +193,10 @@
               </tr>
             </tbody>
           </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-primary type=" submit">Save & Continue</button>
+          </div>
         </form>
       </div>
     </div>
