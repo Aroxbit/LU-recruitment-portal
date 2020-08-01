@@ -65,9 +65,6 @@
                 <input name="fname" type="text" class="form-control" placeholder="First name" required />
               </div>
               <div class="col">
-                <input name="mname" type="text" class="form-control" placeholder="Middle name" />
-              </div>
-              <div class="col">
                 <input name="lname" type="text" class="form-control" placeholder="Last name" required />
               </div>
             </div>
@@ -86,25 +83,6 @@
               <option value="female">Female</option>
               <option value="other">Other</option>
             </select>
-          </div>
-
-          <div class="form-group">
-            <label>Father's Name</label>
-            <input class="form-control" type="text" placeholder="Father's Name" />
-            <small class="form-text text-muted">
-              Don't add any salutations like Mr. / Dr. etc. before the Name.
-            </small>
-          </div>
-
-          <div class="text-center">[OR]</div>
-
-          <div class="form-group">
-            <label>Mother's Name</label>
-            <input class="form-control" type="text" placeholder="Mother's Name" />
-            <small class="form-text text-muted">
-              Don't add any salutations like Ms. / Mrs. / Dr. etc. before the
-              Name.
-            </small>
           </div>
 
           <div class="form-group">

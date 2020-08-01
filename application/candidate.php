@@ -51,15 +51,12 @@
 
         <div class="d-flex justify-content-center">
 
-          <form method="" action="" class="mt-3 p-3">
+          <form method="" action="" class="mt-3 p-3 w-75">
             <div class="form-group">
               <label>Candidate Name *</label>
               <div class="form-row">
                 <div class="col">
                   <input name="fname" type="text" class="form-control" placeholder="First name" required />
-                </div>
-                <div class="col">
-                  <input name="mname" type="text" class="form-control" placeholder="Middle name" />
                 </div>
                 <div class="col">
                   <input name="lname" type="text" class="form-control" placeholder="Last name" required />
