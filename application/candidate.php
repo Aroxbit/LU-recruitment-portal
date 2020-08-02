@@ -4,7 +4,9 @@ session_start();
 if (!isset($_SESSION['email'])) {
   header("Location: index.php");
 }
+$uid = $_SESSION['email'];
 
+//initialize candidate vars
 $post = "";
 $post_code = "";
 $first_name = "";
@@ -22,17 +24,41 @@ $category_for = "";
 $category_in = "";
 $marital_status = "";
 
+//initialize address vars
+$address_one = "";
+$address_two = "";
+$address_three = "";
+$post_office = "";
+$police_station = "";
+$country = "";
+$state = "";
+$district = "";
+$pin = "";
+$parent_phone = "";
+$s_address_one = "";
+$s_address_two = "";
+$s_address_three = "";
+$s_post_office = "";
+$s_police_station = "";
+$s_country = "";
+$s_state = "";
+$s_district = "";
+$s_pin = "";
+$s_parent_phone = "";
 
+//connect to database
 require_once('../database.php');
-$sql = "SELECT * FROM candidate WHERE user='14sarthi@gmail.com' LIMIT 1";
+
+//get candidate data
+$sql = "SELECT * FROM candidate WHERE user='$uid' LIMIT 1";
 $result = mysqli_query($dbc, $sql);
 $row = mysqli_fetch_assoc($result);
 $count  = mysqli_num_rows($result);
 if($count==0) {
-  echo "Nothing found!";
+  echo "No Candidate Found!";
 } else{
-  print_r($row);
-
+  //print_r($row);
+  // If candidate data is found, assign it to vars
   $post = $row["post"]; 
   $post_code = $row["post_code"]; 
   $first_name = $row["first_name"]; 
@@ -49,6 +75,38 @@ if($count==0) {
   $category_for = $row["category_for"]; 
   $category_in = $row["category_in"]; 
   $marital_status = $row["marital_status"];
+
+  //Search for address
+  $s_sql = "SELECT * FROM address WHERE user='$uid' LIMIT 1";
+  $s_result = mysqli_query($dbc, $s_sql);
+  $s_row = mysqli_fetch_assoc($s_result);
+  $s_count  = mysqli_num_rows($s_result);
+  if($s_count==0) {
+    echo "No Address Found!";
+  } else{
+    //print_r($s_row);
+    // If candidate data is found, assign it to vars
+    $address_one = $s_row["address_one"];
+    $address_two = $s_row["address_two"];
+    $address_three = $s_row["address_three"];
+    $post_office = $s_row["post_office"];
+    $police_station = $s_row["police_station"];
+    $country = $s_row["country"];
+    $state = $s_row["state"];
+    $district = $s_row["district"];
+    $pin = $s_row["pin"];
+    $parent_phone = $s_row["parent_phone"];
+    $s_address_one = $s_row["s_address_one"];
+    $s_address_two = $s_row["s_address_two"];
+    $s_address_three = $s_row["s_address_three"];
+    $s_post_office = $s_row["s_post_office"];
+    $s_police_station = $s_row["s_police_station"];
+    $s_country = $s_row["s_country"];
+    $s_state = $s_row["s_state"];
+    $s_district = $s_row["s_district"];
+    $s_pin = $s_row["s_pin"];
+    $s_parent_phone = $s_row["s_parent_phone"];
+  }
 }
 ?>
 
@@ -103,7 +161,7 @@ if($count==0) {
             <label>Post</label>
 
             <select name="post" class="form-control mb-2 mr-sm-2" required>
-              <option value="">Select Post</option>
+              <option value="<?php echo $post ?>"><?php echo "Select: " . $post ?></option>
               <option value="Assistant Professor">Assistant Professor</option>
               <option value="Associate Professor">Associate Professor</option>
               <option value="Professor">Professor</option>
@@ -111,7 +169,7 @@ if($count==0) {
 
             <div class="form-group">
               <label for="Post Code">Post Code</label>
-              <input name="post_code" class="form-control" type="text" name="Post Code" placeholder="Enter Post Code"/>
+              <input name="post_code" class="form-control" type="text" name="Post Code" value="<?php echo $post_code ?>" placeholder="Enter Post Code"/>
             </div>
 
             <div class="form-group">
@@ -121,7 +179,7 @@ if($count==0) {
                   <input name="first_name" type="text" class="form-control" placeholder="First name" required  value="<?php echo $first_name ?>"/>
                 </div>
                 <div class="col">
-                  <input name="last_name" type="text" class="form-control" placeholder="Last name" required />
+                  <input name="last_name" type="text" class="form-control" placeholder="Last name" required value="<?php echo $last_name ?>"/>
                 </div>
               </div>
               <small class="form-text text-muted">
@@ -137,21 +195,21 @@ if($count==0) {
             <div class="form-group">
               <label>Gender *</label>
               <select name="gender" class="form-control" required value="male">
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
+                <option value="<?php echo $gender ?>"> <?php echo "Select: " . $gender ?> </option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
               </select>
             </div>
 
             <div class="form-group">
               <label>Physical Disability, if any</label>
-              <input name="disability" class="form-control" type="text" placeholder="Enter Disabilities" />
+              <input name="disability" class="form-control" type="text" placeholder="Enter Disabilities" value="<?php echo $disability ?>"/>
             </div>
 
             <div class="form-group">
               <label>Father's Name</label>
-              <input name="father_name" class="form-control" type="text" placeholder="Father's Name" />
+              <input name="father_name" class="form-control" type="text" placeholder="Father's Name" value="<?php echo $father_name ?>"/>
               <small class="form-text text-muted">
                 In capital letters only.
               </small>
@@ -159,7 +217,7 @@ if($count==0) {
 
             <div class="form-group">
               <label>Mother's Name</label>
-              <input name="mother_name" class="form-control" type="text" placeholder="Mother's Name" />
+              <input name="mother_name" class="form-control" type="text" placeholder="Mother's Name" value="<?php echo $mother_name ?>"/>
               <small class="form-text text-muted">
                 In capital letters only.
               </small>
@@ -167,33 +225,33 @@ if($count==0) {
 
             <div class="form-group">
               <label>Nationality *</label>
-              <input name="nationality" class="form-control" type="text" placeholder="Enter Nationality" required />
+              <input name="nationality" class="form-control" type="text" placeholder="Enter Nationality" required value="<?php echo $nationality ?>"/>
             </div>
 
             <div class="form-group">
               <label>Applicant's mother tongue *</label>
-              <input name="mother_tongue" class="form-control" type="text" placeholder="Enter Mother Tongue" required />
+              <input name="mother_tongue" class="form-control" type="text" placeholder="Enter Mother Tongue" required value="<?php echo $mother_tongue ?>"/>
             </div>
 
             <div class="form-group">
               <label>What other languages can the applicant fluenty speak, read, write, (sperate using comma) *</label>
-              <input name="languages" class="form-control" type="text" placeholder="Enter Languages" />
+              <input name="languages" class="form-control" type="text" placeholder="Enter Languages" value="<?php echo $languages ?>"/>
             </div>
 
             <div class="form-group">
               <label>Category *</label>
               <select name="category" class="form-control" required>
-                <option>Select Category</option>
+                <option value="<?php echo $category ?>"><?php echo "Select: " . $category ?></option>
                 <option value="General">General</option>
                 <option value="OBC">OBC</option>
-                <option value="OBC">SC/ST</option>
+                <option value="SC/ST">SC/ST</option>
               </select>
             </div>
 
             <div class="form-group">
               <label>Category Applied For *</label>
               <select name="category_for" class="form-control" required>
-                <option>Select Category Applying For</option>
+                <option value="<?php echo $category_for ?>"><?php echo "Select: " . $category_for ?></option>
                 <option value="R">R</option>
                 <option value="UR">UR</option>
               </select>
@@ -202,7 +260,7 @@ if($count==0) {
             <div class="form-group">
               <label>Category In General Category *</label>
               <select name="category_in" class="form-control" required>
-                <option>Select Consider In General Category</option>
+                <option value="<?php echo $category_in ?>"><?php echo "Select: " . $category_in ?></option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
@@ -212,7 +270,7 @@ if($count==0) {
             <div class="form-group">
               <label>Marital Status *</label>
               <select name="marital_status" class="form-control" required>
-                <option>Select Marital Status</option>
+                <option value="<?php echo $marital_status ?>"> <?php echo "Select: " . $marital_status ?> </option>
                 <option value="Married">Married</option>
                 <option value="Unmarried">Unmarried</option>
               </select>
@@ -225,52 +283,52 @@ if($count==0) {
 
             <div class="form-group">
               <label>House no./Street/Area</label>
-              <input class="form-control" type="text" placeholder="Address Line 1" />
+              <input class="form-control" type="text" placeholder="Address Line 1" name='address_one' value="<?php echo $address_one ?>"/>
             </div>
 
             <div class="form-group">
               <label>Block/Municipality</label>
-              <input class="form-control" type="text" placeholder="Address Line 2" />
+              <input class="form-control" type="text" placeholder="Address Line 2"  name='address_two' value="<?php echo $address_two ?>"/>
             </div>
 
             <div class="form-group">
               <label>City/Town/Village</label>
-              <input class="form-control" type="text" placeholder="Address Line 3" />
+              <input class="form-control" type="text" placeholder="Address Line 3" name='address_three' value="<?php echo $address_three ?>"/>
             </div>
 
             <div class="form-group">
               <label>Post Office</label>
-              <input class="form-control" type="text" placeholder="Post Office" />
+              <input class="form-control" type="text" placeholder="Post Office" name='post_office' value="<?php echo $post_office ?>"/>
             </div>
 
             <div class="form-group">
               <label>Police Station</label>
-              <input class="form-control" type="text" placeholder="Police Station" />
+              <input class="form-control" type="text" placeholder="Police Station" name='police_station' value="<?php echo $police_station ?>"/>
             </div>
 
             <div class="form-group">
               <label>Country</label>
-              <input class="form-control" type="text" placeholder="Country" />
+              <input class="form-control" type="text" placeholder="Country" name='country' value="<?php echo $country ?>"/>
             </div>
 
             <div class="form-group">
               <label>State</label>
-              <input class="form-control" type="text" placeholder="State" />
+              <input class="form-control" type="text" placeholder="State" name='state' value="<?php echo $state ?>"/>
             </div>
 
             <div class="form-group">
               <label>District</label>
-              <input class="form-control" type="text" placeholder="District" />
+              <input class="form-control" type="text" placeholder="District" name='district' value="<?php echo $district ?>"/>
             </div>
 
             <div class="form-group">
               <label>PIN</label>
-              <input class="form-control" type="text" placeholder="PIN" />
+              <input class="form-control" type="text" placeholder="PIN" name='pin' value="<?php echo $pin ?>"/>
             </div>
 
             <div class="form-group">
               <label>Father/Guardian's Mobile Number</label>
-              <input class="form-control" type="number" placeholder="Enter Mobile Number" />
+              <input class="form-control" type="number" placeholder="Enter Mobile Number" name='parent_phone' value="<?php echo $parent_phone ?>"/>
             </div>
 
             <div class="inline-form">
@@ -297,52 +355,52 @@ if($count==0) {
 
             <div class="form-group">
               <label>House no/Street/Area</label>
-              <input class="form-control" type="text" placeholder="Address Line 1" />
+              <input class="form-control" type="text" placeholder="Address Line 1" name='s_address_one' value="<?php echo $s_address_one ?>"/>
             </div>
 
             <div class="form-group">
               <label>Block/Municipality</label>
-              <input class="form-control" type="text" placeholder="Address Line 2" />
+              <input class="form-control" type="text" placeholder="Address Line 2" name='s_address_two' value="<?php echo $s_address_two ?>"/>
             </div>
 
             <div class="form-group">
               <label>City/Town/Village</label>
-              <input class="form-control" type="text" placeholder="Address Line 3" />
+              <input class="form-control" type="text" placeholder="Address Line 3" name='s_address_three' value="<?php echo $s_address_three ?>"/>
             </div>
 
             <div class="form-group">
               <label>Post Office</label>
-              <input class="form-control" type="text" placeholder="Post Office" />
+              <input class="form-control" type="text" placeholder="Post Office" name='s_post_office' value="<?php echo $s_post_office ?>"/>
             </div>
 
             <div class="form-group">
               <label>Police Station</label>
-              <input class="form-control" type="text" placeholder="Police Station" />
+              <input class="form-control" type="text" placeholder="Police Station" name='s_police_station' value="<?php echo $s_police_station ?>"/>
             </div>
 
             <div class="form-group">
               <label>Country</label>
-              <input class="form-control" type="text" placeholder="Country" />
+              <input class="form-control" type="text" placeholder="Country" name='s_country' value="<?php echo $s_country ?>"/>
             </div>
 
             <div class="form-group">
               <label>State</label>
-              <input class="form-control" type="text" placeholder="State" />
+              <input class="form-control" type="text" placeholder="State" name='s_state' value="<?php echo $s_state ?>"/>
             </div>
 
             <div class="form-group">
               <label>District</label>
-              <input class="form-control" type="text" placeholder="District" />
+              <input class="form-control" type="text" placeholder="District" name='s_district' value="<?php echo $s_district ?>"/>
             </div>
 
             <div class="form-group">
               <label>PIN</label>
-              <input class="form-control" type="text" placeholder="PIN" />
+              <input class="form-control" type="text" placeholder="PIN" name='s_pin' value="<?php echo $s_pin ?>"/>
             </div>
 
             <div class="form-group">
               <label>Father/Guardian's Mobile Number</label>
-              <input class="form-control" type="number" placeholder="Enter Mobile Number" />
+              <input class="form-control" type="number" placeholder="Enter Mobile Number" name='s_parent_phone' value="<?php echo $s_parent_phone ?>"/>
             </div>
 
             <div class="inline-form">

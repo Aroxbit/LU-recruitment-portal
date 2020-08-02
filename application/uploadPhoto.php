@@ -7,8 +7,10 @@ if (!isset($_SESSION['email'])) {
 
 $uid = $_SESSION['email'];
 
-
+//if new data is posted 
 if(isset($_POST["post"])){
+  
+  //candidate data
   $post = $_POST["post"]; 
   $post_code = $_POST["post_code"]; 
   $first_name = $_POST["first_name"]; 
@@ -25,30 +27,81 @@ if(isset($_POST["post"])){
   $category_for = $_POST["category_for"]; 
   $category_in = $_POST["category_in"]; 
   $marital_status = $_POST["marital_status"]; 
-  $user = $_SESSION["email"];
+  $user = $uid;
 
-
+  //connect to the database
   require_once('../database.php');
 
+  //find existing candidate data
   $sql_ = "SELECT * FROM candidate WHERE user='$uid' LIMIT 1";
   $result_ = mysqli_query($dbc, $sql_);
   $count_  = mysqli_num_rows($result_);
+
+  //if it exists then delete it before creating one
   if($count_ > 0) {
     if ($dbc->query("DELETE FROM candidate WHERE user='$uid'") === TRUE) {
-      echo "Record deleted successfully";
+      echo "Candidate deleted successfully";
     } else {
-      echo "Error deleting record: " . $conn->error;
+      echo "Error deleting candidate: " . $conn->error;
     }
   }
 
+  //insert new candidate data
   $sql = "INSERT INTO candidate (post, post_code, first_name, last_name, dob, gender, disability, father_name, mother_name, nationality, mother_tongue, languages, category, category_for, category_in, marital_status, user)
   VALUES ('$post', '$post_code', '$first_name', '$last_name', '$dob', '$gender', '$disability', '$father_name', '$mother_name', '$nationality', '$mother_tongue', '$languages', '$category', '$category_for', '$category_in', '$marital_status', '$user')";
 
   if ($dbc->query($sql) === TRUE) {
-    echo "Saved.";
+    echo "Candidate Saved.";
   } else {
   echo "Error: " . $sql . "<br>" . $dbc->error;
   }
+
+  //address data
+  $address_one = $_POST["address_one"];
+  $address_two = $_POST["address_two"];
+  $address_three = $_POST["address_three"];
+  $post_office = $_POST["post_office"];
+  $police_station = $_POST["police_station"];
+  $country = $_POST["country"];
+  $state = $_POST["state"];
+  $district = $_POST["district"];
+  $pin = $_POST["pin"];
+  $parent_phone = $_POST["parent_phone"];
+  $s_address_one = $_POST["s_address_one"];
+  $s_address_two = $_POST["s_address_two"];
+  $s_address_three = $_POST["s_address_three"];
+  $s_post_office = $_POST["s_post_office"];
+  $s_police_station = $_POST["s_police_station"];
+  $s_country = $_POST["s_country"];
+  $s_state = $_POST["s_state"];
+  $s_district = $_POST["s_district"];
+  $s_pin = $_POST["s_pin"];
+  $s_parent_phone = $_POST["s_parent_phone"];
+  $a_user = $uid;
+
+  //find existing address data
+  $s_sql_ = "SELECT * FROM address WHERE user='$uid' LIMIT 1";
+  $s_result_ = mysqli_query($dbc, $s_sql_);
+  $s_count_  = mysqli_num_rows($s_result_);
+
+  //if it exists then delete it before creating one
+  if($s_count_ > 0) {
+    if ($dbc->query("DELETE FROM address WHERE user='$uid'") === TRUE) {
+      echo "Address deleted successfully";
+    } else {
+      echo "Error deleting address: " . $conn->error;
+    }
+  }
+
+  //insert new address data
+  $s_sql = "INSERT INTO address (user, address_one, s_address_one, address_two, s_address_two, address_three, s_address_three, post_office, s_post_office, police_station, s_police_station, country, s_country, state, s_state, district, s_district, pin, s_pin, parent_phone, s_parent_phone)
+  VALUES ('$a_user', '$address_one', '$s_address_one', '$address_two', '$s_address_two', '$address_three', '$s_address_three', '$post_office', '$s_post_office', '$police_station', '$s_police_station', '$country', '$s_country', '$state', '$s_state', '$district', '$s_district', '$pin', '$s_pin', '$parent_phone', '$s_parent_phone')";
+
+  if ($dbc->query($s_sql) === TRUE) {
+    echo "Address Saved.";
+  } else {
+  echo "Error: " . $s_sql . "<br>" . $dbc->error;
+  }  
 }
 
 ?>
@@ -133,7 +186,7 @@ if(isset($_POST["post"])){
             <img id="signature-preview" class="border" src="../assets/signature-placeholder.png" alt="Signature" width="300" height="150">
 
             <div class="form-group mt-2">
-              <label for="photo-input">Passport Size Photo, colour Photo. Upload size must be less than 50 KB</label>
+              <label for="photo-input">Upload size must be less than 50 KB</label>
               <input onchange="handleSignatureValidation()" type="file" class="form-control-file" id="photo-input" required>
             </div>
 
