@@ -8,25 +8,25 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 
 //if new data is posted 
-if(isset($_POST["post"])){
-  
+if (isset($_POST["post"])) {
+
   //candidate data
-  $post = $_POST["post"]; 
-  $post_code = $_POST["post_code"]; 
-  $first_name = $_POST["first_name"]; 
-  $last_name = $_POST["last_name"]; 
-  $dob = $_POST["dob"]; 
-  $gender = $_POST["gender"]; 
-  $disability = $_POST["disability"]; 
-  $father_name = $_POST["father_name"]; 
-  $mother_name = $_POST["mother_name"]; 
-  $nationality = $_POST["nationality"]; 
-  $mother_tongue = $_POST["mother_tongue"]; 
-  $languages = $_POST["languages"]; 
-  $category = $_POST["category"]; 
-  $category_for = $_POST["category_for"]; 
-  $category_in = $_POST["category_in"]; 
-  $marital_status = $_POST["marital_status"]; 
+  $post = $_POST["post"];
+  $post_code = $_POST["post_code"];
+  $first_name = $_POST["first_name"];
+  $last_name = $_POST["last_name"];
+  $dob = $_POST["dob"];
+  $gender = $_POST["gender"];
+  $disability = $_POST["disability"];
+  $father_name = $_POST["father_name"];
+  $mother_name = $_POST["mother_name"];
+  $nationality = $_POST["nationality"];
+  $mother_tongue = $_POST["mother_tongue"];
+  $languages = $_POST["languages"];
+  $category = $_POST["category"];
+  $category_for = $_POST["category_for"];
+  $category_in = $_POST["category_in"];
+  $marital_status = $_POST["marital_status"];
   $user = $uid;
 
   //connect to the database
@@ -38,7 +38,7 @@ if(isset($_POST["post"])){
   $count_  = mysqli_num_rows($result_);
 
   //if it exists then delete it before creating one
-  if($count_ > 0) {
+  if ($count_ > 0) {
     if ($dbc->query("DELETE FROM candidate WHERE user='$uid'") === TRUE) {
       echo "Candidate deleted successfully";
     } else {
@@ -53,7 +53,7 @@ if(isset($_POST["post"])){
   if ($dbc->query($sql) === TRUE) {
     echo "Candidate Saved.";
   } else {
-  echo "Error: " . $sql . "<br>" . $dbc->error;
+    echo "Error: " . $sql . "<br>" . $dbc->error;
   }
 
   //address data
@@ -85,7 +85,7 @@ if(isset($_POST["post"])){
   $s_count_  = mysqli_num_rows($s_result_);
 
   //if it exists then delete it before creating one
-  if($s_count_ > 0) {
+  if ($s_count_ > 0) {
     if ($dbc->query("DELETE FROM address WHERE user='$uid'") === TRUE) {
       echo "Address deleted successfully";
     } else {
@@ -100,8 +100,8 @@ if(isset($_POST["post"])){
   if ($dbc->query($s_sql) === TRUE) {
     echo "Address Saved.";
   } else {
-  echo "Error: " . $s_sql . "<br>" . $dbc->error;
-  }  
+    echo "Error: " . $s_sql . "<br>" . $dbc->error;
+  }
 }
 
 //image upload
@@ -153,54 +153,41 @@ if(isset($_POST["post"])){
 
       <!-- Form Section -->
       <div class="col">
-        <div class="d-flex p-2 align-items-center">
-          <!-- Post applying for -->
-          <h4>Assistant Professor</h4>
-          <div class="ml-2">(Post Code: 012122)</div>
-        </div>
 
+        <form method="post" action="submit.php" enctype="multipart/form-data">
+          <div class="row width-100">
 
-        <div class="row width-100">
+            <div class="mt-3 p-3 col text-center">
+              <h5 class="mb-3">Upload Photo</h5>
 
-          <form method="post" action="submit.php" enctype="multipart/form-data" class="mt-3 p-3 col text-center">
+              <!-- Uploaded Image -->
+              <img id="photo-preview" class="border" src="../assets/img-placeholder.jpg" alt="Passport Size Photo" width="120" height="150">
 
-            <h5 class="mb-3">Upload Photo</h5>
-
-            <!-- Uploaded Image -->
-            <img id="photo-preview" class="border" src="../assets/img-placeholder.jpg" alt="Passport Size Photo" width="120" height="150">
-
-
-            <div class="form-group mt-2">
-              <label for="photo-input">Passport Size Photo, colour Photo. Upload size must be less than 100 KB</label>
-              <input onchange="handlePhotoValidation()" type="file" accept="image/*" class="form-control-file" id="photo-input" name="fileToUpload" required>
+              <div class="form-group mt-2">
+                <!-- Input for Photo upload -->
+                <label for="photo-input">Passport Size Photo, colour Photo. Upload size must be less than 100 KB</label>
+                <input onchange="handlePhotoValidation()" type="file" accept="image/*" class="form-control-file" id="photo-input" name="fileToUpload">
+              </div>
             </div>
 
-            <div class="form-group">
-              <button class="btn btn-primary" type="submit">Submit</button>
+            <div class="mt-3 p-3 col text-center">
+              <h5 class="mb-3">Upload Signature *</h5>
+              <!-- Signature preview -->
+              <img id="signature-preview" class="border" src="../assets/signature-placeholder.png" alt="Signature" width="300" height="150">
+
+              <!-- Input for Signature upload -->
+              <div class="form-group mt-2">
+                <label for="photo-input">Upload size must be less than 50 KB</label>
+                <input onchange="handleSignatureValidation()" type="file" class="form-control-file" id="photo-input">
+              </div>
+
             </div>
-          </form>
+          </div>
 
-          <form method="" action="" class="mt-3 p-3 col text-center">
-
-
-            <h5 class="mb-3">Upload Signature</h5>
-
-            <img id="signature-preview" class="border" src="../assets/signature-placeholder.png" alt="Signature" width="300" height="150">
-
-            <div class="form-group mt-2">
-              <label for="photo-input">Upload size must be less than 50 KB</label>
-              <input onchange="handleSignatureValidation()" type="file" class="form-control-file" id="photo-input" required>
-            </div>
-
-            <div class="form-group">
-              <button class="btn btn-primary" type="submit">Submit</button>
-            </div>
-          </form>
-        </div>
-        <hr />
-        <div class="text-center mt-4">
-          <a class="btn btn-primary text-white">Continue</a>
-        </div>
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary text-white">Upload & Continue</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
