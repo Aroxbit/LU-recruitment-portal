@@ -1,3 +1,61 @@
+<?php
+session_start();
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+$uid = $_SESSION['email'];
+require_once('../database.php');
+
+//if the user uploads a new image
+if(isset($_POST["submit"])) {
+  $target_dir = "uploads/";
+  $photo_name = $uid . "_" . time() . "_photo_" . basename($_FILES["photo"]["name"]);
+  $sign_name = $uid . "_" . time() . "_sign_" . basename($_FILES["sign"]["name"]);
+  $photo_file = $target_dir . $photo_name;
+  $sign_file = $target_dir . $sign_name;
+  
+  if (move_uploaded_file($_FILES["photo"]["tmp_name"], $photo_file) && move_uploaded_file($_FILES["sign"]["tmp_name"], $sign_file)) {
+    echo "The files have been uploaded.";
+  } else {
+    echo "Sorry, there was an error uploading your files.";
+  }
+
+  require_once('../database.php');
+
+  //find existing candidate data
+  $sql_ = "SELECT * FROM photos WHERE user='$uid' LIMIT 1";
+  $result_ = mysqli_query($dbc, $sql_);
+  $row_ = mysqli_fetch_assoc($result_);
+  $count_  = mysqli_num_rows($result_);
+
+  //if it exists then delete it before creating one
+  if ($count_ > 0) {
+    unlink("./uploads/" . $row_["photo"]);
+    unlink("./uploads/" . $row_["sign"]);
+    if ($dbc->query("DELETE FROM photos WHERE user='$uid'") === TRUE) {
+      echo "Photos deleted successfully";
+    } else {
+      echo "Error deleting photos: " . $conn->error;
+    }
+  }
+
+  //insert new candidate data
+  $sql = "INSERT INTO photos (photo, sign, user)
+  VALUES ('$photo_name', '$sign_name', '$uid')";
+
+  if ($dbc->query($sql) === TRUE) {
+    echo "Photos Saved in DB.";
+  } else {
+    echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+}
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

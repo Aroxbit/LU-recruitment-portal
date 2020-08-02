@@ -5,6 +5,7 @@ if (!isset($_SESSION['email'])) {
   header("Location: index.php");
 }
 $uid = $_SESSION['email'];
+require_once('../database.php');
 
 //initialize candidate vars
 $post = "";
@@ -46,8 +47,6 @@ $s_district = "";
 $s_pin = "";
 $s_parent_phone = "";
 
-//connect to database
-require_once('../database.php');
 
 //get candidate data
 $sql = "SELECT * FROM candidate WHERE user='$uid' LIMIT 1";

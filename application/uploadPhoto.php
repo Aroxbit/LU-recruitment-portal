@@ -1,12 +1,12 @@
 <?php
 session_start();
-
 if (!isset($_SESSION['email'])) {
   header("Location: index.php");
   $_SESSION['email'] = "14sarthi@gmail.com";
 }
-
 $uid = $_SESSION['email'];
+require_once('../database.php');
+
 
 //if new data is posted 
 if (isset($_POST["post"])) {
@@ -29,9 +29,6 @@ if (isset($_POST["post"])) {
   $category_in = $_POST["category_in"];
   $marital_status = $_POST["marital_status"];
   $user = $uid;
-
-  //connect to the database
-  require_once('../database.php');
 
   //find existing candidate data
   $sql_ = "SELECT * FROM candidate WHERE user='$uid' LIMIT 1";
@@ -105,8 +102,21 @@ if (isset($_POST["post"])) {
   }
 }
 
-//image upload
+//get data to autofill if it exists
+$photo_name = "default_photo.jpg";
+$sign_name = "default_sign.png";
 
+$sql = "SELECT * FROM photos WHERE user='$uid' LIMIT 1";
+$result = mysqli_query($dbc, $sql);
+$row = mysqli_fetch_assoc($result);
+$count  = mysqli_num_rows($result);
+if($count==0) {
+  echo "No Photos Found!";
+} else{
+  //print_r($row);
+  $photo_name = $row["photo"];
+  $sign_name = $row["sign"];
+}
 ?>
 
 <!DOCTYPE html>
@@ -155,38 +165,38 @@ if (isset($_POST["post"])) {
       <!-- Form Section -->
       <div class="col">
 
-        <form method="post" action="submit.php" enctype="multipart/form-data">
+        <form method="post" action="academicDetails.php" enctype="multipart/form-data">
           <div class="row width-100">
 
             <div class="mt-3 p-3 col text-center">
               <h5 class="mb-3">Upload Photo</h5>
 
               <!-- Uploaded Image -->
-              <img id="photo-preview" class="border" src="../assets/img-placeholder.jpg" alt="Passport Size Photo" width="120" height="150">
+              <img id="photo-preview" class="border" src="./uploads/<?php echo $photo_name ?>" alt="Passport Size Photo" width="120" height="150">
 
               <div class="form-group mt-2">
                 <!-- Input for Photo upload -->
                 <label for="photo-input">Passport Size Photo, colour Photo. Upload size must be less than 100 KB</label>
-                <input onchange="handlePhotoValidation()" type="file" accept="image/*" class="form-control-file" id="photo-input" name="fileToUpload">
+                <input onchange="handlePhotoValidation()" type="file" accept="image/*" class="form-control-file" id="photo-input" name="photo" required>
               </div>
             </div>
 
             <div class="mt-3 p-3 col text-center">
               <h5 class="mb-3">Upload Signature *</h5>
               <!-- Signature preview -->
-              <img id="signature-preview" class="border" src="../assets/signature-placeholder.png" alt="Signature" width="300" height="150">
+              <img id="signature-preview" class="border" src="./uploads/<?php echo $sign_name ?>" alt="Signature" width="300" height="150">
 
               <!-- Input for Signature upload -->
               <div class="form-group mt-2">
                 <label for="photo-input">Upload size must be less than 50 KB</label>
-                <input onchange="handleSignatureValidation()" type="file" class="form-control-file" id="photo-input">
+                <input onchange="handleSignatureValidation()" type="file" class="form-control-file" id="photo-input" name="sign" required>
               </div>
 
             </div>
           </div>
 
           <div class="text-center mt-4">
-            <button type="submit" class="btn btn-primary text-white">Upload & Continue</button>
+            <button name="submit" type="submit" class="btn btn-primary text-white">Upload & Continue</button>
           </div>
         </form>
       </div>
