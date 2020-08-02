@@ -104,6 +104,8 @@ if(isset($_POST["post"])){
   }  
 }
 
+//image upload
+
 ?>
 
 <!DOCTYPE html>
@@ -160,7 +162,7 @@ if(isset($_POST["post"])){
 
         <div class="row width-100">
 
-          <form method="" action="" class="mt-3 p-3 col text-center">
+          <form method="post" action="submit.php" enctype="multipart/form-data" class="mt-3 p-3 col text-center">
 
             <h5 class="mb-3">Upload Photo</h5>
 
@@ -170,7 +172,7 @@ if(isset($_POST["post"])){
 
             <div class="form-group mt-2">
               <label for="photo-input">Passport Size Photo, colour Photo. Upload size must be less than 100 KB</label>
-              <input onchange="handlePhotoValidation()" type="file" accept="image/*" class="form-control-file" id="photo-input" required>
+              <input onchange="handlePhotoValidation()" type="file" accept="image/*" class="form-control-file" id="photo-input" name="fileToUpload" required>
             </div>
 
             <div class="form-group">
