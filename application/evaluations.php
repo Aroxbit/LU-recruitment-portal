@@ -42,9 +42,105 @@
       </div>
 
       <!-- Form Section -->
-      <div class="col"></div>
+      <div class="col">
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">S.N.</th>
+              <th scope="col">Name / Nature of the activity</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Organising University / Institution</th>
+              <th scope="col">API score</th>
+              <th scope="col">Document</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><a href="#">See your document here</a></td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">Activity Details</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Name / Nature of the activity *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Name / Nature of the activity" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Duration *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Duration" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Organising University / Institution Name *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Organising University / Institution Name" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>API score *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter API Score" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Relevent Document (Max 300 KB)</td>
+                <td>
+                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+            <a href="./academicContributions.php" class="btn btn-primary">Continue</a>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </body>
+
+<script>
+  function validate() {
+    let input = event.target;
+
+    if (input.files[0].size > 300000) {
+      alert("Image size cannot be more than 300 KB.");
+      input.value = "";
+    }
+  }
+</script>
 
 </html>
