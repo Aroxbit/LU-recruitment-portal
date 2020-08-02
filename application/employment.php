@@ -194,7 +194,7 @@
         <hr />
 
         <div class="text-center">
-          <a href="#" class="btn btn-primary">Continue</a>
+          <a href="#" class="btn btn-primary">Save & Continue</a>
         </div>
       </div>
     </div>
