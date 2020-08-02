@@ -129,7 +129,7 @@
                 <td>Reason for leaving *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter reason for leaving" required />
+                  <textarea type="text" class="form-control" placeholder="Enter reason for leaving" required></textarea>
                 </td>
               </tr>
 

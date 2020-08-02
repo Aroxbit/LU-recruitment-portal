@@ -42,7 +42,16 @@
       </div>
 
       <!-- Form Section -->
-      <div class="col"></div>
+      <div class="col p-3">
+        <h5>Enter field of specializations</h5>
+        <form action="">
+          <textarea class="form-control" name="" id="" rows="10" placeholder="Enter field of specialization."></textarea>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-3">Save & Continue</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </body>
