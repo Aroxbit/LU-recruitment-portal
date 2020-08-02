@@ -53,7 +53,7 @@
               <th scope="col">Date Left</th>
               <th scope="col">Pay Scale / Brand with Grade Pay</th>
               <th scope="col">Reason for leaving</th>
-              <th scope="col">Encl. No.</th>
+              <th scope="col">Relevent Document</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -134,16 +134,9 @@
               </tr>
 
               <tr scope="row">
-                <td>Relevent Document *</td>
+                <td>Relevent Document (Max size 300 KB) *</td>
                 <td>
-                  <input type="file" class="form-control" />
-                </td>
-              </tr>
-
-              <tr scope="row">
-                <td>Encl. No.</td>
-                <td>
-                  <input type="text" class="form-control" placeholder="Enter Encl. No." />
+                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" required />
                 </td>
               </tr>
             </tbody>
@@ -163,5 +156,16 @@
     </div>
   </div>
 </body>
+
+<script>
+  function validate() {
+    let input = event.target;
+
+    if (input.files[0].size > 300000) {
+      alert("Image size cannot be more than 300 KB.");
+      input.value = "";
+    }
+  }
+</script>
 
 </html>
