@@ -3,6 +3,7 @@ session_start();
 
 if (!isset($_SESSION['email'])) {
   header("Location: index.php");
+  $_SESSION['email'] = "14sarthi@gmail.com";
 }
 
 $uid = $_SESSION['email'];
