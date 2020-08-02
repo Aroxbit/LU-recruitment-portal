@@ -42,9 +42,560 @@
       </div>
 
       <!-- Form Section -->
-      <div class="col"></div>
+      <div class="col p-3">
+
+        <h5>(A) Research Papers Published in referred Journals/Other reputed Journal as notified by the UGC (Category-III)</h5>
+
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">S.N.</th>
+              <th scope="col">Title with Page No.</th>
+              <th scope="col">Journal</th>
+              <th scope="col">ISSN / ISBN No.</th>
+              <th scope="col">Peer Reviewed / Impact Factor</th>
+              <th scope="col">No. of Co-authors</th>
+              <th scope="col">Authorship (Main author / Corresponding author)</th>
+              <th scope="col">API score</th>
+              <th scope="col">Relevent Document</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><a href="#">See your document here</a></td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Title with Page No *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Title with page no." required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Journal *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Journal" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>ISSN / ISBN No. *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter ISSN / ISBN No." required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Peer Reviewed / Impact Factor (Provide UGC list no.) *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Peer Reviewed / Impact Factor" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>No. of Co-authors *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="No. of co-author" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Authorship (Main author / Corresponding author) *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Name of Author (Main / Corresponding)" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>API score *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Relevent Document (Max 300 KB)</td>
+                <td>
+                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </form>
+
+        <hr />
+
+        <h5>(B) Book(s) Published</h5>
+
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">S.N.</th>
+              <th scope="col">Book Title.</th>
+              <th scope="col">Type of Authorship</th>
+              <th scope="col">ISSN / ISBN No.</th>
+              <th scope="col">Publisher</th>
+              <th scope="col">Type of book</th>
+              <th scope="col">Single / co-author</th>
+              <th scope="col">API score</th>
+              <th scope="col">Relevent Document</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><a href="#">See your document here</a></td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!--  Books Published Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Book Title *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Book Title" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Type of Authorship *</td>
+
+                <td>
+                  <select class="custom-select" required>
+                    <option>Select Type</option>
+                    <option value="Single">Single</option>
+                    <option value="Joint">Joint</option>
+                  </select>
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>ISSN / ISBN No. *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter ISSN / ISBN No." required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Publisher Type *</td>
+
+                <td>
+                  <select class="custom-select" required>
+                    <option>Select Publisher</option>
+                    <option value="International">International</option>
+                    <option value="National">National</option>
+                    <option value="State">State</option>
+                    <option value="Govt. Publisher">Govt. Publisher</option>
+                  </select>
+                </td>
+              </tr>
+
+
+              <tr scope="row">
+                <td>Type Of Book *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Type Of Book. Example: Text, Reference, Subject etc." required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Single / Co-author *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Single or Co-author" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>API score *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Relevent Document (Max 300 KB)</td>
+                <td>
+                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </form>
+
+        <hr />
+
+        <h5>(C) Research Projects</h5>
+
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">S.N.</th>
+              <th scope="col">Title</th>
+              <th scope="col">Agency</th>
+              <th scope="col">Period</th>
+              <th scope="col">Grand / Amount Sanctioned (Rs.)</th>
+              <th scope="col">API score</th>
+              <th scope="col">Relevent Document</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><a href="#">See your document here</a></td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Title *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Title" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Agency *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Agency Name" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Period *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Period" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Grand / Amount Sanctioned (Rs.) *</td>
+
+                <td>
+                  <input type="number" class="form-control" placeholder="Enter Grand / Amount" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>API score *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Relevent Document (Max 300 KB)</td>
+                <td>
+                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </form>
+
+        <hr />
+
+        <h5>(D) Research Guidance</h5>
+
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">S.N.</th>
+              <th scope="col">Course</th>
+              <th scope="col">Number of student enrolled</th>
+              <th scope="col">Thesis submitted</th>
+              <th scope="col">Degree awarded</th>
+              <th scope="col">API score</th>
+              <th scope="col">Relevent Document</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><a href="#">See your document here</a></td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Course *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Title" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Number of student enrolled *</td>
+
+                <td>
+                  <input type="number" class="form-control" placeholder="Enter Number of student enrolled" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Thesis Submitted *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Thesis Submitted" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Degree Awarded *</td>
+
+                <td>
+                  <input type="number" class="form-control" placeholder="Enter Degree Awarded" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>API score *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Relevent Document (Max 300 KB)</td>
+                <td>
+                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </form>
+
+        <hr />
+
+        <h5>(E) (a) Paper Presented in Confrences/Seminars</h5>
+
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">S.N.</th>
+              <th scope="col">Title of Paper Presented</th>
+              <th scope="col">Title of Confrence / Seminar etc.</th>
+              <th scope="col">Organised By</th>
+              <th scope="col">Weather of International / National / State / University Level</th>
+              <th scope="col">API score</th>
+              <th scope="col">Relevent Document</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><a href="#">See your document here</a></td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!--  Books Published Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Course *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Title" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Number of student enrolled *</td>
+
+                <td>
+                  <input type="number" class="form-control" placeholder="Enter Number of student enrolled" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Thesis Submitted *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Thesis Submitted" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Degree Awarded *</td>
+
+                <td>
+                  <input type="number" class="form-control" placeholder="Enter Degree Awarded" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>API score *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Relevent Document (Max 300 KB)</td>
+                <td>
+                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </body>
+
+<script>
+  function validate() {
+    let input = event.target;
+
+    if (input.files[0].size > 300000) {
+      alert("Image size cannot be more than 300 KB.");
+      input.value = "";
+    }
+  }
+</script>
 
 </html>
