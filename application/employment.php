@@ -193,7 +193,7 @@
 
         <hr />
 
-        <div class="text-center">
+        <div class="text-center mb-4">
           <a href="#" class="btn btn-primary">Save & Continue</a>
         </div>
       </div>
