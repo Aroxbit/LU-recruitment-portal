@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['email'])){
+  header("Location: index.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +31,7 @@
 
     <div class="inline-flex">
       <a href="/registration.html" class="btn btn-primary">Change Password</a>
-      <a href="/signin.html" class="btn btn-info">Logout</a>
+      <a href="/signin.html" class="btn btn-info">Logout <?php echo $_SESSION["email"] ?></a>
     </div>
   </nav>
 

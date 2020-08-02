@@ -33,15 +33,15 @@
       <h4 class="text-center mt-3 color-green">Sign In</h4>
 
       <div class="d-flex justify-content-center">
-        <form class="card form-width-400 mt-3 p-3">
+        <form method="post" action="session.php" class="card form-width-400 mt-3 p-3">
           <div class="form-group">
             <label>Email Address *</label>
-            <input type="email" class="form-control" placeholder="Enter email" required />
+            <input name="email" type="email" class="form-control" placeholder="Enter email" required />
           </div>
 
           <div class="form-group">
             <label>Password *</label>
-            <input type="password" class="form-control" placeholder="Password" required />
+            <input name="pass" type="password" class="form-control" placeholder="Password" required />
           </div>
 
           <button type="submit" class="btn btn-primary">Sign In</button>

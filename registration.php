@@ -33,10 +33,10 @@
       <h4 class="text-center mt-3">Registration</h4>
 
       <div class="d-flex justify-content-center">
-        <form class="card registration-form mt-3 p-3">
+        <form method="post" action="register.php" class="card registration-form mt-3 p-3">
           <div class="form-group">
             <label>Email Address *</label>
-            <input type="email" class="form-control" placeholder="Enter email" />
+            <input name="email" type="email" class="form-control" placeholder="Enter email" />
             <small class="form-text text-muted">
               Please note all the communication related to your application
               will be sent to this email id.
@@ -50,7 +50,7 @@
 
           <div class="form-group">
             <label>Password</label>
-            <input type="password" class="form-control" placeholder="Password" />
+            <input name="pass" type="password" class="form-control" placeholder="Password" />
           </div>
 
           <div class="form-group">
@@ -62,13 +62,13 @@
             <label>Candidate Name</label>
             <div class="form-row">
               <div class="col">
-                <input type="text" class="form-control" placeholder="First name" />
+                <input name="fname" type="text" class="form-control" placeholder="First name" />
               </div>
               <div class="col">
-                <input type="text" class="form-control" placeholder="Middle name" />
+                <input name="mname" type="text" class="form-control" placeholder="Middle name" />
               </div>
               <div class="col">
-                <input type="text" class="form-control" placeholder="Last name" />
+                <input name="lname" type="text" class="form-control" placeholder="Last name" />
               </div>
             </div>
           </div>
