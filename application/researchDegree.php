@@ -51,7 +51,7 @@
               <th scope="col">Title</th>
               <th scope="col">Date of Award of degree.</th>
               <th scope="col">Institution / University</th>
-              <th scope="col">Encl. No.</th>
+              <th scope="col">Document</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -64,7 +64,7 @@
               <td>AAA</td>
               <td>2020</td>
               <td>Computer Science</td>
-              <td>21012</td>
+              <td><a href="#">See your Document here</a></td>
               <td><button class="btn btn-danger">Delete</button></td>
             </tr>
           </tbody>
@@ -114,9 +114,9 @@
               </tr>
 
               <tr scope="row">
-                <td>Encl. No.</td>
+                <td>Relevent Document *</td>
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Encl. No." />
+                  <input type="file" accept="image/jpg, image/png, application/pdf" class="form-control" required />
                 </td>
               </tr>
             </tbody>

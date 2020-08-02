@@ -53,7 +53,7 @@
               <th scope="col">Name of Academic Body / Association</th>
               <th scope="col">Year</th>
               <th scope="col">API score</th>
-              <th scope="col">Encl. No.</th>
+              <th scope="col">Document</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -67,7 +67,7 @@
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
+              <td><a href="#">See your document here</a></td>
               <td><button class="btn btn-danger">Delete</button></td>
             </tr>
           </tbody>
@@ -131,9 +131,9 @@
               </tr>
 
               <tr scope="row">
-                <td>Encl. No.</td>
+                <td>Relevent Document *</td>
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Encl. No." />
+                  <input type="file" accept="image/jpg, image/png, application/pdf" class="form-control" required />
                 </td>
               </tr>
             </tbody>
