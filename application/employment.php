@@ -129,7 +129,7 @@
                 <td>Reason for leaving *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter reason for leaving" required />
+                  <textarea type="text" class="form-control" placeholder="Enter reason for leaving" required></textarea>
                 </td>
               </tr>
 
@@ -147,10 +147,54 @@
           </div>
         </form>
 
+
+        <!-- Form for teaching experience -->
+        <form class="form" action="">
+          <div class="inline-form">
+            <label>Teaching Experience (In Years)</label>
+            <div class="form-row">
+              <div class="col-3">Undergraduate Classes:</div>
+              <div class="col">
+                <input type="number" class="form-control" placeholder="Year" />
+              </div>
+              <div class="p-1">to</div>
+              <div class="col">
+                <input type="number" class="form-control" placeholder="Year" />
+              </div>
+            </div>
+
+            <div class="form-row mt-3">
+              <div class="col-3">Postgraduate Classes:</div>
+              <div class="col">
+                <input type="number" class="form-control" placeholder="Year" />
+              </div>
+              <div class="p-1">to</div>
+              <div class="col">
+                <input type="number" class="form-control" placeholder="Year" />
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="inline-form">
+            <div class="form-row">
+              <label class="col-3">Research Experience (In Years): </label>
+              <div class="col">
+                <input type="number" class="form-control" placeholder="Year" />
+              </div>
+              <div class="p-1">to</div>
+              <div class="col">
+                <input type="number" class="form-control" placeholder="Year" />
+              </div>
+            </div>
+          </div>
+        </form>
+
         <hr />
 
         <div class="text-center">
-          <a href="#" class="btn btn-primary">Continue</a>
+          <a href="#" class="btn btn-primary">Save & Continue</a>
         </div>
       </div>
     </div>
