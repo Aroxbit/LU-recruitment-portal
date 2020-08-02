@@ -73,7 +73,7 @@
 
               <form action="">
                 <td>
-                  <input onchange="validate()" type="file" required />
+                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
 
                 <td>
@@ -93,7 +93,7 @@
 
               <form action="">
                 <td>
-                  <input onchange="validate()" type="file" required />
+                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
 
                 <td>
@@ -113,7 +113,7 @@
 
               <form action="">
                 <td>
-                  <input onchange="validate()" type="file" required />
+                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
 
                 <td>
@@ -133,7 +133,7 @@
 
               <form action="">
                 <td>
-                  <input onchange="validate()" type="file" required />
+                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
 
                 <td>
@@ -153,7 +153,7 @@
 
               <form action="">
                 <td>
-                  <input onchange="validate()" type="file" required />
+                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
 
                 <td>
@@ -173,7 +173,7 @@
 
               <form action="">
                 <td>
-                  <input onchange="validate()" type="file" required />
+                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
 
                 <td>
@@ -191,5 +191,16 @@
     </div>
   </div>
 </body>
+
+<script>
+  function validate() {
+    let input = event.target;
+
+    if (input.files[0].size > 300000) {
+      alert("Image size cannot be more than 300 KB.");
+      input.value = "";
+    }
+  }
+</script>
 
 </html>
