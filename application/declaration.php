@@ -42,7 +42,21 @@
       </div>
 
       <!-- Form Section -->
-      <div class="col"></div>
+      <div class="col p-3">
+        <h5 class="text-center">DECLARATION</h5>
+
+        <!-- Enter Name here -->
+        <p class="">
+          I {NAME HERE} Son/Daughter of {MOTHER OR FATHER NAME HERE} hereby declare that all statements and entries
+          made in the application are true, complete and correct to the best of my knowledge and belief. In the event
+          of any information found being false or incorrect or inelligiblity being detected before or after the Selection
+          Committee and Executive Council Meet, my candidature / appointment is liable to be cancelled by University.
+        </p>
+
+        <div class="text-center mt-3">
+          <button class="btn btn-primary">Accept & Continue</button>
+        </div>
+      </div>
     </div>
   </div>
 </body>
