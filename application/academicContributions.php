@@ -420,7 +420,7 @@
           </tbody>
         </table>
 
-        <!-- Form -->
+        <!-- Research Guidance Form -->
         <form class="mt-4" action="">
           <table class="table table-bordered mt-4">
             <thead>
@@ -459,7 +459,7 @@
                 <td>Degree Awarded *</td>
 
                 <td>
-                  <input type="number" class="form-control" placeholder="Enter Degree Awarded" required />
+                  <input type="text" class="form-control" placeholder="Enter Degree Awarded" required />
                 </td>
               </tr>
 
@@ -518,7 +518,7 @@
           </tbody>
         </table>
 
-        <!--  Books Published Form -->
+        <!--  Paper Presented in Confrences/Seminars Form -->
         <form class="mt-4" action="">
           <table class="table table-bordered mt-4">
             <thead>
@@ -530,7 +530,7 @@
 
             <tbody>
               <tr scope="row">
-                <td>Course *</td>
+                <td>Title of Paper Presented *</td>
 
                 <td>
                   <input type="text" class="form-control" placeholder="Enter Title" required />
@@ -538,26 +538,32 @@
               </tr>
 
               <tr scope="row">
-                <td>Number of student enrolled *</td>
+                <td>Title of Confrence / Seminar etc *</td>
 
                 <td>
-                  <input type="number" class="form-control" placeholder="Enter Number of student enrolled" required />
+                  <input type="text" class="form-control" placeholder="Enter Title of Confrence / Seminar etc" required />
                 </td>
               </tr>
 
               <tr scope="row">
-                <td>Thesis Submitted *</td>
+                <td>Organised By *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Thesis Submitted" required />
+                  <input type="text" class="form-control" placeholder="Enter Organiser" required />
                 </td>
               </tr>
 
               <tr scope="row">
-                <td>Degree Awarded *</td>
+                <td>Weather of International / National / State / University Level *</td>
 
                 <td>
-                  <input type="number" class="form-control" placeholder="Enter Degree Awarded" required />
+                  <select class="custom-select" required>
+                    <option>Select Level</option>
+                    <option value="International">International</option>
+                    <option value="National">National</option>
+                    <option value="State">State</option>
+                    <option value="University">University</option>
+                  </select>
                 </td>
               </tr>
 
@@ -582,6 +588,283 @@
             <button class="btn btn-warning" type="submit">Add</button>
           </div>
         </form>
+
+        <hr />
+
+        <h5>(E) (b) Invited Lectures in Confrences/Seminars</h5>
+
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">S.N.</th>
+              <th scope="col">Title Of The Lecture</th>
+              <th scope="col">Title of Confrence / Seminar etc.</th>
+              <th scope="col">Organised By</th>
+              <th scope="col">Weather of International / National / State / University Level</th>
+              <th scope="col">API score</th>
+              <th scope="col">Relevent Document</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><a href="#">See your document here</a></td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!--  Invited Lectures in Confrences/Seminars Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Title Of The Lecture *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Title" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Title of Confrence / Seminar etc *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Title of Confrence / Seminar etc" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Organised By *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Organiser" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Weather of International / National / State / University Level *</td>
+
+                <td>
+                  <select class="custom-select" required>
+                    <option>Select Level</option>
+                    <option value="International">International</option>
+                    <option value="National">National</option>
+                    <option value="State">State</option>
+                    <option value="University">University</option>
+                  </select>
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>API score *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Relevent Document (Max 300 KB)</td>
+                <td>
+                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </form>
+
+        <hr />
+
+        <h5>(F) Development Of E-Learning Material</h5>
+
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">S.N.</th>
+              <th scope="col">Nature Of Activity</th>
+              <th scope="col">Module Details</th>
+              <th scope="col">Year</th>
+              <th scope="col">API score</th>
+              <th scope="col">Relevent Document</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><a href="#">See your document here</a></td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!--  Development of E-learning Material Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Nature Of Activity *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Nature Of Activity" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Module Details *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Module Details" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Year *</td>
+
+                <td>
+                  <input type="number" class="form-control" placeholder="Enter Year" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>API score *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Relevent Document (Max 300 KB)</td>
+                <td>
+                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </form>
+
+        <hr />
+
+        <h5>(G) Contribution in Corporate Life (if any)</h5>
+
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">S.N.</th>
+              <th scope="col">Post Held</th>
+              <th scope="col">Nature Of Work</th>
+              <th scope="col">Year</th>
+              <th scope="col">Organization / Institute</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!--  Development of E-learning Material Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Fields</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>Post Held *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Post Held" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Nature Of Work *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Nature Of Work" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Year *</td>
+
+                <td>
+                  <input type="number" class="form-control" placeholder="Enter Year" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>Organization / Institute *</td>
+
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Organization / Institute" required />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </form>
+
+        <hr>
+
+        <div class="text-center">
+          <a href="./apiScore.php" class="btn btn-primary">Continue</a>
+        </div>
       </div>
     </div>
   </div>
