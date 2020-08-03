@@ -114,7 +114,7 @@
             <li>
               After you submit the form and complete the payment (if any), a
               "Print" button is provided for you to printing or download your
-              application and take a print copy for sending it to BHU after
+              application and take a print copy for sending it to Lucknow University after
               signing and getting it forwarded.
             </li>
 

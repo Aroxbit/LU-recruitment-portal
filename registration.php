@@ -98,7 +98,7 @@
           <button type="submit" class="btn btn-primary">Register</button>
 
           <div class="text-center mt-3">
-            Already Registered? <a href="/signin.html">Back to Login</a>
+            Already Registered? <a href="./signin.php">Back to Login</a>
           </div>
         </form>
       </div>
