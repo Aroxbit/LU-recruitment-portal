@@ -7,13 +7,13 @@ $uid = $_SESSION['email'];
 require_once('../database.php');
 
 //if the user uploads a new image
-if(isset($_POST["submit"])) {
+if (isset($_POST["submit"])) {
   $target_dir = "uploads/";
   $photo_name = $uid . "_" . time() . "_photo_" . basename($_FILES["photo"]["name"]);
   $sign_name = $uid . "_" . time() . "_sign_" . basename($_FILES["sign"]["name"]);
   $photo_file = $target_dir . $photo_name;
   $sign_file = $target_dir . $sign_name;
-  
+
   if (move_uploaded_file($_FILES["photo"]["tmp_name"], $photo_file) && move_uploaded_file($_FILES["sign"]["tmp_name"], $sign_file)) {
     echo "The files have been uploaded.";
   } else {
@@ -104,11 +104,11 @@ $sql = "SELECT * FROM academic WHERE user='$uid' LIMIT 1";
 $result = mysqli_query($dbc, $sql);
 $row = mysqli_fetch_assoc($result);
 $count  = mysqli_num_rows($result);
-if($count==0) {
+if ($count == 0) {
   echo "No Academic Details Found!";
-} else{
+} else {
   print_r($row);
-  
+
   $c10_year = $row["c10_year"];
   $c12_year = $row["c12_year"];
   $ug_year = $row["ug_year"];
@@ -221,38 +221,38 @@ if($count==0) {
               <tr>
                 <th scope="row">1</th>
                 <td>10th Class or Equivalent *</td>
-                <td><input class="form-control" type="number" placeholder="Year" required /></td>
-                <td><input class="form-control" type="text" placeholder="Name" required /></td>
+                <td><input name="c10_year" class="form-control" type="number" placeholder="Year" value="<?php echo $c10_year ?>" required /></td>
+                <td><input name="c10_name" class="form-control" type="text" placeholder="Name" value="<?php echo $c10_name ?>" required /></td>
                 <td>
                   <select class="custom-select" name="division" required>
-                    <option>Select Division</option>
+                    <option value="<?php echo $c10_grade ?>"> <?php echo "Select: " . $c10_grade ?> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
                     <option value="Third">Third</option>
                   </select>
                 </td>
-                <td><input class="form-control" type="number" placeholder="Percent" required /></td>
-                <td><input class="form-control" type="number" placeholder="Marks Obtained" required /></td>
-                <td><input class="form-control" type="number" placeholder="Total" required /></td>
+                <td><input name="c10_per" class="form-control" type="number" placeholder="Percent" value="<?php echo $c10_per ?>" required /></td>
+                <td><input name="c10_marks" class="form-control" type="number" placeholder="Marks Obtained" value="<?php echo $c10_marks ?>" required /></td>
+                <td><input name="c10_total" class="form-control" type="number" placeholder="Total" value="<?php echo $c10_total ?>" required /></td>
               </tr>
 
               <!-- 10+2 -->
               <tr>
                 <th scope="row">2</th>
                 <td>10+2/High Secondary or Equivalent *</td>
-                <td><input class="form-control" type="number" placeholder="Year" required /></td>
-                <td><input class="form-control" type="text" placeholder="Name" required /></td>
+                <td><input name="c12_year" class="form-control" type="number" placeholder="Year" value="<?php echo $c12_year ?>" required /></td>
+                <td><input name="c12_name" class="form-control" type="text" placeholder="Name" value="<?php echo $c12_name ?>" required /></td>
                 <td>
                   <select class="custom-select" name="division" required>
-                    <option>Select Division</option>
+                    <option value="<?php echo $c12_grade ?>"> <?php echo "Select: " . $c12_grade ?> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
                     <option value="Third">Third</option>
                   </select>
                 </td>
-                <td><input class="form-control" type="number" placeholder="Percent" required /></td>
-                <td><input class="form-control" type="number" placeholder="Marks Obtained" required /></td>
-                <td><input class="form-control" type="number" placeholder="Total" required /></td>
+                <td><input name="c12_per" class="form-control" type="number" placeholder="Percent" value="<?php echo $c12_per ?>" required /></td>
+                <td><input name="c12_marks" class="form-control" type="number" placeholder="Marks Obtained" value="<?php echo $c12_marks ?>" required /></td>
+                <td><input name="c12_total" class="form-control" type="number" placeholder="Total" value="<?php echo $c12_total ?>" required /></td>
               </tr>
 
               <!-- Undergraduate -->
@@ -264,19 +264,19 @@ if($count==0) {
                   <label>Subjects: </label>
                   <input class="form-control" type="text" placeholder="Enter Subjects" required />
                 </td>
-                <td><input class="form-control" type="number" placeholder="Year" required /></td>
-                <td><input class="form-control" type="text" placeholder="Name" required /></td>
+                <td><input name="ug_year" class="form-control" type="number" placeholder="Year" value="<?php echo $ug_year ?>" required /></td>
+                <td><input name="ug_name" class="form-control" type="text" placeholder="Name" value="<?php echo $ug_name ?>" required /></td>
                 <td>
                   <select class="custom-select" name="division" required>
-                    <option>Select Division</option>
+                    <option value="<?php echo $ug_grade ?>"> <?php echo "Select: " . $ug_grade ?> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
                     <option value="Third">Third</option>
                   </select>
                 </td>
-                <td><input class="form-control" type="number" placeholder="Percent" required /></td>
-                <td><input class="form-control" type="number" placeholder="Marks Obtained" required /></td>
-                <td><input class="form-control" type="number" placeholder="Total" required /></td>
+                <td><input name="ug_per" class="form-control" type="number" placeholder="Percent" <?php echo $ug_per ?> required /></td>
+                <td><input name="ug_marks" class="form-control" type="number" placeholder="Marks Obtained" <?php echo $ug_marks ?> required /></td>
+                <td><input name="ug_total" class="form-control" type="number" placeholder="Total" <?php echo $ug_total ?> required /></td>
               </tr>
 
               <!-- Master -->
@@ -288,19 +288,19 @@ if($count==0) {
                   <label>Subjects: </label>
                   <input class="form-control" type="text" placeholder="Enter Subjects" />
                 </td>
-                <td><input class="form-control" type="number" placeholder="Year" /></td>
-                <td><input class="form-control" type="text" placeholder="Name" /></td>
+                <td><input name="m_year" class="form-control" type="number" placeholder="Year" value="<?php echo $m_year ?>" /></td>
+                <td><input name="m_name" class="form-control" type="text" placeholder="Name" value="<?php echo $m_name ?>" /></td>
                 <td>
                   <select class="custom-select" name="division">
-                    <option>Select Division</option>
+                    <option value="<?php echo $m_grade ?>"> <?php echo "Select: " . $m_grade ?> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
                     <option value="Third">Third</option>
                   </select>
                 </td>
-                <td><input class="form-control" type="number" placeholder="Percent" /></td>
-                <td><input class="form-control" type="number" placeholder="Marks Obtained" /></td>
-                <td><input class="form-control" type="number" placeholder="Total" /></td>
+                <td><input name="m_per" class="form-control" type="number" placeholder="Percent" <?php echo $m_per ?> /></td>
+                <td><input name="m_marks" class="form-control" type="number" placeholder="Marks Obtained" <?php echo $m_marks ?> /></td>
+                <td><input name="m_total" class="form-control" type="number" placeholder="Total" <?php echo $m_total ?> /></td>
               </tr>
 
               <!-- NET -->
@@ -312,19 +312,19 @@ if($count==0) {
                   <label>Subjects: </label>
                   <input class="form-control" type="text" placeholder="Enter Subjects" />
                 </td>
-                <td><input class="form-control" type="number" placeholder="Year" /></td>
-                <td><input class="form-control" type="text" placeholder="Name" /></td>
+                <td><input name="net_year" class="form-control" type="number" placeholder="Year" value="<?php echo $net_year ?>" /></td>
+                <td><input name="net_name" class="form-control" type="text" placeholder="Name" value="<?php echo $net_name ?>" /></td>
                 <td>
                   <select class="custom-select" name="division">
-                    <option>Select Division</option>
+                    <option value="<?php echo $net_grade ?>"> <?php echo "Select: " . $net_grade ?> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
                     <option value="Third">Third</option>
                   </select>
                 </td>
-                <td><input class="form-control" type="number" placeholder="Percent" /></td>
-                <td><input class="form-control" type="number" placeholder="Marks Obtained" /></td>
-                <td><input class="form-control" type="number" placeholder="Total" /></td>
+                <td><input name="net_per" class="form-control" type="number" placeholder="Percent" value="<?php echo $net_per ?>" /></td>
+                <td><input name="net_marks" class="form-control" type="number" placeholder="Marks Obtained" value="<?php echo $net_marks ?>" /></td>
+                <td><input name="net_total" class="form-control" type="number" placeholder="Total" value="<?php echo $net_total ?>" /></td>
               </tr>
 
               <!-- Others -->
@@ -336,19 +336,19 @@ if($count==0) {
                   <input class="form-control" type="text" placeholder="Enter Subjects" />
                 </td>
 
-                <td><input class="form-control" type="number" placeholder="Year" /></td>
-                <td><input class="form-control" type="text" placeholder="Name" /></td>
+                <td><input name="other_year" class="form-control" type="number" placeholder="Year" value="<?php echo $other_year ?>" /></td>
+                <td><input name="other_name" class="form-control" type="text" placeholder="Name" value="<?php echo $other_name ?>" /></td>
                 <td>
                   <select class="custom-select" name="division">
-                    <option>Select Division</option>
+                    <option value="<?php echo $other_grade ?>"> <?php echo "Select: " . $other_grade ?> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
                     <option value="Third">Third</option>
                   </select>
                 </td>
-                <td><input class="form-control" type="number" placeholder="Percent" /></td>
-                <td><input class="form-control" type="number" placeholder="Marks Obtained" /></td>
-                <td><input class="form-control" type="number" placeholder="Total" /></td>
+                <td><input name="other_per" class="form-control" type="number" placeholder="Percent" value="<?php $other_per ?>" /></td>
+                <td><input name="other_marks" class="form-control" type="number" placeholder="Marks Obtained" value="<?php $other_marks ?>" /></td>
+                <td><input name="other_total" class="form-control" type="number" placeholder="Total" value="<?php $other_total ?>" /></td>
               </tr>
             </tbody>
           </table>
