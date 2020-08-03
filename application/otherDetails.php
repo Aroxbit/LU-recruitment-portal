@@ -42,7 +42,49 @@
       </div>
 
       <!-- Form Section -->
-      <div class="col"></div>
+      <div class="col p-3">
+        <h5>Any Other Details (Contributions, Awards etc.) Relevent To The Post Not Mentioned Earlier.</h5>
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">SI No.</th>
+              <th scope="col">Relevent Details</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Replace this section using javascript -->
+            <tr scope="row">
+              <td>1</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th class="text-center" scope="col">Relevent Details</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>
+                  <input type="text" class="form-control" placeholder="Enter Details" required />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-warning" type="submit">Add</button>
+            <a href="./declaration.php" class="btn btn-primary">Continue</a>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </body>
