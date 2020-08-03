@@ -42,7 +42,64 @@
       </div>
 
       <!-- Form Section -->
-      <div class="col"></div>
+      <div class="col p-2">
+        <h5>Summary Of API score</h5>
+
+        <!--  Development of E-learning Material Form -->
+        <form class="mt-4" action="">
+          <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+                <th scope="col">S.N.</th>
+                <th scope="col">Criteria</th>
+                <th scope="col">Total API score for Assesment Period (as claimed by the applicant)</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr scope="row">
+                <td>I</td>
+                <td>Teaching Learning and Evaluation Related Activities. *</td>
+
+                <td>
+                  <input type="text" class="form-control" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>II</td>
+                <td>Professional Development, Co-curricular and extension Activities. *</td>
+
+                <td>
+                  <input type="text" class="form-control" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td></td>
+                <td>Total (I + II) *</td>
+
+                <td>
+                  <input type="text" class="form-control" required />
+                </td>
+              </tr>
+
+              <tr scope="row">
+                <td>III</td>
+                <td>Research and Academic Contributions. *</td>
+
+                <td>
+                  <input type="text" class="form-control" required />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mb-3 mt-3 text-center">
+            <button class="btn btn-primary" type="submit">Add & Continue</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </body>
