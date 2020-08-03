@@ -1,3 +1,90 @@
+<?php
+session_start();
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+$uid = $_SESSION['email'];
+require_once('../database.php');
+
+//if the user uploads a new image
+if(isset($_POST["submit"])) {
+
+  //set vars
+  $c10_year = $_POST["c10_year"];
+  $c12_year = $_POST["c12_year"];
+  $ug_year = $_POST["ug_year"];
+  $m_year = $_POST["m_year"];
+  $net_year = $_POST["net_year"];
+  $other_year = $_POST["other_year"];
+  $c10_name = $_POST["c10_name"];
+  $c12_name = $_POST["c12_name"];
+  $ug_name = $_POST["ug_name"];
+  $m_name = $_POST["m_name"];
+  $net_name = $_POST["net_name"];
+  $other_name = $_POST["other_name"];
+  $c10_grade = $_POST["c10_grade"];
+  $c12_grade = $_POST["c12_grade"];
+  $ug_grade = $_POST["ug_grade"];
+  $m_grade = $_POST["m_grade"];
+  $net_grade = $_POST["net_grade"];
+  $other_grade = $_POST["other_grade"];
+  $c10_per = $_POST["c10_per"];
+  $c12_per = $_POST["c12_per"];
+  $ug_per = $_POST["ug_per"];
+  $m_per = $_POST["m_per"];
+  $net_per = $_POST["net_per"];
+  $other_per = $_POST["other_per"];
+  $c10_marks = $_POST["c10_marks"];
+  $c12_marks = $_POST["c12_marks"];
+  $ug_marks = $_POST["ug_marks"];
+  $m_marks = $_POST["m_marks"];
+  $net_marks = $_POST["net_marks"];
+  $other_marks = $_POST["other_marks"];
+  $c10_total = $_POST["c10_total"];
+  $c12_total = $_POST["c12_total"];
+  $ug_total = $_POST["ug_total"];
+  $m_total = $_POST["m_total"];
+  $net_total = $_POST["net_total"];
+  $other_total = $_POST["other_total"];
+  $ug_degree = $_POST["ug_degree"];
+  $ug_subject = $_POST["ug_subject"];
+  $m_degree = $_POST["m_degree"];
+  $m_subject = $_POST["m_subject"];
+  $net_degree = $_POST["net_degree"];
+  $net_subject = $_POST["net_subject"];
+  $other_degree = $_POST["other_degree"];
+  $other_subject = $_POST["other_subject"];
+
+  //find existing candidate data
+  $sql_ = "SELECT * FROM academic WHERE user='$uid' LIMIT 1";
+  $result_ = mysqli_query($dbc, $sql_);
+  $row_ = mysqli_fetch_assoc($result_);
+  $count_  = mysqli_num_rows($result_);
+
+  //if it exists then delete it before creating one
+  if ($count_ > 0) {
+    if ($dbc->query("DELETE FROM academic WHERE user='$uid'") === TRUE) {
+      echo "Academic details deleted successfully";
+    } else {
+      echo "Error deleting Academic details: " . $conn->error;
+    }
+  }
+
+  //insert new candidate data
+  $sql = "INSERT INTO academic (c10_year, c12_year, ug_year, m_year, net_year, other_year, c10_name, c12_name, ug_name, m_name, net_name, other_name, c10_grade, c12_grade, ug_grade, m_grade, net_grade, other_grade, c10_per, c12_per, ug_per, m_per, net_per, other_per, c10_marks, c12_marks, ug_marks, m_marks, net_marks, other_marks, c10_total, c12_total, ug_total, m_total, net_total, other_total, ug_degree, ug_subject, m_degree, m_subject, net_degree, net_subject, other_degree, other_subject, user)
+  VALUES ('$c10_year', '$c12_year', '$ug_year', '$m_year', '$net_year', '$other_year', '$c10_name', '$c12_name', '$ug_name', '$m_name', '$net_name', '$other_name', '$c10_grade', '$c12_grade', '$ug_grade', '$m_grade', '$net_grade', '$other_grade', '$c10_per', '$c12_per', '$ug_per', '$m_per', '$net_per', '$other_per', '$c10_marks', '$c12_marks', '$ug_marks', '$m_marks', '$net_marks', '$other_marks', '$c10_total', '$c12_total', '$ug_total', '$m_total', '$net_total', '$other_total', '$ug_degree', '$ug_subject', '$m_degree', '$m_subject', '$net_degree', '$net_subject', '$other_degree', '$other_subject', '$uid')";
+
+  if ($dbc->query($sql) === TRUE) {
+    echo "Academic Details Saved in DB.";
+  } else {
+    echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 

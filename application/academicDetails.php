@@ -51,8 +51,109 @@ if(isset($_POST["submit"])) {
 }
 
 
+//Set default value
+$c10_year = "";
+$c12_year = "";
+$ug_year = "";
+$m_year = "";
+$net_year = "";
+$other_year = "";
+$c10_name = "";
+$c12_name = "";
+$ug_name = "";
+$m_name = "";
+$net_name = "";
+$other_name = "";
+$c10_grade = "";
+$c12_grade = "";
+$ug_grade = "";
+$m_grade = "";
+$net_grade = "";
+$other_grade = "";
+$c10_per = "";
+$c12_per = "";
+$ug_per = "";
+$m_per = "";
+$net_per = "";
+$other_per = "";
+$c10_marks = "";
+$c12_marks = "";
+$ug_marks = "";
+$m_marks = "";
+$net_marks = "";
+$other_marks = "";
+$c10_total = "";
+$c12_total = "";
+$ug_total = "";
+$m_total = "";
+$net_total = "";
+$other_total = "";
+$ug_degree = "";
+$ug_subject = "";
+$m_degree = "";
+$m_subject = "";
+$net_degree = "";
+$net_subject = "";
+$other_degree = "";
+$other_subject = "";
 
 
+
+//Get user data
+$sql = "SELECT * FROM academic WHERE user='$uid' LIMIT 1";
+$result = mysqli_query($dbc, $sql);
+$row = mysqli_fetch_assoc($result);
+$count  = mysqli_num_rows($result);
+if($count==0) {
+  echo "No Academic Details Found!";
+} else{
+  print_r($row);
+  
+  $c10_year = $row["c10_year"];
+  $c12_year = $row["c12_year"];
+  $ug_year = $row["ug_year"];
+  $m_year = $row["m_year"];
+  $net_year = $row["net_year"];
+  $other_year = $row["other_year"];
+  $c10_name = $row["c10_name"];
+  $c12_name = $row["c12_name"];
+  $ug_name = $row["ug_name"];
+  $m_name = $row["m_name"];
+  $net_name = $row["net_name"];
+  $other_name = $row["other_name"];
+  $c10_grade = $row["c10_grade"];
+  $c12_grade = $row["c12_grade"];
+  $ug_grade = $row["ug_grade"];
+  $m_grade = $row["m_grade"];
+  $net_grade = $row["net_grade"];
+  $other_grade = $row["other_grade"];
+  $c10_per = $row["c10_per"];
+  $c12_per = $row["c12_per"];
+  $ug_per = $row["ug_per"];
+  $m_per = $row["m_per"];
+  $net_per = $row["net_per"];
+  $other_per = $row["other_per"];
+  $c10_marks = $row["c10_marks"];
+  $c12_marks = $row["c12_marks"];
+  $ug_marks = $row["ug_marks"];
+  $m_marks = $row["m_marks"];
+  $net_marks = $row["net_marks"];
+  $other_marks = $row["other_marks"];
+  $c10_total = $row["c10_total"];
+  $c12_total = $row["c12_total"];
+  $ug_total = $row["ug_total"];
+  $m_total = $row["m_total"];
+  $net_total = $row["net_total"];
+  $other_total = $row["other_total"];
+  $ug_degree = $row["ug_degree"];
+  $ug_subject = $row["ug_subject"];
+  $m_degree = $row["m_degree"];
+  $m_subject = $row["m_subject"];
+  $net_degree = $row["net_degree"];
+  $net_subject = $row["net_subject"];
+  $other_degree = $row["other_degree"];
+  $other_subject = $row["other_subject"];
+}
 
 ?>
 
