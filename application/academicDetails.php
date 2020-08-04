@@ -274,9 +274,9 @@ if ($count == 0) {
                     <option value="Third">Third</option>
                   </select>
                 </td>
-                <td><input name="ug_per" class="form-control" type="number" placeholder="Percent" <?php echo $ug_per ?> required /></td>
-                <td><input name="ug_marks" class="form-control" type="number" placeholder="Marks Obtained" <?php echo $ug_marks ?> required /></td>
-                <td><input name="ug_total" class="form-control" type="number" placeholder="Total" <?php echo $ug_total ?> required /></td>
+                <td><input name="ug_per" class="form-control" type="number" placeholder="Percent" value="<?php echo $ug_per ?>" required /></td>
+                <td><input name="ug_marks" class="form-control" type="number" placeholder="Marks Obtained" value="<?php echo $ug_marks ?>" required /></td>
+                <td><input name="ug_total" class="form-control" type="number" placeholder="Total" value="<?php echo $ug_total ?>" required /></td>
               </tr>
 
               <!-- Master -->
@@ -298,9 +298,9 @@ if ($count == 0) {
                     <option value="Third">Third</option>
                   </select>
                 </td>
-                <td><input name="m_per" class="form-control" type="number" placeholder="Percent" <?php echo $m_per ?> /></td>
-                <td><input name="m_marks" class="form-control" type="number" placeholder="Marks Obtained" <?php echo $m_marks ?> /></td>
-                <td><input name="m_total" class="form-control" type="number" placeholder="Total" <?php echo $m_total ?> /></td>
+                <td><input name="m_per" class="form-control" type="number" placeholder="Percent" value="<?php echo $m_per ?>" /></td>
+                <td><input name="m_marks" class="form-control" type="number" placeholder="Marks Obtained" value="<?php echo $m_marks ?>" /></td>
+                <td><input name="m_total" class="form-control" type="number" placeholder="Total" value="<?php echo $m_total ?>" /></td>
               </tr>
 
               <!-- NET -->
@@ -346,9 +346,9 @@ if ($count == 0) {
                     <option value="Third">Third</option>
                   </select>
                 </td>
-                <td><input name="other_per" class="form-control" type="number" placeholder="Percent" value="<?php $other_per ?>" /></td>
-                <td><input name="other_marks" class="form-control" type="number" placeholder="Marks Obtained" value="<?php $other_marks ?>" /></td>
-                <td><input name="other_total" class="form-control" type="number" placeholder="Total" value="<?php $other_total ?>" /></td>
+                <td><input name="other_per" class="form-control" type="number" placeholder="Percent" value="<?php echo $other_per ?>" /></td>
+                <td><input name="other_marks" class="form-control" type="number" placeholder="Marks Obtained" value="<?php echo $other_marks ?>" /></td>
+                <td><input name="other_total" class="form-control" type="number" placeholder="Total" value="<?php echo $other_total ?>" /></td>
               </tr>
             </tbody>
           </table>
