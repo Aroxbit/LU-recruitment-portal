@@ -1,3 +1,34 @@
+<?php
+session_start();
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+$uid = $_SESSION['email'];
+require_once('../database.php');
+
+//initialize candidate vars
+$teaching = "";
+$extension = "";
+$total = "";
+$research = "";
+
+//get candidate data
+$sql = "SELECT * FROM score WHERE user='$uid' LIMIT 1";
+$result = mysqli_query($dbc, $sql);
+$row = mysqli_fetch_assoc($result);
+$count  = mysqli_num_rows($result);
+if($count==0) {
+  echo "No Score Data Found!";
+} else{
+  //print_r($row);
+  // If candidate data is found, assign it to vars
+  $teaching = $row["teaching"];
+  $extension = $row["extension"];
+  $total = $row["total"];
+  $research = $row["research"];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +93,7 @@
                 <td>Teaching Learning and Evaluation Related Activities. *</td>
 
                 <td>
-                  <input type="text" class="form-control" required />
+                  <input name="teaching" value='<?php echo $teaching ?>' type="text" class="form-control" required />
                 </td>
               </tr>
 
@@ -71,7 +102,7 @@
                 <td>Professional Development, Co-curricular and extension Activities. *</td>
 
                 <td>
-                  <input type="text" class="form-control" required />
+                  <input name="extension" value='<?php echo $extension ?>' type="text" class="form-control" required />
                 </td>
               </tr>
 
@@ -80,7 +111,7 @@
                 <td>Total (I + II) *</td>
 
                 <td>
-                  <input type="text" class="form-control" required />
+                  <input name="total" value='<?php echo $total ?>' type="text" class="form-control" required />
                 </td>
               </tr>
 
@@ -89,7 +120,7 @@
                 <td>Research and Academic Contributions. *</td>
 
                 <td>
-                  <input type="text" class="form-control" required />
+                  <input name="research" value='<?php echo $research ?>' type="text" class="form-control" required />
                 </td>
               </tr>
             </tbody>

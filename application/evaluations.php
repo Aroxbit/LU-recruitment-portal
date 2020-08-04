@@ -44,7 +44,6 @@ if (isset($_POST["specialization"])) {
   //insert new candidate data
   $sql = "INSERT INTO specialization (detail, user)
   VALUES ('$specialization', '$uid')";
-
   if ($dbc->query($sql) === TRUE) {
     echo "Data Saved.";
   } else {
@@ -52,6 +51,43 @@ if (isset($_POST["specialization"])) {
   }
 }
 
+
+//if add button is pressed
+if(isset($_POST["add"])){
+  $name = $_POST["name"];
+  $duration = $_POST["duration"];
+  $university = $_POST["university"];
+  $score = $_POST["score"];
+  $document = upload($uid, "new_document");
+
+
+  //insert new data in db
+  $sql = "INSERT INTO evaluation (name, duration, university, score, document, user)
+  VALUES ('$name', '$duration', '$university', '$score', '$document', '$uid')";
+  if ($dbc->query($sql) === TRUE) {
+    echo "Data Saved in DB.";
+  } else {
+    echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+
+}
+
+//if del btn is pressed
+if(isset($_POST["del"])){
+  $id = $_POST["id"];
+  $dbc->query("DELETE FROM evaluation WHERE id='$id'");
+}
+
+//get the existing evaluations
+$sql_get = "SELECT * FROM evaluation WHERE user='$uid'";
+$result_get = mysqli_query($dbc, $sql_get);
+$count_get  = mysqli_num_rows($result_get);
+if ($count_get == 0) {
+  echo "No Evaluation Details Found!";
+} else {
+  // print_r($result_get);
+  $count_i = 1;
+}
 ?>
 
 
@@ -115,20 +151,27 @@ if (isset($_POST["specialization"])) {
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-              <td><button class="btn btn-danger">Delete</button></td>
-            </tr>
+            <?php
+              while($row_get = mysqli_fetch_assoc($result_get)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $count_i . "</td>";
+                echo "<td>" . $row_get["name"] . "</td>";
+                echo "<td>" . $row_get["duration"] . "</td>";
+                echo "<td>" . $row_get["university"] . "</td>";
+                echo "<td>" . $row_get["score"] . "</td>";
+                echo "<td><a target='_blank' href='./uploads/" . $row_get["document"] . "'>See your Document here</a></td>";
+                echo "<td><form action='evaluations.php' method='post'>";
+                echo "<input type='text' name='id'  class='d-none' value='" . $row_get["id"] . "'>";
+                echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
+
+                $count_i = $count_i+1;
+              }
+            ?>
           </tbody>
         </table>
 
         <!-- Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" action="evaluations.php" method='post' enctype="multipart/form-data">
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -142,7 +185,7 @@ if (isset($_POST["specialization"])) {
                 <td>Name / Nature of the activity *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Name / Nature of the activity" required />
+                  <input name='name' type="text" class="form-control" placeholder="Enter Name / Nature of the activity" required />
                 </td>
               </tr>
 
@@ -150,7 +193,7 @@ if (isset($_POST["specialization"])) {
                 <td>Duration *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Duration" required />
+                  <input name='duration' type="text" class="form-control" placeholder="Enter Duration" required />
                 </td>
               </tr>
 
@@ -158,7 +201,7 @@ if (isset($_POST["specialization"])) {
                 <td>Organising University / Institution Name *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Organising University / Institution Name" required />
+                  <input name='university' type="text" class="form-control" placeholder="Enter Organising University / Institution Name" required />
                 </td>
               </tr>
 
@@ -166,21 +209,21 @@ if (isset($_POST["specialization"])) {
                 <td>API score *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter API Score" required />
+                  <input name='score' type="text" class="form-control" placeholder="Enter API Score" required />
                 </td>
               </tr>
 
               <tr scope="row">
                 <td>Relevent Document (Max 300 KB)</td>
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                  <input name='new_document' onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-warning" type="submit">Add</button>
+            <input class="btn btn-warning" type="submit" name='add' value='Add'>
             <a href="./academicContributions.php" class="btn btn-primary">Continue</a>
           </div>
         </form>
