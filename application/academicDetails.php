@@ -224,7 +224,7 @@ if ($count == 0) {
                 <td><input name="c10_year" class="form-control" type="number" placeholder="Year" value="<?php echo $c10_year ?>" required /></td>
                 <td><input name="c10_name" class="form-control" type="text" placeholder="Name" value="<?php echo $c10_name ?>" required /></td>
                 <td>
-                  <select class="custom-select" name="division" required>
+                  <select class="custom-select" name="c10_grade" required>
                     <option value="<?php echo $c10_grade ?>"> <?php echo "Select: " . $c10_grade ?> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
@@ -243,7 +243,7 @@ if ($count == 0) {
                 <td><input name="c12_year" class="form-control" type="number" placeholder="Year" value="<?php echo $c12_year ?>" required /></td>
                 <td><input name="c12_name" class="form-control" type="text" placeholder="Name" value="<?php echo $c12_name ?>" required /></td>
                 <td>
-                  <select class="custom-select" name="division" required>
+                  <select class="custom-select" name="c12_grade" required>
                     <option value="<?php echo $c12_grade ?>"> <?php echo "Select: " . $c12_grade ?> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
@@ -260,14 +260,14 @@ if ($count == 0) {
                 <th scope="row">3</th>
                 <td>
                   Undergraduate Degree
-                  <input class="form-control" type="text" placeholder="Type" required />
+                  <input name="ug_degree" class="form-control" type="text" placeholder="Type" value="<?php echo $ug_degree ?>" required />
                   <label>Subjects: </label>
-                  <input class="form-control" type="text" placeholder="Enter Subjects" required />
+                  <input name="ug_subject" class="form-control" type="text" placeholder="Enter Subjects" value="<?php echo $ug_subject ?>" required />
                 </td>
                 <td><input name="ug_year" class="form-control" type="number" placeholder="Year" value="<?php echo $ug_year ?>" required /></td>
                 <td><input name="ug_name" class="form-control" type="text" placeholder="Name" value="<?php echo $ug_name ?>" required /></td>
                 <td>
-                  <select class="custom-select" name="division" required>
+                  <select class="custom-select" name="ug_grade" required>
                     <option value="<?php echo $ug_grade ?>"> <?php echo "Select: " . $ug_grade ?> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
@@ -284,14 +284,14 @@ if ($count == 0) {
                 <th>4</th>
                 <td>
                   Master Degree
-                  <input class="form-control" type="text" placeholder="Type" />
+                  <input name="$m_degree" class="form-control" type="text" placeholder="Type" value="<?php echo $m_degree ?>" />
                   <label>Subjects: </label>
-                  <input class="form-control" type="text" placeholder="Enter Subjects" />
+                  <input name="$m_subject" class="form-control" type="text" placeholder="Enter Subjects" value="<?php echo $m_subject ?>" />
                 </td>
                 <td><input name="m_year" class="form-control" type="number" placeholder="Year" value="<?php echo $m_year ?>" /></td>
                 <td><input name="m_name" class="form-control" type="text" placeholder="Name" value="<?php echo $m_name ?>" /></td>
                 <td>
-                  <select class="custom-select" name="division">
+                  <select class="custom-select" name="m_grade">
                     <option value="<?php echo $m_grade ?>"> <?php echo "Select: " . $m_grade ?> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
@@ -308,14 +308,14 @@ if ($count == 0) {
                 <th>5</th>
                 <td>
                   NET / JRF / SLET / GATE
-                  <input class="form-control" type="text" placeholder="Type" />
+                  <input name="net_degree" class="form-control" type="text" placeholder="Type" value="<?php echo $net_degree ?>" />
                   <label>Subjects: </label>
-                  <input class="form-control" type="text" placeholder="Enter Subjects" />
+                  <input name="net_subject" class="form-control" type="text" placeholder="Enter Subjects" value="<?php echo $net_subject ?>" />
                 </td>
                 <td><input name="net_year" class="form-control" type="number" placeholder="Year" value="<?php echo $net_year ?>" /></td>
                 <td><input name="net_name" class="form-control" type="text" placeholder="Name" value="<?php echo $net_name ?>" /></td>
                 <td>
-                  <select class="custom-select" name="division">
+                  <select class="custom-select" name="net_grade">
                     <option value="<?php echo $net_grade ?>"> <?php echo "Select: " . $net_grade ?> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
@@ -331,15 +331,15 @@ if ($count == 0) {
               <tr>
                 <th>6</th>
                 <td>Other Degree (if any)
-                  <input class="form-control" type="text" placeholder="Type" />
+                  <input name="other_degree" class="form-control" type="text" placeholder="Type" value="<?php echo $other_degree ?>" />
                   <label>Subjects: </label>
-                  <input class="form-control" type="text" placeholder="Enter Subjects" />
+                  <input name="other_subject" class="form-control" type="text" placeholder="Enter Subjects" value="<?php echo $other_subject ?>" />
                 </td>
 
                 <td><input name="other_year" class="form-control" type="number" placeholder="Year" value="<?php echo $other_year ?>" /></td>
                 <td><input name="other_name" class="form-control" type="text" placeholder="Name" value="<?php echo $other_name ?>" /></td>
                 <td>
-                  <select class="custom-select" name="division">
+                  <select class="custom-select" name="other_grade">
                     <option value="<?php echo $other_grade ?>"> <?php echo "Select: " . $other_grade ?> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
