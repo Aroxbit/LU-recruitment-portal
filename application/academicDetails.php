@@ -202,7 +202,7 @@ if ($count == 0) {
 
       <!-- Form Section -->
       <div class="col">
-        <form class="mt-4" action="">
+        <form class="mt-4" action="netSlet.php" method="post">
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -354,7 +354,7 @@ if ($count == 0) {
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-primary" type="submit">Save & Continue</button>
+            <button class="btn btn-primary" name="submit" type="submit">Save & Continue</button>
           </div>
         </form>
       </div>

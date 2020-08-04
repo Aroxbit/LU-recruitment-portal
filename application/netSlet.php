@@ -7,7 +7,7 @@ $uid = $_SESSION['email'];
 require_once('../database.php');
 
 //if the user uploads a new image
-if(isset($_POST["submit"])) {
+if(isset($_POST["c10_year"])) {
 
   //set vars
   $c10_year = $_POST["c10_year"];
