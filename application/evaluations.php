@@ -1,3 +1,60 @@
+<?php
+session_start();
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+$uid = $_SESSION['email'];
+require_once('../database.php');
+
+//File Upload Function
+function upload($uid, $field_name){
+  print_r($_FILES);
+  $target_dir = "uploads/";
+  $file_name = $uid . "_" . time() . "_doc_" . basename($_FILES["$field_name"]["name"]);
+  $file_location = $target_dir . $file_name;
+
+  if (move_uploaded_file($_FILES["$field_name"]["tmp_name"], $file_location)) {
+    return $file_name;
+  } else {
+    echo "Sorry, there was an error uploading your file.";
+    return null;
+  }
+}
+
+//if new data is posted 
+if (isset($_POST["specialization"])) {
+
+  //employment data
+  $specialization = $_POST["specialization"];
+
+  //find existing employment data
+  $sql_ = "SELECT * FROM specialization WHERE user='$uid' LIMIT 1";
+  $result_ = mysqli_query($dbc, $sql_);
+  $count_  = mysqli_num_rows($result_);
+
+  //if it exists then delete it before creating one
+  if ($count_ > 0) {
+    if ($dbc->query("DELETE FROM specialization WHERE user='$uid'") === TRUE) {
+      echo "specialization data deleted successfully";
+    } else {
+      echo "Error deleting old specialization data: " . $conn->error;
+    }
+  }
+
+  //insert new candidate data
+  $sql = "INSERT INTO specialization (detail, user)
+  VALUES ('$specialization', '$uid')";
+
+  if ($dbc->query($sql) === TRUE) {
+    echo "Data Saved.";
+  } else {
+    echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,3 +1,67 @@
+<?php
+session_start();
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+  $_SESSION['email'] = "14sarthi@gmail.com";
+}
+$uid = $_SESSION['email'];
+require_once('../database.php');
+
+
+//if new data is posted 
+if (isset($_POST["submit"])) {
+
+  //employment data
+  $ug_from = $_POST["ug_from"];
+  $ug_to = $_POST["ug_to"];
+  $pg_from = $_POST["pg_from"];
+  $pg_to = $_POST["pg_to"];
+  $res_from = $_POST["res_from"];
+  $res_to = $_POST["res_to"];
+  $user = $uid;
+
+  //find existing employment data
+  $sql_ = "SELECT * FROM employment_data WHERE user='$uid' LIMIT 1";
+  $result_ = mysqli_query($dbc, $sql_);
+  $count_  = mysqli_num_rows($result_);
+
+  //if it exists then delete it before creating one
+  if ($count_ > 0) {
+    if ($dbc->query("DELETE FROM employment_data WHERE user='$uid'") === TRUE) {
+      echo "Employment data deleted successfully";
+    } else {
+      echo "Error deleting old data: " . $conn->error;
+    }
+  }
+
+  //insert new candidate data
+  $sql = "INSERT INTO employment_data (ug_from, ug_to, pg_from, pg_to, res_from, res_to, user)
+  VALUES ( '$ug_from', '$ug_to', '$pg_from', '$pg_to', '$res_from', '$res_to', '$user')";
+
+  if ($dbc->query($sql) === TRUE) {
+    echo "Data Saved.";
+  } else {
+    echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+}
+
+ 
+//get specialization data
+$specialization = "";
+$result_get_data = mysqli_query($dbc, "SELECT * FROM specialization WHERE user='$uid' LIMIT 1");
+$row_data = mysqli_fetch_assoc($result_get_data);
+$count_get_data  = mysqli_num_rows($result_get_data);
+if ($count_get_data == 0) {
+  echo "No Data Found!";
+} else {
+  $specialization = $row_data["detail"];
+}
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,11 +108,11 @@
       <!-- Form Section -->
       <div class="col p-3">
         <h5>Enter field of specializations</h5>
-        <form action="">
-          <textarea class="form-control" name="" id="" rows="10" placeholder="Enter field of specialization."></textarea>
+        <form action="evaluations.php" method='post'>
+          <textarea name='specialization' class="form-control" name="" id="" rows="10" placeholder="Enter field of specialization."> <?php echo $specialization ?> </textarea>
 
           <div class="text-center">
-            <button type="submit" class="btn btn-primary mt-3">Save & Continue</button>
+            <input type="submit" class="btn btn-primary mt-3" value='Save & Continue'>
           </div>
         </form>
       </div>

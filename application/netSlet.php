@@ -6,7 +6,7 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
-//if the user uploads a new image
+//if the user uploads new academic details in the last page
 if(isset($_POST["c10_year"])) {
 
   //set vars

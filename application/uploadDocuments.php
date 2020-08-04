@@ -137,7 +137,7 @@ else{
                 10th standard or equivalent
               </td>
               <td>
-                <a href="<?php echo $c10 ?>">Click here to view the document</a>
+                <a target='_blank' href="<?php echo $c10 ?>">Click here to view the document</a>
               </td>
 
               <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
@@ -158,7 +158,7 @@ else{
                 12th standard or equivalent
               </td>
               <td>
-                <a href="<?php echo $c12 ?>">Click here to view the document</a>
+                <a target='_blank' href="<?php echo $c12 ?>">Click here to view the document</a>
               </td>
 
               <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
@@ -179,7 +179,7 @@ else{
                 Undergraduate
               </td>
               <td>
-                <a href="<?php echo $ug ?>">Click here to view the document</a>
+                <a target='_blank' href="<?php echo $ug ?>">Click here to view the document</a>
               </td>
 
               <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
@@ -200,7 +200,7 @@ else{
                 Postgraduate
               </td>
               <td>
-                <a href="<?php echo $pg ?>">Click here to view the document</a>
+                <a target='_blank' href="<?php echo $pg ?>">Click here to view the document</a>
               </td>
 
               <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
@@ -221,7 +221,7 @@ else{
                 NET / SLET / SET / GATE
               </td>
               <td>
-                <a href="<?php echo $net ?>">Click here to view the document</a>
+                <a target='_blank' href="<?php echo $net ?>">Click here to view the document</a>
               </td>
 
               <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
@@ -242,7 +242,7 @@ else{
                 Other Degree
               </td>
               <td>
-                <a href="<?php echo $other ?>">Click here to view the document</a>
+                <a target='_blank' href="<?php echo $other ?>">Click here to view the document</a>
               </td>
 
               <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">

@@ -1,3 +1,92 @@
+<?php
+session_start();
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+$uid = $_SESSION['email'];
+require_once('../database.php');
+
+//File Upload Function
+function upload($uid, $field_name){
+  print_r($_FILES);
+  $target_dir = "uploads/";
+  $file_name = $uid . "_" . time() . "_doc_" . basename($_FILES["$field_name"]["name"]);
+  $file_location = $target_dir . $file_name;
+
+  if (move_uploaded_file($_FILES["$field_name"]["tmp_name"], $file_location)) {
+    return $file_name;
+  } else {
+    echo "Sorry, there was an error uploading your file.";
+    return null;
+  }
+}
+
+
+//if add button is pressed
+if(isset($_POST["add"])){
+  $designation = $_POST["designation"];
+  $job_nature = $_POST["job_nature"];
+  $date_joined = $_POST["date_joined"];
+  $date_left = $_POST["date_left"];
+  $pay = $_POST["pay"];
+  $reason = $_POST["reason"];
+  $document = upload($uid, "new_document");
+
+
+  //insert new data in db
+  $sql = "INSERT INTO employment (designation, job_nature, date_joined, date_left, pay, reason, document, user)
+  VALUES ('$designation', '$job_nature', '$date_joined', '$date_left', '$pay', '$reason', '$document', '$uid')";
+  if ($dbc->query($sql) === TRUE) {
+    echo "Data Saved in DB.";
+  } else {
+    echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+
+}
+
+//if del btn is pressed
+if(isset($_POST["del"])){
+  $id = $_POST["id"];
+  $dbc->query("DELETE FROM employment WHERE id='$id'");
+}
+
+//get the existing employments
+$sql_get = "SELECT * FROM employment WHERE user='$uid'";
+$result_get = mysqli_query($dbc, $sql_get);
+$count_get  = mysqli_num_rows($result_get);
+if ($count_get == 0) {
+  echo "No Research Details Found!";
+} else {
+  // print_r($result_get);
+  $count_i = 1;
+}
+
+//get the existing employment data
+$ug_from = "";
+$ug_to = "";
+$pg_from = "";
+$pg_to = "";
+$res_from = "";
+$res_to = "";
+
+$result_get_data = mysqli_query($dbc, "SELECT * FROM employment_data WHERE user='$uid' LIMIT 1");
+$row_data = mysqli_fetch_assoc($result_get_data);
+$count_get_data  = mysqli_num_rows($result_get_data);
+if ($count_get_data == 0) {
+  echo "No Data Found!";
+} else {
+  $ug_from = $row_data["ug_from"];
+  $ug_to = $row_data["ug_to"];
+  $pg_from = $row_data["pg_from"];
+  $pg_to = $row_data["pg_to"];
+  $res_from = $row_data["res_from"];
+  $res_to = $row_data["res_to"];
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,22 +149,30 @@
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><button class="btn btn-danger">Delete</button></td>
+            <?php
+              while($row_get = mysqli_fetch_assoc($result_get)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $count_i . "</td>";
+                echo "<td>" . $row_get["designation"] . "</td>";
+                echo "<td>" . $row_get["job_nature"] . "</td>";
+                echo "<td>" . $row_get["date_joined"] . "</td>";
+                echo "<td>" . $row_get["date_left"] . "</td>";
+                echo "<td>" . $row_get["pay"] . "</td>";
+                echo "<td>" . $row_get["reason"] . "</td>";
+                echo "<td><a target='_blank' href='./uploads/" . $row_get["document"] . "'>See your Document here</a></td>";
+                echo "<td><form action='employment.php' method='post'>";
+                echo "<input type='text' name='id'  class='d-none' value='" . $row_get["id"] . "'>";
+                echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
+
+                $count_i = $count_i+1;
+              }
+            ?>
             </tr>
           </tbody>
         </table>
 
         <!-- Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" action="employment.php" method='post' enctype="multipart/form-data">
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -89,7 +186,7 @@
                 <td>Designation *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Designation" required />
+                  <input name='designation' type="text" class="form-control" placeholder="Enter Designation" required />
                 </td>
               </tr>
 
@@ -97,7 +194,7 @@
                 <td>Nature Of Job / Post *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Example: Permanent, Temporary">
+                  <input name='job_nature' type="text" class="form-control" placeholder="Example: Permanent, Temporary">
                 </td>
               </tr>
 
@@ -105,7 +202,7 @@
                 <td>Date Joined *</td>
 
                 <td>
-                  <input type="date" class="form-control" required />
+                  <input name='date_joined' type="date" class="form-control" required />
                 </td>
               </tr>
 
@@ -113,7 +210,7 @@
                 <td>Date Left *</td>
 
                 <td>
-                  <input type="date" class="form-control" required />
+                  <input name='date_left' type="date" class="form-control" required />
                 </td>
               </tr>
 
@@ -121,7 +218,7 @@
                 <td>Pay Scale / Brand with Grade Pay *</td>
 
                 <td>
-                  <input type="number" class="form-control" placeholder="Enter Pay Scale" required />
+                  <input name='pay' type="number" class="form-control" placeholder="Enter Pay Scale" required />
                 </td>
               </tr>
 
@@ -129,48 +226,48 @@
                 <td>Reason for leaving *</td>
 
                 <td>
-                  <textarea type="text" class="form-control" placeholder="Enter reason for leaving" required></textarea>
+                  <textarea name='reason' type="text" class="form-control" placeholder="Enter reason for leaving" required></textarea>
                 </td>
               </tr>
 
               <tr scope="row">
                 <td>Relevent Document (Max size 300 KB) *</td>
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" required />
+                  <input name='new_document' onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" required />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-warning" type="submit">Add</button>
+            <input name='add' class="btn btn-warning" type="submit" value='Add'>
           </div>
         </form>
 
 
         <!-- Form for teaching experience -->
-        <form class="form" action="">
+        <form class="form" action="fields.php" method='post'>
           <div class="inline-form">
             <label>Teaching Experience (In Years)</label>
             <div class="form-row">
               <div class="col-3">Undergraduate Classes:</div>
               <div class="col">
-                <input type="number" class="form-control" placeholder="Year" />
+                <input name='ug_from' type="number" class="form-control" placeholder="Year" value='<?php echo $ug_from ?>' />
               </div>
               <div class="p-1">to</div>
               <div class="col">
-                <input type="number" class="form-control" placeholder="Year" />
+                <input name='ug_to' type="number" class="form-control" placeholder="Year" value='<?php echo $ug_to ?>' />
               </div>
             </div>
 
             <div class="form-row mt-3">
               <div class="col-3">Postgraduate Classes:</div>
               <div class="col">
-                <input type="number" class="form-control" placeholder="Year" />
+                <input name='pg_from' type="number" class="form-control" placeholder="Year" value='<?php echo $pg_from ?>' />
               </div>
               <div class="p-1">to</div>
               <div class="col">
-                <input type="number" class="form-control" placeholder="Year" />
+                <input name='pg_to' type="number" class="form-control" placeholder="Year" value='<?php echo $pg_to ?>' />
               </div>
             </div>
           </div>
@@ -181,21 +278,21 @@
             <div class="form-row">
               <label class="col-3">Research Experience (In Years): </label>
               <div class="col">
-                <input type="number" class="form-control" placeholder="Year" />
+                <input name='res_from' type="number" class="form-control" placeholder="Year" value='<?php echo $res_from ?>' />
               </div>
               <div class="p-1">to</div>
               <div class="col">
-                <input type="number" class="form-control" placeholder="Year" />
+                <input name='res_to' type="number" class="form-control" placeholder="Year" value='<?php echo $res_to ?>' />
               </div>
             </div>
           </div>
+        <hr />
+        <div class="text-center mb-4">
+          <input class="btn btn-primary" name='submit' value='Save & Continue' type='submit'>
+        </div>
         </form>
 
-        <hr />
 
-        <div class="text-center mb-4">
-          <a href="#" class="btn btn-primary">Save & Continue</a>
-        </div>
       </div>
     </div>
   </div>

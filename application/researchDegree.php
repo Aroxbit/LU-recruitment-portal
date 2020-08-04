@@ -1,3 +1,67 @@
+<?php
+session_start();
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+$uid = $_SESSION['email'];
+require_once('../database.php');
+
+//File Upload Function
+function upload($uid, $field_name){
+  print_r($_FILES);
+  $target_dir = "uploads/";
+  $file_name = $uid . "_" . time() . "_doc_" . basename($_FILES["$field_name"]["name"]);
+  $file_location = $target_dir . $file_name;
+
+  if (move_uploaded_file($_FILES["$field_name"]["tmp_name"], $file_location)) {
+    return $file_name;
+  } else {
+    echo "Sorry, there was an error uploading your file.";
+    return null;
+  }
+}
+
+
+//if add button is pressed
+if(isset($_POST["add"])){
+  $name = $_POST["name"];
+  $title = $_POST["title"];
+  $year = $_POST["year"];
+  $university = $_POST["university"];
+  $document = upload($uid, "new_document");
+
+  //insert new data in db
+  $sql = "INSERT INTO research (name, title, year, university, document, user)
+  VALUES ('$name', '$title', '$year', '$university', '$document', '$uid')";
+  if ($dbc->query($sql) === TRUE) {
+    echo "Data Saved in DB.";
+  } else {
+    echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+
+}
+
+//if del btn is pressed
+if(isset($_POST["del"])){
+  $id = $_POST["id"];
+  $dbc->query("DELETE FROM research WHERE id='$id'");
+}
+
+//get the existing netdata
+$sql_get = "SELECT * FROM research WHERE user='$uid'";
+$result_get = mysqli_query($dbc, $sql_get);
+$count_get  = mysqli_num_rows($result_get);
+if ($count_get == 0) {
+  echo "No Research Details Found!";
+} else {
+  // print_r($result_get);
+  $count_i = 1;
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,7 +122,7 @@
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
+            <!-- <tr scope="row">
               <td>1</td>
               <td>SET</td>
               <td>AAA</td>
@@ -66,12 +130,33 @@
               <td>Computer Science</td>
               <td><a href="#">See your Document here</a></td>
               <td><button class="btn btn-danger">Delete</button></td>
-            </tr>
+            </tr> -->
+
+            <?php
+              while($row_get = mysqli_fetch_assoc($result_get)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $count_i . "</td>";
+                echo "<td>" . $row_get["name"] . "</td>";
+                echo "<td>" . $row_get["title"] . "</td>";
+                echo "<td>" . $row_get["year"] . "</td>";
+                echo "<td>" . $row_get["university"] . "</td>";
+                echo "<td><a target='_blank' href='./uploads/" . $row_get["document"] . "'>See your Document here</a></td>";
+                echo "<td><form action='researchDegree.php' method='post'>";
+                echo "<input type='text' name='id'  class='d-none' value='" . $row_get["id"] . "'>";
+                echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
+
+                $count_i = $count_i+1;
+              }
+            ?>
+
+
+
+
           </tbody>
         </table>
 
         <!-- Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" action="researchDegree.php" method='post' enctype="multipart/form-data">
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -85,7 +170,7 @@
                 <td>Degree Name *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Degree Name" required />
+                  <input name="name" type="text" class="form-control" placeholder="Enter Degree Name" required />
                 </td>
               </tr>
 
@@ -93,7 +178,7 @@
                 <td>Degree Title *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Degree title" required />
+                  <input name="title" type="text" class="form-control" placeholder="Degree title" required />
                 </td>
               </tr>
 
@@ -101,7 +186,7 @@
                 <td>Year Of Award *</td>
 
                 <td>
-                  <input type="number" class="form-control" placeholder="Enter Year" required />
+                  <input name="year" type="number" class="form-control" placeholder="Enter Year" required />
                 </td>
               </tr>
 
@@ -109,21 +194,21 @@
                 <td>University / Institution *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter University/Institution" required />
+                  <input name="university" type="text" class="form-control" placeholder="Enter University/Institution" required />
                 </td>
               </tr>
 
               <tr scope="row">
                 <td>Relevent Document (Max size 300 KB) *</td>
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" required />
+                  <input name="new_document" onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" required />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-warning" type="submit">Add</button>
+            <input class="btn btn-warning" type="submit" name="add" value="Add">
             <a href="./uploadDocuments.php" class="btn btn-primary">Continue</a>
           </div>
         </form>
