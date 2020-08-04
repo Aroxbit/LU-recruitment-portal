@@ -284,9 +284,9 @@ if ($count == 0) {
                 <th>4</th>
                 <td>
                   Master Degree
-                  <input name="$m_degree" class="form-control" type="text" placeholder="Type" value="<?php echo $m_degree ?>" />
+                  <input name="m_degree" class="form-control" type="text" placeholder="Type" value="<?php echo $m_degree ?>" />
                   <label>Subjects: </label>
-                  <input name="$m_subject" class="form-control" type="text" placeholder="Enter Subjects" value="<?php echo $m_subject ?>" />
+                  <input name="m_subject" class="form-control" type="text" placeholder="Enter Subjects" value="<?php echo $m_subject ?>" />
                 </td>
                 <td><input name="m_year" class="form-control" type="number" placeholder="Year" value="<?php echo $m_year ?>" /></td>
                 <td><input name="m_name" class="form-control" type="text" placeholder="Name" value="<?php echo $m_name ?>" /></td>
