@@ -107,8 +107,7 @@ $count  = mysqli_num_rows($result);
 if ($count == 0) {
   echo "No Academic Details Found!";
 } else {
-  print_r($row);
-
+  // print_r($row);
   $c10_year = $row["c10_year"];
   $c12_year = $row["c12_year"];
   $ug_year = $row["ug_year"];

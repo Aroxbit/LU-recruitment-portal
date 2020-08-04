@@ -81,6 +81,39 @@ if(isset($_POST["c10_year"])) {
   }
 }
 
+//if add button is pressed
+if(isset($_POST["add"])){
+  $type = $_POST["type"];
+  $agency = $_POST["agency"];
+  $year = $_POST["year"];
+  $subject = $_POST["subject"];
+
+  //insert new data in db
+  $sql = "INSERT INTO net (type, agency, year, subject, user)
+  VALUES ('$type', '$agency', '$year', '$subject', '$uid')";
+  if ($dbc->query($sql) === TRUE) {
+    echo "Data Saved in DB.";
+  } else {
+    echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+
+}
+
+//if del btn is pressed
+if(isset($_POST["del"])){
+  $id = $_POST["id"];
+  $dbc->query("DELETE FROM net WHERE id='$id'");
+}
+
+//get the existing netdata
+$sql_get = "SELECT * FROM net WHERE user='$uid'";
+$result_get = mysqli_query($dbc, $sql_get);
+$count_get  = mysqli_num_rows($result_get);
+if ($count_get == 0) {
+  echo "No Net-Slet-Set-Gate Details Found!";
+} else {
+  $count_i = 1;
+}
 ?>
 
 
@@ -144,19 +177,38 @@ if(isset($_POST["c10_year"])) {
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
-              <td>1</td>
+            <!-- <tr scope="row">
+              <td>0</td>
               <td>SET</td>
               <td>Arunachal Pradesh</td>
               <td>2020</td>
               <td>Computer Science</td>
-              <td><button class="btn btn-danger">Delete</button></td>
-            </tr>
+              <td><form action='netSlet.php' method='post'> 
+                  <input type='text' name='id'  class='d-none' value='0'>
+                  <input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr> -->
+              <!-- <td><button class="btn btn-danger">Delete</button></td> -->
+
+            <?php
+              while($row_get = mysqli_fetch_assoc($result_get)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $count_i . "</td>";
+                echo "<td>" . $row_get["type"] . "</td>";
+                echo "<td>" . $row_get["agency"] . "</td>";
+                echo "<td>" . $row_get["year"] . "</td>";
+                echo "<td>" . $row_get["subject"] . "</td>";
+                echo "<td><form action='netSlet.php' method='post'>";
+                echo "<input type='text' name='id'  class='d-none' value='" . $row_get["id"] . "'>";
+                echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
+
+                $count_i = $count_i+1;
+              }
+            ?>
+
           </tbody>
         </table>
 
         <!-- Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" action="netSlet.php" method="post">
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -170,7 +222,7 @@ if(isset($_POST["c10_year"])) {
                 <td>Details of NET / SLET / SET / GATE conducted by UGC/CSIR/ICAR State? *</td>
 
                 <td>
-                  <select class="custom-select" required>
+                  <select name='type' class="custom-select" required>
                     <option>Select Type</option>
                     <option value="NET">NET</option>
                     <option value="SLET">SLET</option>
@@ -185,7 +237,7 @@ if(isset($_POST["c10_year"])) {
                 <td>Name Of The Agency *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Agency Name" required />
+                  <input name='agency' type="text" class="form-control" placeholder="Enter Agency Name" required />
                 </td>
               </tr>
 
@@ -193,7 +245,7 @@ if(isset($_POST["c10_year"])) {
                 <td>Year Of Award *</td>
 
                 <td>
-                  <input type="number" class="form-control" placeholder="Enter Year" required />
+                  <input name='year' type="number" class="form-control" placeholder="Enter Year" required />
                 </td>
               </tr>
 
@@ -201,14 +253,14 @@ if(isset($_POST["c10_year"])) {
                 <td>Subject *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Subject" required />
+                  <input name='subject' type="text" class="form-control" placeholder="Enter Subject" required />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-warning" type="submit">Add</button>
+            <button class="btn btn-warning" type="submit" name="add">Add</button>
             <a href="./uploadDocuments.php" class="btn btn-primary">Continue</a>
           </div>
         </form>
