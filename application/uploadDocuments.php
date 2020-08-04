@@ -1,3 +1,72 @@
+<?php
+session_start();
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+$uid = $_SESSION['email'];
+require_once('../database.php');
+
+
+//if new pic is uploaded
+if(isset($_POST["upload"])){
+  $field_name = $_POST["name"];
+
+  $target_dir = "uploads/";
+  $doc_name = $uid . "_" . time() . "_doc_" . basename($_FILES["$field_name"]["name"]);
+  $doc_file = $target_dir . $doc_name;
+
+  if (move_uploaded_file($_FILES["$field_name"]["tmp_name"], $doc_file)) {
+    echo "The file has been uploaded.";
+  } else {
+    echo "Sorry, there was an error uploading your files.";
+  }
+
+  $update_sql = "UPDATE documents SET " . $field_name ."='./uploads/" . $doc_name . "' WHERE user='$uid'";
+  if(mysqli_query($dbc, $update_sql)){
+    echo "upload complete";
+  }else {
+    echo "Error updating record: " . mysqli_error($conn);
+  }
+}
+
+
+
+
+
+//Initialize the vars
+$c10 = '#';
+$c12 = '#';
+$ug = '#';
+$pg = '#';
+$net = '#';
+$other = '#';
+
+//check if the data already exists
+$doc_data = mysqli_query($dbc, "SELECT * FROM documents WHERE user='$uid' LIMIT 1");
+$doc_row = mysqli_fetch_assoc($doc_data);
+$doc_exists  = mysqli_num_rows($doc_data);
+//if no then create new data
+if ($doc_exists == 0) {
+  $sql_create = "INSERT INTO documents (c10, c12, ug, pg, net, other, user)
+  VALUES ('#', '#', '#', '#', '#', '#', '$uid')";
+  if ($dbc->query($sql_create) === TRUE) {
+    echo "New Document Table Created.";
+  } else {
+    echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+}
+else{
+  $c10 = $doc_row["c10"];
+  $c12 = $doc_row["c12"];
+  $ug = $doc_row["ug"];
+  $pg = $doc_row["pg"];
+  $net = $doc_row["net"];
+  $other = $doc_row["other"];
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,16 +137,17 @@
                 10th standard or equivalent
               </td>
               <td>
-                <a href="#">Click here to view the document</a>
+                <a href="<?php echo $c10 ?>">Click here to view the document</a>
               </td>
 
-              <form action="">
+              <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
+                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" name="c10" required />
                 </td>
 
                 <td>
-                  <button class="btn btn-primary">Upload</button>
+                  <input type="text" name="name" class='d-none' value='c10'>
+                  <input class="btn btn-primary" type='submit' name='upload' value='Upload'>
                 </td>
               </form>
             </tr>
@@ -88,16 +158,17 @@
                 12th standard or equivalent
               </td>
               <td>
-                <a href="#">Click here to view the document</a>
+                <a href="<?php echo $c12 ?>">Click here to view the document</a>
               </td>
 
-              <form action="">
+              <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
+                  <input name='c12' onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
 
                 <td>
-                  <button class="btn btn-primary">Upload</button>
+                  <input type="text" name="name" class='d-none' value='c12'>
+                  <input class="btn btn-primary" type='submit' name='upload' value='Upload'>
                 </td>
               </form>
             </tr>
@@ -108,16 +179,17 @@
                 Undergraduate
               </td>
               <td>
-                <a href="#">Click here to view the document</a>
+                <a href="<?php echo $ug ?>">Click here to view the document</a>
               </td>
 
-              <form action="">
+              <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
+                  <input name='ug' onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
 
                 <td>
-                  <button class="btn btn-primary">Upload</button>
+                  <input type="text" name="name" class='d-none' value='ug'>
+                  <input class="btn btn-primary" type='submit' name='upload' value='Upload'>
                 </td>
               </form>
             </tr>
@@ -128,16 +200,17 @@
                 Postgraduate
               </td>
               <td>
-                <a href="#">Click here to view the document</a>
+                <a href="<?php echo $pg ?>">Click here to view the document</a>
               </td>
 
-              <form action="">
+              <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
+                  <input name='pg' onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
 
                 <td>
-                  <button class="btn btn-primary">Upload</button>
+                  <input type="text" name="name" class='d-none' value='pg'>
+                  <input class="btn btn-primary" type='submit' name='upload' value='Upload'>
                 </td>
               </form>
             </tr>
@@ -148,16 +221,17 @@
                 NET / SLET / SET / GATE
               </td>
               <td>
-                <a href="#">Click here to view the document</a>
+                <a href="<?php echo $net ?>">Click here to view the document</a>
               </td>
 
-              <form action="">
+              <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
+                  <input name='net' onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
 
                 <td>
-                  <button class="btn btn-primary">Upload</button>
+                  <input type="text" name="name" class='d-none' value='net'>
+                  <input class="btn btn-primary" type='submit' name='upload' value='Upload'>
                 </td>
               </form>
             </tr>
@@ -168,16 +242,17 @@
                 Other Degree
               </td>
               <td>
-                <a href="#">Click here to view the document</a>
+                <a href="<?php echo $other ?>">Click here to view the document</a>
               </td>
 
-              <form action="">
+              <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
+                  <input name='other' onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
 
                 <td>
-                  <button class="btn btn-primary">Upload</button>
+                  <input type="text" name="name" class='d-none' value='other'>
+                  <input class="btn btn-primary" type='submit' name='upload' value='Upload'>
                 </td>
               </form>
             </tr>

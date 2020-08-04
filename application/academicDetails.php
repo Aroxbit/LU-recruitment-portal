@@ -20,8 +20,6 @@ if (isset($_POST["submit"])) {
     echo "Sorry, there was an error uploading your files.";
   }
 
-  require_once('../database.php');
-
   //find existing candidate data
   $sql_ = "SELECT * FROM photos WHERE user='$uid' LIMIT 1";
   $result_ = mysqli_query($dbc, $sql_);
