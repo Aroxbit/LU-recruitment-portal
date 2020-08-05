@@ -1,3 +1,35 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+$uid = $_SESSION['email'];
+require_once('../database.php');
+
+//initialize candidate vars
+$first_name = "{Your";
+$last_name = "Name}"; 
+$father_name = "{Father's Name}";
+$mother_name = "{Mother's Name}";
+
+
+//get candidate data
+$sql = "SELECT * FROM candidate WHERE user='$uid' LIMIT 1";
+$result = mysqli_query($dbc, $sql);
+$row = mysqli_fetch_assoc($result);
+$count  = mysqli_num_rows($result);
+if($count==0) {
+  echo "No Candidate Found!";
+} else{
+  $first_name = $row["first_name"]; 
+  $last_name = $row["last_name"]; 
+  $father_name = $row["father_name"]; 
+  $mother_name = $row["mother_name"]; 
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +79,7 @@
 
         <!-- Enter Name here -->
         <p class="">
-          I {NAME HERE} Son/Daughter of {MOTHER OR FATHER NAME HERE} hereby declare that all statements and entries
+          I <?php echo $last_name . " " . $last_name ?>, Son/Daughter of <?php echo $father_name . " & " . $mother_name ?>, hereby declare that all statements and entries
           made in the application are true, complete and correct to the best of my knowledge and belief. In the event
           of any information found being false or incorrect or inelligiblity being detected before or after the Selection
           Committee and Executive Council Meet, my candidature / appointment is liable to be cancelled by University.

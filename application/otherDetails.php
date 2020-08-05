@@ -1,3 +1,47 @@
+<?php
+session_start();
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+$uid = $_SESSION['email'];
+require_once('../database.php');
+
+function createData(){
+  global $dbc;
+  global $uid;
+
+  $detail = $_POST["detail"];
+
+  //insert new candidate data
+  $sql = "INSERT INTO other (detail, user)
+  VALUES ('$detail', '$uid')";
+  if ($dbc->query($sql) === TRUE) {
+    echo "Data Saved.";
+  } else {
+    echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+}
+
+//if new data is posted
+if (isset($_POST["detail"])) {
+  createData();
+}
+
+
+//get api score data
+$sql = "SELECT * FROM other WHERE user='$uid'";
+$result = mysqli_query($dbc, $sql);
+$count  = mysqli_num_rows($result);
+if($count==0) {
+  echo "No Data Found!";
+} else{
+  //print_r($row);
+  $count_i = 1;
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,15 +98,20 @@
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-            </tr>
+            <?php
+              while($row_get = mysqli_fetch_assoc($result)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $count_i . "</td>";
+                echo "<td>" . $row_get["detail"] . "</td>";
+
+                $count_i = $count_i+1;
+              }
+            ?>
           </tbody>
         </table>
 
         <!-- Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" action="otherDetails.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -73,7 +122,7 @@
             <tbody>
               <tr scope="row">
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Details" required />
+                  <input name='detail' type="text" class="form-control" placeholder="Enter Details" required />
                 </td>
               </tr>
             </tbody>

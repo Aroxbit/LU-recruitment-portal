@@ -6,13 +6,52 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
+function createData(){
+  global $dbc;
+  global $uid;
+  //employment data
+  $teaching = $_POST["teaching"];
+  $extension = $_POST["extension"];
+  $total = $_POST["total"];
+  $research = $_POST["research"];
+
+  //find existing employment data
+  $sql_ = "SELECT * FROM score WHERE user='$uid' LIMIT 1";
+  $result_ = mysqli_query($dbc, $sql_);
+  $count_  = mysqli_num_rows($result_);
+
+  //if it exists then delete it before creating one
+  if ($count_ > 0) {
+    if ($dbc->query("DELETE FROM score WHERE user='$uid'") === TRUE) {
+      echo "score data deleted successfully";
+    } else {
+      echo "Error deleting old score data: " . $conn->error;
+    }
+  }
+
+  //insert new candidate data
+  $sql = "INSERT INTO score (teaching, extension, total, research, user)
+  VALUES ('$teaching', '$extension', '$total', '$research', '$uid')";
+  if ($dbc->query($sql) === TRUE) {
+    echo "Data Saved.";
+    header("Location: otherDetails.php");
+  } else {
+    echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+}
+
+//if new data is posted
+if (isset($_POST["teaching"])) {
+  createData();
+}
+
 //initialize candidate vars
 $teaching = "";
 $extension = "";
 $total = "";
 $research = "";
 
-//get candidate data
+//get api score data
 $sql = "SELECT * FROM score WHERE user='$uid' LIMIT 1";
 $result = mysqli_query($dbc, $sql);
 $row = mysqli_fetch_assoc($result);
@@ -21,7 +60,7 @@ if($count==0) {
   echo "No Score Data Found!";
 } else{
   //print_r($row);
-  // If candidate data is found, assign it to vars
+  // If api score data is found, assign it to vars
   $teaching = $row["teaching"];
   $extension = $row["extension"];
   $total = $row["total"];
@@ -77,7 +116,7 @@ if($count==0) {
         <h5>Summary Of API score</h5>
 
         <!--  Development of E-learning Material Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" action="apiScore.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -127,7 +166,7 @@ if($count==0) {
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-primary" type="submit">Add & Continue</button>
+            <button class="btn btn-primary" type="submit" name='submit'>Save & Continue</button>
           </div>
         </form>
       </div>
