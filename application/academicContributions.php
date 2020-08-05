@@ -1,3 +1,122 @@
+<?php
+session_start();
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+$uid = $_SESSION['email'];
+require_once('../database.php');
+
+//File Upload Function
+function upload($uid, $field_name){
+  print_r($_FILES);
+  $target_dir = "uploads/";
+  $file_name = $uid . "_" . time() . "_doc_" . basename($_FILES["$field_name"]["name"]);
+  $file_location = $target_dir . $file_name;
+
+  if (move_uploaded_file($_FILES["$field_name"]["tmp_name"], $file_location)) {
+    return $file_name;
+  } else {
+    echo "Sorry, there was an error uploading your file.";
+    return null;
+  }
+}
+
+//when add button is pressed
+function createData($sql){
+  global $dbc;
+  if ($dbc->query($sql) === TRUE) {
+    echo "Data Saved in DB.";
+  } else {
+    echo "Error: " . $sql . "<br>" . $dbc->error;
+  }
+}
+
+//if del btn is pressed
+function removeData($table_name){
+  global $dbc;
+  $id = $_POST["id"];
+  $sql = "DELETE FROM " . $table_name . " WHERE id='$id'";
+  $dbc->query($sql);
+}
+
+//get existing data
+function readData($table_name){
+  global $dbc;
+  $uid = $_SESSION['email'];
+  $sql = "SELECT * FROM " . $table_name . " WHERE user='$uid'";
+  $result = mysqli_query($dbc, $sql);
+  $count  = mysqli_num_rows($result);
+  if ($count == 0) {
+    echo "No " . $table_name . " Data Found!";
+  } else {
+    print_r($result);
+  }
+}
+
+//upload file if it exists on form
+$my_doc = "nill";
+if(isset($_POST["new_document"])){
+  $my_doc = upload($uid, "new_document");
+}
+
+if(isset($_POST["add_a"])) {
+  $sql_a = "INSERT INTO rac_a (title, journal, isbn, peer, author, authorship, score, document, user)
+  VALUES ('{$_POST['title']}', '{$_POST['journal']}', '{$_POST['isbn']}', '{$_POST['peer']}', '{$_POST['author']}', 
+  '{$_POST['authorship']}', '{$_POST['score']}', '$my_doc', '{$_SESSION['email']}')";
+  createData($sql_a);
+}
+
+if(isset($_POST["add_b"])){
+  $sql_b = "INSERT INTO rac_b (title, publisher, isbn, type, single, authorship, score, document, user)
+  VALUES ('{$_POST["title"]}', '{$_POST["publisher"]}', '{$_POST["isbn"]}', '{$_POST["type"]}', '{$_POST["single"]}', 
+  '{$_POST["authorship"]}', '{$_POST["score"]}', '$my_doc', '{$_SESSION["email"]}')";
+  createData($sql_b);
+}
+
+if(isset($_POST["add_c"])){
+  $sql_c = "INSERT INTO rac_c (title, agency, period, grand, score, document, user)
+  VALUES ('{$_POST["title"]}', '{$_POST["agency"]}', '{$_POST["period"]}', '{$_POST["grand"]}', '{$_POST["score"]}', '$my_doc', '{$_SESSION["email"]}')";
+  createData($sql_c);
+}
+
+if(isset($_POST["add_d"])){
+  $sql_d = "INSERT INTO rac_d (course, number, thesis, degree, score, document, user)
+  VALUES ('{$_POST["course"]}', '{$_POST["number"]}', '{$_POST["thesis"]}', '{$_POST["degree"]}', '{$_POST["score"]}', '$my_doc', '{$_SESSION["email"]}')";
+  createData($sql_d);
+}
+
+if(isset($_POST["add_e1"])){
+  $sql_e1 = "INSERT INTO rac_e1 (paper, confrence, organiser, level, score, document, user)
+  VALUES ('{$_POST["paper"]}', '{$_POST["confrence"]}', '{$_POST["organiser"]}', '{$_POST["level"]}', '{$_POST["score"]}', '$my_doc', '{$_SESSION["email"]}')";
+  createData($sql_e1);
+}
+
+if(isset($_POST["add_e2"])){
+  $sql_e2 = "INSERT INTO rac_e2 (lecture, confrence, organiser, level, score, document, user)
+  VALUES ('{$_POST["lecture"]}', '{$_POST["confrence"]}', '{$_POST["organiser"]}', '{$_POST["level"]}', '{$_POST["score"]}', '$my_doc', '{$_SESSION["email"]}')";
+  createData($sql_e2);
+}
+
+if(isset($_POST["add_f"])){
+  $sql_f = "INSERT INTO rac_f (nature, module, year, score, document, user)
+  VALUES ('{$_POST["nature"]}', '{$_POST["module"]}', '{$_POST["year"]}', '{$_POST["score"]}', '$my_doc', '{$_SESSION["email"]}')";
+  createData($sql_f);
+}
+
+if(isset($_POST["add_g"])){
+  $sql_g = "INSERT INTO rac_g (post, nature, year, organization, user)
+  VALUES ('{$_POST["post"]}', '{$_POST["nature"]}', '{$_POST["year"]}', '{$_POST["organization"]}', '{$_SESSION["email"]}')";
+  createData($sql_g);
+}
+
+
+readData("rac_a");
+readData("rac_b");
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,7 +199,7 @@
         </table>
 
         <!-- Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" action="academicContributions.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -94,7 +213,7 @@
                 <td>Title with Page No *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Title with page no." required />
+                  <input name='title' type="text" class="form-control" placeholder="Enter Title with page no." required />
                 </td>
               </tr>
 
@@ -102,7 +221,7 @@
                 <td>Journal *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Journal" required />
+                  <input name='journal' type="text" class="form-control" placeholder="Enter Journal" required />
                 </td>
               </tr>
 
@@ -110,7 +229,7 @@
                 <td>ISSN / ISBN No. *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter ISSN / ISBN No." required />
+                  <input name='isbn' type="text" class="form-control" placeholder="Enter ISSN / ISBN No." required />
                 </td>
               </tr>
 
@@ -118,7 +237,7 @@
                 <td>Peer Reviewed / Impact Factor (Provide UGC list no.) *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Peer Reviewed / Impact Factor" required />
+                  <input name='peer' type="text" class="form-control" placeholder="Enter Peer Reviewed / Impact Factor" required />
                 </td>
               </tr>
 
@@ -126,7 +245,7 @@
                 <td>No. of Co-authors *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="No. of co-author" required />
+                  <input name='author' type="text" class="form-control" placeholder="No. of co-author" required />
                 </td>
               </tr>
 
@@ -134,7 +253,7 @@
                 <td>Authorship (Main author / Corresponding author) *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Name of Author (Main / Corresponding)" required />
+                  <input name='authorship' type="text" class="form-control" placeholder="Name of Author (Main / Corresponding)" required />
                 </td>
               </tr>
 
@@ -142,21 +261,21 @@
                 <td>API score *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
                 </td>
               </tr>
 
               <tr scope="row">
                 <td>Relevent Document (Max 300 KB)</td>
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                  <input name='new_document' onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-warning" type="submit">Add</button>
+            <button class="btn btn-warning" type="submit" name='add_a'>Add</button>
           </div>
         </form>
 
