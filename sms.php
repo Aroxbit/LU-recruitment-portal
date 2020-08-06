@@ -5,7 +5,7 @@
 // $request->setMethod(HTTP_METH_GET);
 
 // $request->setQueryData(array(
-//   'AUTH_KEY' => 'ab288b32838f6c08418731a818ca77c',
+//   'AUTH_KEY' => '',
 //   'message' => 'message',
 //   'senderId' => 'DEMOOS',
 //   'routeId' => '8',
