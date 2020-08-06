@@ -22,7 +22,7 @@
     </a>
 
     <div class="inline-flex">
-      <a href="./registration.php" class="btn btn-primary">Register</a>
+      <a href="./register.php" class="btn btn-primary">Register</a>
       <a href="./signin.php" class="btn btn-info">Sign In</a>
     </div>
   </nav>

@@ -1,3 +1,22 @@
+<?php
+session_start();
+require_once('./database.php');
+
+$mesg = "";
+if(isset($_POST["email"]) && isset($_POST["pass"])){
+  $email = $_POST["email"];
+  $pass = $_POST["pass"];
+  $result = mysqli_query($dbc,"SELECT * FROM users WHERE email='" . $email . "' and pass = '". $pass."'");
+  $count  = mysqli_num_rows($result);
+  if($count==0) {
+    $mesg = "Wrong Email or Password";
+  } else {
+      $_SESSION["email"] = $email;
+      header("Location: dashboard.php");
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +41,7 @@
     </a>
 
     <div class="inline-flex">
-      <a href="./registration.php" class="btn btn-primary">Register</a>
+      <a href="./register.php" class="btn btn-primary">Register</a>
       <a href="./signin.php" class="btn btn-info">Sign In</a>
     </div>
   </nav>
@@ -33,7 +52,7 @@
       <h4 class="text-center mt-3 color-green">Sign In</h4>
 
       <div class="d-flex justify-content-center">
-        <form method="post" action="session.php" class="card form-width-400 mt-3 p-3">
+        <form method="post" action="signin.php" class="card form-width-400 mt-3 p-3">
           <div class="form-group">
             <label>Email Address *</label>
             <input name="email" type="email" class="form-control" placeholder="Enter email" required />
@@ -43,7 +62,7 @@
             <label>Password *</label>
             <input name="pass" type="password" class="form-control" placeholder="Password" required />
           </div>
-
+          <p><?php echo $mesg ?></p>
           <button type="submit" class="btn btn-primary">Sign In</button>
         </form>
       </div>

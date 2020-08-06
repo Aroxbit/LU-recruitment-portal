@@ -46,6 +46,16 @@ if (!isset($_SESSION['email'])) {
           </svg>
           My application
         </a>
+        
+        <a href="./application/form_preview.php" class="list-group-item list-group-item-action">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" />
+            <circle cx="12" cy="12" r="2" />
+            <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />
+            <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" />
+          </svg>
+          Preview Form
+        </a>
 
         <a href="#" class="list-group-item list-group-item-action">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cash" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -55,16 +65,6 @@ if (!isset($_SESSION['email'])) {
             <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2" />
           </svg>
           Make Payment
-        </a>
-
-        <a href="#" class="list-group-item list-group-item-action">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" />
-            <circle cx="12" cy="12" r="2" />
-            <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />
-            <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" />
-          </svg>
-          Preview Form
         </a>
       </div>
     </div>
