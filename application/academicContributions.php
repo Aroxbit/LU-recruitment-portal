@@ -166,7 +166,7 @@ $table_g = readData("rac_g");
         </div>
       </div>
       <!-- Form Section -->
-      <div class="col p-3">
+      <div class="col-9 p-3">
 
 
 
