@@ -836,7 +836,7 @@ $other_table = readData("other", false);
       <p>You won't be able to edit the form if you continue.</p>
 
       <div class="text-center mb-2">
-        <button class="btn btn-primary">Accept & Continue</button>
+        <a href='../dashboard.php' class="btn btn-primary">Accept & Continue</a>
       </div>
     </div>
 

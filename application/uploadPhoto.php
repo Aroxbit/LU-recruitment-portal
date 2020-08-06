@@ -7,6 +7,7 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
+$status = "";
 
 //if new data is posted 
 if (isset($_POST["post"])) {
@@ -38,7 +39,7 @@ if (isset($_POST["post"])) {
   //if it exists then delete it before creating one
   if ($count_ > 0) {
     if ($dbc->query("DELETE FROM candidate WHERE user='$uid'") === TRUE) {
-      echo "Candidate deleted successfully";
+      $status = "Deleted";
     } else {
       echo "Error deleting candidate: " . $conn->error;
     }
@@ -47,12 +48,7 @@ if (isset($_POST["post"])) {
   //insert new candidate data
   $sql = "INSERT INTO candidate (post, post_code, first_name, last_name, dob, gender, disability, father_name, mother_name, nationality, mother_tongue, languages, category, category_for, category_in, marital_status, user)
   VALUES ('$post', '$post_code', '$first_name', '$last_name', '$dob', '$gender', '$disability', '$father_name', '$mother_name', '$nationality', '$mother_tongue', '$languages', '$category', '$category_for', '$category_in', '$marital_status', '$user')";
-
-  if ($dbc->query($sql) === TRUE) {
-    echo "Candidate Saved.";
-  } else {
-    echo "Error: " . $sql . "<br>" . $dbc->error;
-  }
+  $dbc->query($sql);
 
   //address data
   $address_one = $_POST["address_one"];
@@ -84,22 +80,14 @@ if (isset($_POST["post"])) {
 
   //if it exists then delete it before creating one
   if ($s_count_ > 0) {
-    if ($dbc->query("DELETE FROM address WHERE user='$uid'") === TRUE) {
-      echo "Address deleted successfully";
-    } else {
-      echo "Error deleting address: " . $conn->error;
-    }
+    $dbc->query("DELETE FROM address WHERE user='$uid'");
   }
 
   //insert new address data
   $s_sql = "INSERT INTO address (user, address_one, s_address_one, address_two, s_address_two, address_three, s_address_three, post_office, s_post_office, police_station, s_police_station, country, s_country, state, s_state, district, s_district, pin, s_pin, parent_phone, s_parent_phone)
   VALUES ('$a_user', '$address_one', '$s_address_one', '$address_two', '$s_address_two', '$address_three', '$s_address_three', '$post_office', '$s_post_office', '$police_station', '$s_police_station', '$country', '$s_country', '$state', '$s_state', '$district', '$s_district', '$pin', '$s_pin', '$parent_phone', '$s_parent_phone')";
 
-  if ($dbc->query($s_sql) === TRUE) {
-    echo "Address Saved.";
-  } else {
-    echo "Error: " . $s_sql . "<br>" . $dbc->error;
-  }
+  $dbc->query($s_sql);
 }
 
 //get data to autofill if it exists

@@ -86,7 +86,7 @@ if($count==0) {
         </p>
 
         <div class="text-center mt-3">
-          <button class="btn btn-primary">Accept & Continue</button>
+          <a href='./form_preview.php' class="btn btn-primary">Accept & Continue</a>
         </div>
       </div>
     </div>

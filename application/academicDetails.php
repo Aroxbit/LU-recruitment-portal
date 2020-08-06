@@ -198,7 +198,7 @@ if ($count == 0) {
       </div>
 
       <!-- Form Section -->
-      <div class="col">
+      <div class="col-9">
         <form class="mt-4" action="netSlet.php" method="post">
           <table class="table table-bordered">
             <thead>

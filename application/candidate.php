@@ -53,9 +53,7 @@ $sql = "SELECT * FROM candidate WHERE user='$uid' LIMIT 1";
 $result = mysqli_query($dbc, $sql);
 $row = mysqli_fetch_assoc($result);
 $count  = mysqli_num_rows($result);
-if($count==0) {
-  echo "No Candidate Found!";
-} else{
+if($count) {
   //print_r($row);
   // If candidate data is found, assign it to vars
   $post = $row["post"]; 
@@ -80,9 +78,7 @@ if($count==0) {
   $s_result = mysqli_query($dbc, $s_sql);
   $s_row = mysqli_fetch_assoc($s_result);
   $s_count  = mysqli_num_rows($s_result);
-  if($s_count==0) {
-    echo "No Address Found!";
-  } else{
+  if($s_count){
     //print_r($s_row);
     // If candidate data is found, assign it to vars
     $address_one = $s_row["address_one"];

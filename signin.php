@@ -15,6 +15,10 @@ if(isset($_POST["email"]) && isset($_POST["pass"])){
       header("Location: dashboard.php");
   }
 }
+
+if(isset($_GET["logout"])){
+  session_destroy();
+}
 ?>
 
 <!DOCTYPE html>
