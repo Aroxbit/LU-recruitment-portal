@@ -12,30 +12,30 @@ function upload($uid, $field_name){
   $target_dir = "uploads/";
   $file_name = $uid . "_" . time() . "_doc_" . basename($_FILES["$field_name"]["name"]);
   $file_location = $target_dir . $file_name;
-
   if (move_uploaded_file($_FILES["$field_name"]["tmp_name"], $file_location)) {
     return $file_name;
   } else {
     echo "Sorry, there was an error uploading your file.";
-    return null;
+    die();
+    //return null;
   }
 }
 
 //when add button is pressed
 function createData($sql){
   global $dbc;
-  if ($dbc->query($sql) === TRUE) {
-    echo "Data Saved in DB.";
-  } else {
+  if (!($dbc->query($sql) === TRUE)) {
     echo "Error: " . $sql . "<br>" . $dbc->error;
+    die();
   }
 }
 
-//if del btn is pressed
-function removeData($table_name){
+//remove data from a table
+function removeData(){
   global $dbc;
   $id = $_POST["id"];
-  $sql = "DELETE FROM " . $table_name . " WHERE id='$id'";
+  $table = $_POST["table"];
+  $sql = "DELETE FROM " . $table . " WHERE id='$id'";
   $dbc->query($sql);
 }
 
@@ -45,20 +45,20 @@ function readData($table_name){
   $uid = $_SESSION['email'];
   $sql = "SELECT * FROM " . $table_name . " WHERE user='$uid'";
   $result = mysqli_query($dbc, $sql);
-  $count  = mysqli_num_rows($result);
-  if ($count == 0) {
-    echo "No " . $table_name . " Data Found!";
-  } else {
-    print_r($result);
-  }
+  // if (mysqli_num_rows($result)) echo "Hello!";
+  return $result;
 }
 
 //upload file if it exists on form
 $my_doc = "nill";
-if(isset($_POST["new_document"])){
+if(isset($_POST["score"])){
   $my_doc = upload($uid, "new_document");
 }
 
+// delete button pressed
+if(isset($_POST['del'])) removeData();
+
+//create data based on which form has been submitted
 if(isset($_POST["add_a"])) {
   $sql_a = "INSERT INTO rac_a (title, journal, isbn, peer, author, authorship, score, document, user)
   VALUES ('{$_POST['title']}', '{$_POST['journal']}', '{$_POST['isbn']}', '{$_POST['peer']}', '{$_POST['author']}', 
@@ -110,8 +110,14 @@ if(isset($_POST["add_g"])){
 }
 
 
-readData("rac_a");
-readData("rac_b");
+$table_a = readData("rac_a");
+$table_b = readData("rac_b");
+$table_c = readData("rac_c");
+$table_d = readData("rac_d");
+$table_e1 = readData("rac_e1");
+$table_e2 = readData("rac_e2");
+$table_f = readData("rac_f");
+$table_g = readData("rac_g");
 
 ?>
 
@@ -159,12 +165,13 @@ readData("rac_b");
           <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
-
       <!-- Form Section -->
       <div class="col p-3">
 
-        <h5>(A) Research Papers Published in referred Journals/Other reputed Journal as notified by the UGC (Category-III)</h5>
 
+
+        <h5>(A) Research Papers Published in referred Journals/Other reputed Journal as notified by the UGC (Category-III)</h5>
+      <!-- AAA -->
         <table class="table table-bordered mt-4">
           <thead>
             <tr>
@@ -183,23 +190,31 @@ readData("rac_b");
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-              <td><button class="btn btn-danger">Delete</button></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_a)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["title"] . "</td>";
+                echo "<td>" . $row["journal"] . "</td>";
+                echo "<td>" . $row["isbn"] . "</td>";
+                echo "<td>" . $row["peer"] . "</td>";
+                echo "<td>" . $row["author"] . "</td>";
+                echo "<td>" . $row["authorship"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
+                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
+                echo "<input type='text' name='table'  class='d-none' value='rac_a'>";
+                echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
+
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
-
-        <!-- Form -->
-        <form class="mt-4" action="academicContributions.php" method='post'>
+        <!-- AAA -->
+        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -278,11 +293,11 @@ readData("rac_b");
             <button class="btn btn-warning" type="submit" name='add_a'>Add</button>
           </div>
         </form>
-
         <hr />
 
-        <h5>(B) Book(s) Published</h5>
 
+
+        <h5>(B) Book(s) Published</h5>
         <table class="table table-bordered mt-4">
           <thead>
             <tr>
@@ -301,23 +316,31 @@ readData("rac_b");
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-              <td><button class="btn btn-danger">Delete</button></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_b)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["title"] . "</td>";
+                echo "<td>" . $row["authorship"] . "</td>";
+                echo "<td>" . $row["isbn"] . "</td>";
+                echo "<td>" . $row["publisher"] . "</td>";
+                echo "<td>" . $row["type"] . "</td>";
+                echo "<td>" . $row["single"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
+                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
+                echo "<input type='text' name='table'  class='d-none' value='rac_b'>";
+                echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
+
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
-
-        <!--  Books Published Form -->
-        <form class="mt-4" action="">
+        <!-- BBB Books Published Form -->
+        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -331,7 +354,7 @@ readData("rac_b");
                 <td>Book Title *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Book Title" required />
+                  <input name='title' type="text" class="form-control" placeholder="Enter Book Title" required />
                 </td>
               </tr>
 
@@ -339,7 +362,7 @@ readData("rac_b");
                 <td>Type of Authorship *</td>
 
                 <td>
-                  <select class="custom-select" required>
+                  <select name='authorship' class="custom-select" required>
                     <option>Select Type</option>
                     <option value="Single">Single</option>
                     <option value="Joint">Joint</option>
@@ -351,7 +374,7 @@ readData("rac_b");
                 <td>ISSN / ISBN No. *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter ISSN / ISBN No." required />
+                  <input name='isbn' type="text" class="form-control" placeholder="Enter ISSN / ISBN No." required />
                 </td>
               </tr>
 
@@ -359,7 +382,7 @@ readData("rac_b");
                 <td>Publisher Type *</td>
 
                 <td>
-                  <select class="custom-select" required>
+                  <select name='publisher' class="custom-select" required>
                     <option>Select Publisher</option>
                     <option value="International">International</option>
                     <option value="National">National</option>
@@ -374,7 +397,7 @@ readData("rac_b");
                 <td>Type Of Book *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Type Of Book. Example: Text, Reference, Subject etc." required />
+                  <input name='type' type="text" class="form-control" placeholder="Enter Type Of Book. Example: Text, Reference, Subject etc." required />
                 </td>
               </tr>
 
@@ -382,7 +405,7 @@ readData("rac_b");
                 <td>Single / Co-author *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Single or Co-author" required />
+                  <input name='single' type="text" class="form-control" placeholder="Enter Single or Co-author" required />
                 </td>
               </tr>
 
@@ -390,28 +413,28 @@ readData("rac_b");
                 <td>API score *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
                 </td>
               </tr>
 
               <tr scope="row">
                 <td>Relevent Document (Max 300 KB)</td>
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                  <input name='new_document' onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-warning" type="submit">Add</button>
+            <button class="btn btn-warning" type="submit" name='add_b'>Add</button>
           </div>
         </form>
-
         <hr />
 
-        <h5>(C) Research Projects</h5>
 
+
+        <h5>(C) Research Projects</h5>
         <table class="table table-bordered mt-4">
           <thead>
             <tr>
@@ -428,21 +451,29 @@ readData("rac_b");
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-              <td><button class="btn btn-danger">Delete</button></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_c)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["title"] . "</td>";
+                echo "<td>" . $row["agency"] . "</td>";
+                echo "<td>" . $row["period"] . "</td>";
+                echo "<td>" . $row["grand"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
+                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
+                echo "<input type='text' name='table'  class='d-none' value='rac_c'>";
+                echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
+
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
-
         <!-- Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -456,7 +487,7 @@ readData("rac_b");
                 <td>Title *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Title" required />
+                  <input name='title' type="text" class="form-control" placeholder="Enter Title" required />
                 </td>
               </tr>
 
@@ -464,7 +495,7 @@ readData("rac_b");
                 <td>Agency *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Agency Name" required />
+                  <input name='agency' type="text" class="form-control" placeholder="Enter Agency Name" required />
                 </td>
               </tr>
 
@@ -472,7 +503,7 @@ readData("rac_b");
                 <td>Period *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Period" required />
+                  <input name='period' type="text" class="form-control" placeholder="Enter Period" required />
                 </td>
               </tr>
 
@@ -480,7 +511,7 @@ readData("rac_b");
                 <td>Grand / Amount Sanctioned (Rs.) *</td>
 
                 <td>
-                  <input type="number" class="form-control" placeholder="Enter Grand / Amount" required />
+                  <input name='grand' type="number" class="form-control" placeholder="Enter Grand / Amount" required />
                 </td>
               </tr>
 
@@ -488,28 +519,28 @@ readData("rac_b");
                 <td>API score *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
                 </td>
               </tr>
 
               <tr scope="row">
                 <td>Relevent Document (Max 300 KB)</td>
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                  <input name='new_document' onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-warning" type="submit">Add</button>
+            <button name='add_c' class="btn btn-warning" type="submit">Add</button>
           </div>
         </form>
-
         <hr />
 
-        <h5>(D) Research Guidance</h5>
 
+
+        <h5>(D) Research Guidance</h5>
         <table class="table table-bordered mt-4">
           <thead>
             <tr>
@@ -526,21 +557,29 @@ readData("rac_b");
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-              <td><button class="btn btn-danger">Delete</button></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_d)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["course"] . "</td>";
+                echo "<td>" . $row["number"] . "</td>";
+                echo "<td>" . $row["thesis"] . "</td>";
+                echo "<td>" . $row["degree"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
+                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
+                echo "<input type='text' name='table'  class='d-none' value='rac_d'>";
+                echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
+
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
-
         <!-- Research Guidance Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -554,7 +593,7 @@ readData("rac_b");
                 <td>Course *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Title" required />
+                  <input name='course' type="text" class="form-control" placeholder="Enter Title" required />
                 </td>
               </tr>
 
@@ -562,7 +601,7 @@ readData("rac_b");
                 <td>Number of student enrolled *</td>
 
                 <td>
-                  <input type="number" class="form-control" placeholder="Enter Number of student enrolled" required />
+                  <input name='number' type="number" class="form-control" placeholder="Enter Number of student enrolled" required />
                 </td>
               </tr>
 
@@ -570,7 +609,7 @@ readData("rac_b");
                 <td>Thesis Submitted *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Thesis Submitted" required />
+                  <input name='thesis' type="text" class="form-control" placeholder="Enter Thesis Submitted" required />
                 </td>
               </tr>
 
@@ -578,7 +617,7 @@ readData("rac_b");
                 <td>Degree Awarded *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Degree Awarded" required />
+                  <input name='degree' type="text" class="form-control" placeholder="Enter Degree Awarded" required />
                 </td>
               </tr>
 
@@ -586,28 +625,28 @@ readData("rac_b");
                 <td>API score *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
                 </td>
               </tr>
 
               <tr scope="row">
                 <td>Relevent Document (Max 300 KB)</td>
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                  <input name='new_document' onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-warning" type="submit">Add</button>
+            <button name='add_d' class="btn btn-warning" type="submit">Add</button>
           </div>
         </form>
-
         <hr />
 
-        <h5>(E) (a) Paper Presented in Confrences/Seminars</h5>
 
+
+        <h5>(E) (a) Paper Presented in Confrences/Seminars</h5>
         <table class="table table-bordered mt-4">
           <thead>
             <tr>
@@ -624,21 +663,29 @@ readData("rac_b");
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-              <td><button class="btn btn-danger">Delete</button></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_e1)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["paper"] . "</td>";
+                echo "<td>" . $row["confrence"] . "</td>";
+                echo "<td>" . $row["organiser"] . "</td>";
+                echo "<td>" . $row["level"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
+                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
+                echo "<input type='text' name='table'  class='d-none' value='rac_e1'>";
+                echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
+
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
-
         <!--  Paper Presented in Confrences/Seminars Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -652,7 +699,7 @@ readData("rac_b");
                 <td>Title of Paper Presented *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Title" required />
+                  <input name='paper' type="text" class="form-control" placeholder="Enter Title" required />
                 </td>
               </tr>
 
@@ -660,7 +707,7 @@ readData("rac_b");
                 <td>Title of Confrence / Seminar etc *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Title of Confrence / Seminar etc" required />
+                  <input name='confrence' type="text" class="form-control" placeholder="Enter Title of Confrence / Seminar etc" required />
                 </td>
               </tr>
 
@@ -668,7 +715,7 @@ readData("rac_b");
                 <td>Organised By *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Organiser" required />
+                  <input name='organiser' type="text" class="form-control" placeholder="Enter Organiser" required />
                 </td>
               </tr>
 
@@ -676,7 +723,7 @@ readData("rac_b");
                 <td>Weather of International / National / State / University Level *</td>
 
                 <td>
-                  <select class="custom-select" required>
+                  <select name='level' class="custom-select" required>
                     <option>Select Level</option>
                     <option value="International">International</option>
                     <option value="National">National</option>
@@ -690,28 +737,28 @@ readData("rac_b");
                 <td>API score *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
                 </td>
               </tr>
 
               <tr scope="row">
                 <td>Relevent Document (Max 300 KB)</td>
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                  <input name='new_document' onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-warning" type="submit">Add</button>
+            <button name='add_e1' class="btn btn-warning" type="submit">Add</button>
           </div>
         </form>
-
         <hr />
 
-        <h5>(E) (b) Invited Lectures in Confrences/Seminars</h5>
 
+
+        <h5>(E) (b) Invited Lectures in Confrences/Seminars</h5>
         <table class="table table-bordered mt-4">
           <thead>
             <tr>
@@ -728,21 +775,29 @@ readData("rac_b");
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-              <td><button class="btn btn-danger">Delete</button></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_e2)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["lecture"] . "</td>";
+                echo "<td>" . $row["confrence"] . "</td>";
+                echo "<td>" . $row["organiser"] . "</td>";
+                echo "<td>" . $row["level"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
+                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
+                echo "<input type='text' name='table'  class='d-none' value='rac_e2'>";
+                echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
+
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
-
         <!--  Invited Lectures in Confrences/Seminars Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -756,7 +811,7 @@ readData("rac_b");
                 <td>Title Of The Lecture *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Title" required />
+                  <input name='lecture' type="text" class="form-control" placeholder="Enter Title" required />
                 </td>
               </tr>
 
@@ -764,7 +819,7 @@ readData("rac_b");
                 <td>Title of Confrence / Seminar etc *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Title of Confrence / Seminar etc" required />
+                  <input name='confrence' type="text" class="form-control" placeholder="Enter Title of Confrence / Seminar etc" required />
                 </td>
               </tr>
 
@@ -772,7 +827,7 @@ readData("rac_b");
                 <td>Organised By *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Organiser" required />
+                  <input name='organiser' type="text" class="form-control" placeholder="Enter Organiser" required />
                 </td>
               </tr>
 
@@ -780,7 +835,7 @@ readData("rac_b");
                 <td>Weather of International / National / State / University Level *</td>
 
                 <td>
-                  <select class="custom-select" required>
+                  <select name='level' class="custom-select" required>
                     <option>Select Level</option>
                     <option value="International">International</option>
                     <option value="National">National</option>
@@ -794,28 +849,28 @@ readData("rac_b");
                 <td>API score *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
                 </td>
               </tr>
 
               <tr scope="row">
                 <td>Relevent Document (Max 300 KB)</td>
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                  <input name='new_document' onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-warning" type="submit">Add</button>
+            <button name='add_e2' class="btn btn-warning" type="submit">Add</button>
           </div>
         </form>
-
         <hr />
 
-        <h5>(F) Development Of E-Learning Material</h5>
 
+
+        <h5>(F) Development Of E-Learning Material</h5>
         <table class="table table-bordered mt-4">
           <thead>
             <tr>
@@ -831,20 +886,28 @@ readData("rac_b");
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-              <td><button class="btn btn-danger">Delete</button></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_f)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["nature"] . "</td>";
+                echo "<td>" . $row["module"] . "</td>";
+                echo "<td>" . $row["year"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
+                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
+                echo "<input type='text' name='table'  class='d-none' value='rac_f'>";
+                echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
+
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
-
         <!--  Development of E-learning Material Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -858,7 +921,7 @@ readData("rac_b");
                 <td>Nature Of Activity *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Nature Of Activity" required />
+                  <input name='nature' type="text" class="form-control" placeholder="Enter Nature Of Activity" required />
                 </td>
               </tr>
 
@@ -866,7 +929,7 @@ readData("rac_b");
                 <td>Module Details *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Module Details" required />
+                  <input name='module' type="text" class="form-control" placeholder="Enter Module Details" required />
                 </td>
               </tr>
 
@@ -874,7 +937,7 @@ readData("rac_b");
                 <td>Year *</td>
 
                 <td>
-                  <input type="number" class="form-control" placeholder="Enter Year" required />
+                  <input name='year' type="number" class="form-control" placeholder="Enter Year" required />
                 </td>
               </tr>
 
@@ -882,28 +945,28 @@ readData("rac_b");
                 <td>API score *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
                 </td>
               </tr>
 
               <tr scope="row">
                 <td>Relevent Document (Max 300 KB)</td>
                 <td>
-                  <input onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
+                  <input name='new_document' onchange="validate()" type="file" accept="image/jpg, image/png, application/pdf" class="form-control" />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-warning" type="submit">Add</button>
+            <button name='add_f' class="btn btn-warning" type="submit">Add</button>
           </div>
         </form>
-
         <hr />
 
-        <h5>(G) Contribution in Corporate Life (if any)</h5>
 
+
+        <h5>(G) Contribution in Corporate Life (if any)</h5>
         <table class="table table-bordered mt-4">
           <thead>
             <tr>
@@ -918,19 +981,27 @@ readData("rac_b");
 
           <tbody>
             <!-- Replace this section using javascript -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><button class="btn btn-danger">Delete</button></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_g)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["post"] . "</td>";
+                echo "<td>" . $row["nature"] . "</td>";
+                echo "<td>" . $row["year"] . "</td>";
+                echo "<td>" . $row["organization"] . "</td>";
+                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
+                echo "<input type='text' name='table'  class='d-none' value='rac_g'>";
+                echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
+
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
-
         <!--  Development of E-learning Material Form -->
-        <form class="mt-4" action="">
+        <form class="mt-4" action="academicContributions.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -944,7 +1015,7 @@ readData("rac_b");
                 <td>Post Held *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Post Held" required />
+                  <input name='post' type="text" class="form-control" placeholder="Enter Post Held" required />
                 </td>
               </tr>
 
@@ -952,7 +1023,7 @@ readData("rac_b");
                 <td>Nature Of Work *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Nature Of Work" required />
+                  <input name='nature' type="text" class="form-control" placeholder="Enter Nature Of Work" required />
                 </td>
               </tr>
 
@@ -960,7 +1031,7 @@ readData("rac_b");
                 <td>Year *</td>
 
                 <td>
-                  <input type="number" class="form-control" placeholder="Enter Year" required />
+                  <input name='year' type="number" class="form-control" placeholder="Enter Year" required />
                 </td>
               </tr>
 
@@ -968,18 +1039,19 @@ readData("rac_b");
                 <td>Organization / Institute *</td>
 
                 <td>
-                  <input type="text" class="form-control" placeholder="Enter Organization / Institute" required />
+                  <input name='organization' type="text" class="form-control" placeholder="Enter Organization / Institute" required />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-warning" type="submit">Add</button>
+            <button name='add_g' class="btn btn-warning" type="submit">Add</button>
           </div>
         </form>
-
         <hr>
+
+
 
         <div class="text-center">
           <a href="./apiScore.php" class="btn btn-primary">Continue</a>
