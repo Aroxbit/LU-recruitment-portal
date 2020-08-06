@@ -403,20 +403,23 @@ $other_table = readData("other", false);
               <th scope="col">Title</th>
               <th scope="col">Date of Award of degree.</th>
               <th scope="col">Institution / University</th>
-              <th scope="col">Document</th>
             </tr>
           </thead>
 
           <tbody>
             <!-- Replace here using php -->
-            <tr scope="row">
-              <td>1</td>
-              <td>SET</td>
-              <td>AAA</td>
-              <td>2020</td>
-              <td>Computer Science</td>
-              <td><a href="#">See your Document here</a></td>
-            </tr>
+            <?php
+              $research_i = 1;
+              while($research_row = mysqli_fetch_assoc($research_table)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $research_i . "</td>";
+                echo "<td>" . $research_row["name"] . "</td>";
+                echo "<td>" . $research_row["title"] . "</td>";
+                echo "<td>" . $research_row["year"] . "</td>";
+                echo "<td>" . $research_row["university"] . "</td>";
+                $research_i = $research_i+1;
+              }
+            ?>
           </tbody>
         </table>
       </div>
@@ -435,21 +438,24 @@ $other_table = readData("other", false);
               <th scope="col">Name of Academic Body / Association</th>
               <th scope="col">Year</th>
               <th scope="col">API score</th>
-              <th scope="col">Document</th>
             </tr>
           </thead>
 
           <tbody>
             <!-- Replace here using php -->
-            <tr scope="row">
-              <td>1</td>
-              <td>Award Name</td>
-              <td>Level</td>
-              <td>Academic Body Name</td>
-              <td>2018</td>
-              <td>API Score here</td>
-              <td><a href="#">See your Document here</a></td>
-            </tr>
+            <?php
+              $award_i = 1;
+              while($award_row = mysqli_fetch_assoc($award_table)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $award_i . "</td>";
+                echo "<td>" . $award_row["name"] . "</td>";
+                echo "<td>" . $award_row["level"] . "</td>";
+                echo "<td>" . $award_row["year"] . "</td>";
+                echo "<td>" . $award_row["university"] . "</td>";
+                echo "<td>" . $award_row["score"] . "</td>";
+                $award_i = $award_i+1;
+              }
+            ?>
           </tbody>
         </table>
       </div>
@@ -469,22 +475,25 @@ $other_table = readData("other", false);
               <th scope="col">Date Left</th>
               <th scope="col">Pay Scale / Brand with Grade Pay</th>
               <th scope="col">Reason for leaving</th>
-              <th scope="col">Relevent Document</th>
             </tr>
           </thead>
 
           <tbody>
             <!-- Replace here using php -->
-            <tr scope="row">
-              <td>1</td>
-              <td>Designation Name</td>
-              <td>Govt.</td>
-              <td>2010</td>
-              <td>2018</td>
-              <td>250000</td>
-              <td>Low pay</td>
-              <td><a href="#">See your Document here</a></td>
-            </tr>
+            <?php
+              $employment_i = 1;
+              while($employment_row = mysqli_fetch_assoc($employment_table)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $employment_i . "</td>";
+                echo "<td>" . $employment_row["designation"] . "</td>";
+                echo "<td>" . $employment_row["job_nature"] . "</td>";
+                echo "<td>" . $employment_row["date_joined"] . "</td>";
+                echo "<td>" . $employment_row["date_left"] . "</td>";
+                echo "<td>" . $employment_row["pay"] . "</td>";
+                echo "<td>" . $employment_row["reason"] . "</td>";
+                $employment_i = $employment_i+1;
+              }
+            ?>
           </tbody>
         </table>
       </div>
@@ -502,19 +511,24 @@ $other_table = readData("other", false);
               <th scope="col">Duration</th>
               <th scope="col">Organising University / Institution</th>
               <th scope="col">API score</th>
-              <th scope="col">Document</th>
             </tr>
           </thead>
 
           <tbody>
             <!-- Replace here using php -->
             <tr scope="row">
-              <td>1</td>
-              <td>Designation Name</td>
-              <td>Govt.</td>
-              <td>2010</td>
-              <td>2018</td>
-              <td><a href="#">See your Document here</a></td>
+            <?php
+              $teaching_i =1;
+              while($teaching_row = mysqli_fetch_assoc($teaching_table)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $teaching_i . "</td>";
+                echo "<td>" . $teaching_row["name"] . "</td>";
+                echo "<td>" . $teaching_row["duration"] . "</td>";
+                echo "<td>" . $teaching_row["university"] . "</td>";
+                echo "<td>" . $teaching_row["score"] . "</td>";
+                $teaching_i = $teaching_i+1;
+              }
+            ?>
             </tr>
           </tbody>
         </table>
@@ -539,23 +553,26 @@ $other_table = readData("other", false);
                 Authorship (Main author / Corresponding author)
               </th>
               <th scope="col">API score</th>
-              <th scope="col">Relevent Document</th>
             </tr>
           </thead>
 
           <tbody>
             <!-- Replace here using php -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_a)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["title"] . "</td>";
+                echo "<td>" . $row["journal"] . "</td>";
+                echo "<td>" . $row["isbn"] . "</td>";
+                echo "<td>" . $row["peer"] . "</td>";
+                echo "<td>" . $row["author"] . "</td>";
+                echo "<td>" . $row["authorship"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
       </div>
@@ -576,23 +593,26 @@ $other_table = readData("other", false);
               <th scope="col">Type of book</th>
               <th scope="col">Single / co-author</th>
               <th scope="col">API score</th>
-              <th scope="col">Relevent Document</th>
             </tr>
           </thead>
 
           <tbody>
             <!-- Replace here using php -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_b)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["title"] . "</td>";
+                echo "<td>" . $row["authorship"] . "</td>";
+                echo "<td>" . $row["isbn"] . "</td>";
+                echo "<td>" . $row["publisher"] . "</td>";
+                echo "<td>" . $row["type"] . "</td>";
+                echo "<td>" . $row["single"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
       </div>
@@ -611,21 +631,24 @@ $other_table = readData("other", false);
               <th scope="col">Period</th>
               <th scope="col">Grand / Amount Sanctioned (Rs.)</th>
               <th scope="col">API score</th>
-              <th scope="col">Relevent Document</th>
             </tr>
           </thead>
 
           <tbody>
             <!-- Replace here using php -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_c)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["title"] . "</td>";
+                echo "<td>" . $row["agency"] . "</td>";
+                echo "<td>" . $row["period"] . "</td>";
+                echo "<td>" . $row["grand"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
       </div>
@@ -644,21 +667,24 @@ $other_table = readData("other", false);
               <th scope="col">Thesis submitted</th>
               <th scope="col">Degree awarded</th>
               <th scope="col">API score</th>
-              <th scope="col">Relevent Document</th>
             </tr>
           </thead>
 
           <tbody>
             <!-- Replace here using php -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_d)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["course"] . "</td>";
+                echo "<td>" . $row["number"] . "</td>";
+                echo "<td>" . $row["thesis"] . "</td>";
+                echo "<td>" . $row["degree"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
       </div>
@@ -679,21 +705,24 @@ $other_table = readData("other", false);
                 Weather of International / National / State / University Level
               </th>
               <th scope="col">API score</th>
-              <th scope="col">Relevent Document</th>
             </tr>
           </thead>
 
           <tbody>
             <!-- Replace here using php -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_e1)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["paper"] . "</td>";
+                echo "<td>" . $row["confrence"] . "</td>";
+                echo "<td>" . $row["organiser"] . "</td>";
+                echo "<td>" . $row["level"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
       </div>
@@ -714,21 +743,24 @@ $other_table = readData("other", false);
                 Weather of International / National / State / University Level
               </th>
               <th scope="col">API score</th>
-              <th scope="col">Relevent Document</th>
             </tr>
           </thead>
 
           <tbody>
             <!-- Replace here using php -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_e2)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["lecture"] . "</td>";
+                echo "<td>" . $row["confrence"] . "</td>";
+                echo "<td>" . $row["organiser"] . "</td>";
+                echo "<td>" . $row["level"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
       </div>
@@ -746,20 +778,23 @@ $other_table = readData("other", false);
               <th scope="col">Module Details</th>
               <th scope="col">Year</th>
               <th scope="col">API score</th>
-              <th scope="col">Relevent Document</th>
             </tr>
           </thead>
 
           <tbody>
             <!-- Replace here using php -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><a href="#">See your document here</a></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_f)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["nature"] . "</td>";
+                echo "<td>" . $row["module"] . "</td>";
+                echo "<td>" . $row["year"] . "</td>";
+                echo "<td>" . $row["score"] . "</td>";
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
       </div>
@@ -782,13 +817,18 @@ $other_table = readData("other", false);
 
           <tbody>
             <!-- Replace here using php -->
-            <tr scope="row">
-              <td>1</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            <?php
+              $i = 1;
+              while($row = mysqli_fetch_assoc($table_g)){
+                echo "<tr scope='row'>";
+                echo "<td>" . $i . "</td>";
+                echo "<td>" . $row["post"] . "</td>";
+                echo "<td>" . $row["nature"] . "</td>";
+                echo "<td>" . $row["year"] . "</td>";
+                echo "<td>" . $row["organization"] . "</td>";
+                $i = $i+1;
+              }
+            ?>
           </tbody>
         </table>
       </div>
