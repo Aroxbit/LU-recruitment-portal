@@ -253,7 +253,7 @@ if($count) {
             </div>
 
             <div class="form-group">
-              <label>Category In General Category *</label>
+              <label>Consider In General Category *</label>
               <select name="category_in" class="form-control" required>
                 <option value="<?php echo $category_in ?>"><?php echo "Select: " . $category_in ?></option>
                 <option value="Yes">Yes</option>
