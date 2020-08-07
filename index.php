@@ -37,7 +37,7 @@
       <h5>Important Instruction for Candidates</h5>
       <div class="row">
         <!-- Instruction List -->
-        <div class="col-md-9 col-sm-11 card ml-2 mr-2 p-2">
+        <div class="card ml-2 mr-2 p-2">
           <b>Instructions for filling Online Application</b>
 
           <ul>
@@ -123,15 +123,6 @@
               pixels and of size not more than 50 KB.
             </li>
           </ul>
-        </div>
-
-        <div class="col col-xs-12">
-          <div class="card p-2">
-            <h5 class="text-center">Registration</h5>
-          </div>
-          <div class="card mt-2 p-2">
-            <h5 class="text-center danger-text">Notification Details</h5>
-          </div>
         </div>
       </div>
     </div>
