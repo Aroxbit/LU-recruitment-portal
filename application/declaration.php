@@ -79,7 +79,7 @@ if($count==0) {
 
         <!-- Enter Name here -->
         <p class="">
-          I <?php echo $last_name . " " . $last_name ?>, Son/Daughter of <?php echo $father_name . " & " . $mother_name ?>, hereby declare that all statements and entries
+          I <?php echo $first_name . " " . $last_name ?>, Son/Daughter of <?php echo $father_name . " & " . $mother_name ?>, hereby declare that all statements and entries
           made in the application are true, complete and correct to the best of my knowledge and belief. In the event
           of any information found being false or incorrect or inelligiblity being detected before or after the Selection
           Committee and Executive Council Meet, my candidature / appointment is liable to be cancelled by University.
