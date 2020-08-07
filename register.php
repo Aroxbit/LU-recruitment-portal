@@ -11,10 +11,6 @@ if(isset($_POST["submit"])){
   $dob = $_POST['dob'];
   $pass = $_POST['pass'];
 
-
-  // check if an account with this email already exists
-  $email = '14sarthi@gmail.com';
-  $phone = '+918687452468';
   $check_email = mysqli_query($dbc,"SELECT * FROM users WHERE email='" . $email . "' LIMIT 1");
   $check_phone = mysqli_query($dbc,"SELECT * FROM users WHERE phone='" . $phone . "' LIMIT 1");
   $count_email  = mysqli_num_rows($check_email);
