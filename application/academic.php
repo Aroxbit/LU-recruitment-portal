@@ -6,106 +6,69 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
-//if the user uploads a new image
-if (isset($_POST["submit"])) {
-  $target_dir = "uploads/";
-  $photo_name = $uid . "_" . time() . "_photo_" . basename($_FILES["photo"]["name"]);
-  $sign_name = $uid . "_" . time() . "_sign_" . basename($_FILES["sign"]["name"]);
-  $photo_file = $target_dir . $photo_name;
-  $sign_file = $target_dir . $sign_name;
 
-  if (move_uploaded_file($_FILES["photo"]["tmp_name"], $photo_file) && move_uploaded_file($_FILES["sign"]["tmp_name"], $sign_file)) {
-    echo "The files have been uploaded.";
-  } else {
-    echo "Sorry, there was an error uploading your files.";
-  }
-
-  //find existing candidate data
-  $sql_ = "SELECT * FROM photos WHERE user='$uid' LIMIT 1";
-  $result_ = mysqli_query($dbc, $sql_);
-  $row_ = mysqli_fetch_assoc($result_);
-  $count_  = mysqli_num_rows($result_);
-
-  //if it exists then delete it before creating one
-  if ($count_ > 0) {
-    unlink("./uploads/" . $row_["photo"]);
-    unlink("./uploads/" . $row_["sign"]);
-    if ($dbc->query("DELETE FROM photos WHERE user='$uid'") === TRUE) {
-      echo "Photos deleted successfully";
-    } else {
-      echo "Error deleting photos: " . $conn->error;
-    }
-  }
+//To create/update academic data
+function create_and_update(){
+  global $uid;
+  $c10_year = $_POST["c10_year"];
+  $c12_year = $_POST["c12_year"];
+  $ug_year = $_POST["ug_year"];
+  $m_year = $_POST["m_year"];
+  $net_year = $_POST["net_year"];
+  $other_year = $_POST["other_year"];
+  $c10_name = $_POST["c10_name"];
+  $c12_name = $_POST["c12_name"];
+  $ug_name = $_POST["ug_name"];
+  $m_name = $_POST["m_name"];
+  $net_name = $_POST["net_name"];
+  $other_name = $_POST["other_name"];
+  $c10_grade = $_POST["c10_grade"];
+  $c12_grade = $_POST["c12_grade"];
+  $ug_grade = $_POST["ug_grade"];
+  $m_grade = $_POST["m_grade"];
+  $net_grade = $_POST["net_grade"];
+  $other_grade = $_POST["other_grade"];
+  $c10_per = $_POST["c10_per"];
+  $c12_per = $_POST["c12_per"];
+  $ug_per = $_POST["ug_per"];
+  $m_per = $_POST["m_per"];
+  $net_per = $_POST["net_per"];
+  $other_per = $_POST["other_per"];
+  $c10_marks = $_POST["c10_marks"];
+  $c12_marks = $_POST["c12_marks"];
+  $ug_marks = $_POST["ug_marks"];
+  $m_marks = $_POST["m_marks"];
+  $net_marks = $_POST["net_marks"];
+  $other_marks = $_POST["other_marks"];
+  $c10_total = $_POST["c10_total"];
+  $c12_total = $_POST["c12_total"];
+  $ug_total = $_POST["ug_total"];
+  $m_total = $_POST["m_total"];
+  $net_total = $_POST["net_total"];
+  $other_total = $_POST["other_total"];
+  $ug_degree = $_POST["ug_degree"];
+  $ug_subject = $_POST["ug_subject"];
+  $m_degree = $_POST["m_degree"];
+  $m_subject = $_POST["m_subject"];
+  $net_degree = $_POST["net_degree"];
+  $net_subject = $_POST["net_subject"];
+  $other_degree = $_POST["other_degree"];
+  $other_subject = $_POST["other_subject"];
 
   //insert new candidate data
-  $sql = "INSERT INTO photos (photo, sign, user)
-  VALUES ('$photo_name', '$sign_name', '$uid')";
+  $sql = "INSERT INTO academic (c10_year, c12_year, ug_year, m_year, net_year, other_year, c10_name, c12_name, ug_name, m_name, net_name, other_name, c10_grade, c12_grade, ug_grade, m_grade, net_grade, other_grade, c10_per, c12_per, ug_per, m_per, net_per, other_per, c10_marks, c12_marks, ug_marks, m_marks, net_marks, other_marks, c10_total, c12_total, ug_total, m_total, net_total, other_total, ug_degree, ug_subject, m_degree, m_subject, net_degree, net_subject, other_degree, other_subject, user)
+  VALUES ('$c10_year', '$c12_year', '$ug_year', '$m_year', '$net_year', '$other_year', '$c10_name', '$c12_name', '$ug_name', '$m_name', '$net_name', '$other_name', '$c10_grade', '$c12_grade', '$ug_grade', '$m_grade', '$net_grade', '$other_grade', '$c10_per', '$c12_per', '$ug_per', '$m_per', '$net_per', '$other_per', '$c10_marks', '$c12_marks', '$ug_marks', '$m_marks', '$net_marks', '$other_marks', '$c10_total', '$c12_total', '$ug_total', '$m_total', '$net_total', '$other_total', '$ug_degree', '$ug_subject', '$m_degree', '$m_subject', '$net_degree', '$net_subject', '$other_degree', '$other_subject', '$uid')";
 
-  if ($dbc->query($sql) === TRUE) {
-    echo "Photos Saved in DB.";
-  } else {
-    echo "Error: " . $sql . "<br>" . $dbc->error;
-  }
+  updateRow("academic", $uid, $sql);
+  header("Location: net.php");
 }
 
-
-//Set default value
-$c10_year = "";
-$c12_year = "";
-$ug_year = "";
-$m_year = "";
-$net_year = "";
-$other_year = "";
-$c10_name = "";
-$c12_name = "";
-$ug_name = "";
-$m_name = "";
-$net_name = "";
-$other_name = "";
-$c10_grade = "";
-$c12_grade = "";
-$ug_grade = "";
-$m_grade = "";
-$net_grade = "";
-$other_grade = "";
-$c10_per = "";
-$c12_per = "";
-$ug_per = "";
-$m_per = "";
-$net_per = "";
-$other_per = "";
-$c10_marks = "";
-$c12_marks = "";
-$ug_marks = "";
-$m_marks = "";
-$net_marks = "";
-$other_marks = "";
-$c10_total = "";
-$c12_total = "";
-$ug_total = "";
-$m_total = "";
-$net_total = "";
-$other_total = "";
-$ug_degree = "";
-$ug_subject = "";
-$m_degree = "";
-$m_subject = "";
-$net_degree = "";
-$net_subject = "";
-$other_degree = "";
-$other_subject = "";
-
-
+// when new data is posted
+if(isset($_POST["submit"])) create_and_update();
 
 //Get user data
-$sql = "SELECT * FROM academic WHERE user='$uid' LIMIT 1";
-$result = mysqli_query($dbc, $sql);
-$row = mysqli_fetch_assoc($result);
-$count  = mysqli_num_rows($result);
-if ($count == 0) {
-  echo "No Academic Details Found!";
-} else {
-  // print_r($row);
+$row = getRow("academic", $uid, true);
+if ($row){
   $c10_year = $row["c10_year"];
   $c12_year = $row["c12_year"];
   $ug_year = $row["ug_year"];
@@ -151,6 +114,16 @@ if ($count == 0) {
   $other_degree = $row["other_degree"];
   $other_subject = $row["other_subject"];
 }
+else{
+  $c10_year = ""; $c12_year = ""; $ug_year = ""; $m_year = ""; $net_year = "";
+  $other_year = ""; $c10_name = ""; $c12_name = ""; $ug_name = ""; $m_name = ""; $net_name = ""; $other_name = "";
+  $c10_grade = ""; $c12_grade = ""; $ug_grade = ""; $m_grade = ""; $net_grade = ""; $other_grade = "";
+  $c10_per = ""; $c12_per = ""; $ug_per = ""; $m_per = ""; $net_per = ""; $other_per = "";
+  $c10_marks = ""; $c12_marks = ""; $ug_marks = ""; $m_marks = ""; $net_marks = ""; $other_marks = "";
+  $c10_total = ""; $c12_total = ""; $ug_total = ""; $m_total = ""; $net_total = ""; $other_total = "";
+  $ug_degree = ""; $ug_subject = ""; $m_degree = ""; $m_subject = ""; $net_degree = "";
+  $net_subject = ""; $other_degree = ""; $other_subject = "";
+}
 
 ?>
 
@@ -181,25 +154,25 @@ if ($count == 0) {
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
           <a href="./candidate.php" class="list-group-item">Candidate Details</a>
-          <a href="./uploadPhoto.php" class="list-group-item">Upload Photo And Signature</a>
-          <a href="./academicDetails.php" class="list-group-item active">Academic Details</a>
-          <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="./uploadDocuments.php" class="list-group-item">Upload Documents</a>
-          <a href="./researchDegree.php" class="list-group-item">Research Degree</a>
+          <a href="./photo_sign.php" class="list-group-item">Upload Photo And Signature</a>
+          <a href="./academic.php" class="list-group-item active">Academic Details</a>
+          <a href="./net.php" class="list-group-item">NET / SLET / SET / GATE</a>
+          <a href="./documents.php" class="list-group-item">Upload Documents</a>
+          <a href="./research.php" class="list-group-item">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
           <a href="./employment.php" class="list-group-item">Employment Details</a>
-          <a href="./fields.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./specialization.php" class="list-group-item">Field Of Specialization</a>
           <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
-          <a href="./academicContributions.php" class="list-group-item">Research & Academic Contributions</a>
-          <a href="./apiScore.php" class="list-group-item">API score</a>
-          <a href="./otherDetails.php" class="list-group-item">Other Details</a>
+          <a href="./rac.php" class="list-group-item">Research & Academic Contributions</a>
+          <a href="./score.php" class="list-group-item">API score</a>
+          <a href="./details.php" class="list-group-item">Other Details</a>
           <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
 
       <!-- Form Section -->
       <div class="col-9">
-        <form class="mt-4" action="netSlet.php" method="post">
+        <form class="mt-4" action="academic.php" method="post">
           <table class="table table-bordered">
             <thead>
               <tr>

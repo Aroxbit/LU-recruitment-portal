@@ -1,34 +1,31 @@
 <?php
 session_start();
-
 if (!isset($_SESSION['email'])) {
   header("Location: index.php");
+  $_SESSION['email'] = "14sarthi@gmail.com";
 }
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
-//initialize candidate vars
-$first_name = "{Your";
-$last_name = "Name}"; 
-$father_name = "{Father's Name}";
-$mother_name = "{Mother's Name}";
 
+//if new data is posted 
+if (isset($_POST["specialization"])) {
+  $specialization = $_POST["specialization"];
+  $sql = "INSERT INTO specialization (detail, user)
+  VALUES ('$specialization', '$uid')";
+  updateRow("specialization", $uid, $sql);
+  header("Location: evaluations.php");
+} 
 
-//get candidate data
-$sql = "SELECT * FROM candidate WHERE user='$uid' LIMIT 1";
-$result = mysqli_query($dbc, $sql);
-$row = mysqli_fetch_assoc($result);
-$count  = mysqli_num_rows($result);
-if($count==0) {
-  echo "No Candidate Found!";
-} else{
-  $first_name = $row["first_name"]; 
-  $last_name = $row["last_name"]; 
-  $father_name = $row["father_name"]; 
-  $mother_name = $row["mother_name"]; 
+//get specialization data
+$specialization = "";
+$row_data = getRow("specialization", $uid, true);
+if ($row_data) {
+  $specialization = $row_data["detail"];
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,30 +61,25 @@ if($count==0) {
           <a href="./research.php" class="list-group-item">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
           <a href="./employment.php" class="list-group-item">Employment Details</a>
-          <a href="./specialization.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./specialization.php" class="list-group-item active">Field Of Specialization</a>
           <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
           <a href="./rac.php" class="list-group-item">Research & Academic Contributions</a>
           <a href="./score.php" class="list-group-item">API score</a>
           <a href="./details.php" class="list-group-item">Other Details</a>
-          <a href="./declaration.php" class="list-group-item active">Declaration</a>
+          <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
 
       <!-- Form Section -->
       <div class="col p-3">
-        <h5 class="text-center">DECLARATION</h5>
+        <h5>Enter field of specializations</h5>
+        <form action="specialization.php" method='post'>
+          <textarea name='specialization' class="form-control" name="" id="" rows="10" placeholder="Enter field of specialization."> <?php echo $specialization ?> </textarea>
 
-        <!-- Enter Name here -->
-        <p class="">
-          I <?php echo $first_name . " " . $last_name ?>, Son/Daughter of <?php echo $father_name . " & " . $mother_name ?>, hereby declare that all statements and entries
-          made in the application are true, complete and correct to the best of my knowledge and belief. In the event
-          of any information found being false or incorrect or inelligiblity being detected before or after the Selection
-          Committee and Executive Council Meet, my candidature / appointment is liable to be cancelled by University.
-        </p>
-
-        <div class="text-center mt-3">
-          <a href='./form_preview.php' class="btn btn-primary">Accept & Continue</a>
-        </div>
+          <div class="text-center">
+            <input type="submit" class="btn btn-primary mt-3" value='Save & Continue'>
+          </div>
+        </form>
       </div>
     </div>
   </div>

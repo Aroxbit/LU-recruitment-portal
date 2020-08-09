@@ -10,26 +10,13 @@ require_once('../database.php');
 //if new pic is uploaded
 if(isset($_POST["upload"])){
   $field_name = $_POST["name"];
-
-  $target_dir = "uploads/";
-  $doc_name = $uid . "_" . time() . "_doc_" . basename($_FILES["$field_name"]["name"]);
-  $doc_file = $target_dir . $doc_name;
-
-  if (move_uploaded_file($_FILES["$field_name"]["tmp_name"], $doc_file)) {
-    echo "The file has been uploaded.";
-  } else {
-    echo "Sorry, there was an error uploading your files.";
-  }
+  $doc_name = upload($uid, $field_name);
 
   $update_sql = "UPDATE documents SET " . $field_name ."='./uploads/" . $doc_name . "' WHERE user='$uid'";
-  if(mysqli_query($dbc, $update_sql)){
-    echo "upload complete";
-  }else {
+  if(!(mysqli_query($dbc, $update_sql))){
     echo "Error updating record: " . mysqli_error($conn);
   }
 }
-
-
 
 
 
@@ -94,18 +81,18 @@ else{
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
           <a href="./candidate.php" class="list-group-item">Candidate Details</a>
-          <a href="./uploadPhoto.php" class="list-group-item">Upload Photo And Signature</a>
-          <a href="./academicDetails.php" class="list-group-item">Academic Details</a>
-          <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="./uploadDocuments.php" class="list-group-item active">Upload Documents</a>
-          <a href="./researchDegree.php" class="list-group-item">Research Degree</a>
+          <a href="./photo_sign.php" class="list-group-item">Upload Photo And Signature</a>
+          <a href="./academic.php" class="list-group-item">Academic Details</a>
+          <a href="./net.php" class="list-group-item">NET / SLET / SET / GATE</a>
+          <a href="./documents.php" class="list-group-item active">Upload Documents</a>
+          <a href="./research.php" class="list-group-item">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
           <a href="./employment.php" class="list-group-item">Employment Details</a>
-          <a href="./fields.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./specialization.php" class="list-group-item">Field Of Specialization</a>
           <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
-          <a href="./academicContributions.php" class="list-group-item">Research & Academic Contributions</a>
-          <a href="./apiScore.php" class="list-group-item">API score</a>
-          <a href="./otherDetails.php" class="list-group-item">Other Details</a>
+          <a href="./rac.php" class="list-group-item">Research & Academic Contributions</a>
+          <a href="./score.php" class="list-group-item">API score</a>
+          <a href="./details.php" class="list-group-item">Other Details</a>
           <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
@@ -140,7 +127,7 @@ else{
                 <a target='_blank' href="<?php echo $c10 ?>">Click here to view the document</a>
               </td>
 
-              <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
+              <form action="documents.php" method='post' enctype="multipart/form-data">
                 <td>
                   <input onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" name="c10" required />
                 </td>
@@ -161,7 +148,7 @@ else{
                 <a target='_blank' href="<?php echo $c12 ?>">Click here to view the document</a>
               </td>
 
-              <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
+              <form action="documents.php" method='post' enctype="multipart/form-data">
                 <td>
                   <input name='c12' onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
@@ -182,7 +169,7 @@ else{
                 <a target='_blank' href="<?php echo $ug ?>">Click here to view the document</a>
               </td>
 
-              <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
+              <form action="documents.php" method='post' enctype="multipart/form-data">
                 <td>
                   <input name='ug' onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
@@ -203,7 +190,7 @@ else{
                 <a target='_blank' href="<?php echo $pg ?>">Click here to view the document</a>
               </td>
 
-              <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
+              <form action="documents.php" method='post' enctype="multipart/form-data">
                 <td>
                   <input name='pg' onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
@@ -224,7 +211,7 @@ else{
                 <a target='_blank' href="<?php echo $net ?>">Click here to view the document</a>
               </td>
 
-              <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
+              <form action="documents.php" method='post' enctype="multipart/form-data">
                 <td>
                   <input name='net' onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
@@ -245,7 +232,7 @@ else{
                 <a target='_blank' href="<?php echo $other ?>">Click here to view the document</a>
               </td>
 
-              <form action="uploadDocuments.php" method='post' enctype="multipart/form-data">
+              <form action="documents.php" method='post' enctype="multipart/form-data">
                 <td>
                   <input name='other' onchange="validate()" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" required />
                 </td>
@@ -260,7 +247,7 @@ else{
         </table>
 
         <div class="text-center">
-          <a href="./researchDegree.php" class="btn btn-primary">Continue</a>
+          <a href="./research.php" class="btn btn-primary">Continue</a>
         </div>
       </div>
     </div>

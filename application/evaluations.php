@@ -6,51 +6,6 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
-//File Upload Function
-function upload($uid, $field_name){
-  print_r($_FILES);
-  $target_dir = "uploads/";
-  $file_name = $uid . "_" . time() . "_doc_" . basename($_FILES["$field_name"]["name"]);
-  $file_location = $target_dir . $file_name;
-
-  if (move_uploaded_file($_FILES["$field_name"]["tmp_name"], $file_location)) {
-    return $file_name;
-  } else {
-    echo "Sorry, there was an error uploading your file.";
-    return null;
-  }
-}
-
-//if new data is posted 
-if (isset($_POST["specialization"])) {
-
-  //employment data
-  $specialization = $_POST["specialization"];
-
-  //find existing employment data
-  $sql_ = "SELECT * FROM specialization WHERE user='$uid' LIMIT 1";
-  $result_ = mysqli_query($dbc, $sql_);
-  $count_  = mysqli_num_rows($result_);
-
-  //if it exists then delete it before creating one
-  if ($count_ > 0) {
-    if ($dbc->query("DELETE FROM specialization WHERE user='$uid'") === TRUE) {
-      echo "specialization data deleted successfully";
-    } else {
-      echo "Error deleting old specialization data: " . $conn->error;
-    }
-  }
-
-  //insert new candidate data
-  $sql = "INSERT INTO specialization (detail, user)
-  VALUES ('$specialization', '$uid')";
-  if ($dbc->query($sql) === TRUE) {
-    echo "Data Saved.";
-  } else {
-    echo "Error: " . $sql . "<br>" . $dbc->error;
-  }
-}
-
 
 //if add button is pressed
 if(isset($_POST["add"])){
@@ -60,15 +15,9 @@ if(isset($_POST["add"])){
   $score = $_POST["score"];
   $document = upload($uid, "new_document");
 
-
-  //insert new data in db
   $sql = "INSERT INTO evaluation (name, duration, university, score, document, user)
   VALUES ('$name', '$duration', '$university', '$score', '$document', '$uid')";
-  if ($dbc->query($sql) === TRUE) {
-    echo "Data Saved in DB.";
-  } else {
-    echo "Error: " . $sql . "<br>" . $dbc->error;
-  }
+  createRow($sql);
 
 }
 
@@ -79,15 +28,7 @@ if(isset($_POST["del"])){
 }
 
 //get the existing evaluations
-$sql_get = "SELECT * FROM evaluation WHERE user='$uid'";
-$result_get = mysqli_query($dbc, $sql_get);
-$count_get  = mysqli_num_rows($result_get);
-if ($count_get == 0) {
-  echo "No Evaluation Details Found!";
-} else {
-  // print_r($result_get);
-  $count_i = 1;
-}
+$result_get = getRow("evaluation", $uid, false);
 ?>
 
 
@@ -118,18 +59,18 @@ if ($count_get == 0) {
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
           <a href="./candidate.php" class="list-group-item">Candidate Details</a>
-          <a href="./uploadPhoto.php" class="list-group-item">Upload Photo And Signature</a>
-          <a href="./academicDetails.php" class="list-group-item">Academic Details</a>
-          <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="./uploadDocuments.php" class="list-group-item">Upload Documents</a>
-          <a href="./researchDegree.php" class="list-group-item">Research Degree</a>
+          <a href="./photo_sign.php" class="list-group-item">Upload Photo And Signature</a>
+          <a href="./academic.php" class="list-group-item">Academic Details</a>
+          <a href="./net.php" class="list-group-item">NET / SLET / SET / GATE</a>
+          <a href="./documents.php" class="list-group-item">Upload Documents</a>
+          <a href="./research.php" class="list-group-item">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
           <a href="./employment.php" class="list-group-item">Employment Details</a>
-          <a href="./fields.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./specialization.php" class="list-group-item">Field Of Specialization</a>
           <a href="./evaluations.php" class="list-group-item active">Teaching, Learning & Evaluation related activities</a>
-          <a href="./academicContributions.php" class="list-group-item">Research & Academic Contributions</a>
-          <a href="./apiScore.php" class="list-group-item">API score</a>
-          <a href="./otherDetails.php" class="list-group-item">Other Details</a>
+          <a href="./rac.php" class="list-group-item">Research & Academic Contributions</a>
+          <a href="./score.php" class="list-group-item">API score</a>
+          <a href="./details.php" class="list-group-item">Other Details</a>
           <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
@@ -152,6 +93,7 @@ if ($count_get == 0) {
           <tbody>
             <!-- Replace this section using javascript -->
             <?php
+              $count_i = 1;
               while($row_get = mysqli_fetch_assoc($result_get)){
                 echo "<tr scope='row'>";
                 echo "<td>" . $count_i . "</td>";
@@ -224,7 +166,7 @@ if ($count_get == 0) {
 
           <div class="mb-3 mt-3 text-center">
             <input class="btn btn-warning" type="submit" name='add' value='Add'>
-            <a href="./academicContributions.php" class="btn btn-primary">Continue</a>
+            <a href="./rac.php" class="btn btn-primary">Continue</a>
           </div>
         </form>
       </div>

@@ -6,65 +6,36 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
-function createData(){
-  global $dbc;
+function create_and_update(){
   global $uid;
-  //employment data
   $teaching = $_POST["teaching"];
   $extension = $_POST["extension"];
   $total = $_POST["total"];
   $research = $_POST["research"];
 
-  //find existing employment data
-  $sql_ = "SELECT * FROM score WHERE user='$uid' LIMIT 1";
-  $result_ = mysqli_query($dbc, $sql_);
-  $count_  = mysqli_num_rows($result_);
-
-  //if it exists then delete it before creating one
-  if ($count_ > 0) {
-    if ($dbc->query("DELETE FROM score WHERE user='$uid'") === TRUE) {
-      echo "score data deleted successfully";
-    } else {
-      echo "Error deleting old score data: " . $conn->error;
-    }
-  }
-
   //insert new candidate data
   $sql = "INSERT INTO score (teaching, extension, total, research, user)
   VALUES ('$teaching', '$extension', '$total', '$research', '$uid')";
-  if ($dbc->query($sql) === TRUE) {
-    echo "Data Saved.";
-    header("Location: otherDetails.php");
-  } else {
-    echo "Error: " . $sql . "<br>" . $dbc->error;
-  }
+  updateRow("score", $uid, $sql);
+  header("Location: details.php");
 }
 
 //if new data is posted
-if (isset($_POST["teaching"])) {
-  createData();
-}
-
-//initialize candidate vars
-$teaching = "";
-$extension = "";
-$total = "";
-$research = "";
+if (isset($_POST["teaching"])) create_and_update();
 
 //get api score data
-$sql = "SELECT * FROM score WHERE user='$uid' LIMIT 1";
-$result = mysqli_query($dbc, $sql);
-$row = mysqli_fetch_assoc($result);
-$count  = mysqli_num_rows($result);
-if($count==0) {
-  echo "No Score Data Found!";
-} else{
-  //print_r($row);
-  // If api score data is found, assign it to vars
+$row = getRow("score", $uid, true);
+if($row){
   $teaching = $row["teaching"];
   $extension = $row["extension"];
   $total = $row["total"];
   $research = $row["research"];
+}
+else{
+  $teaching = "";
+  $extension = "";
+  $total = "";
+  $research = "";
 }
 ?>
 
@@ -95,18 +66,18 @@ if($count==0) {
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
           <a href="./candidate.php" class="list-group-item">Candidate Details</a>
-          <a href="./uploadPhoto.php" class="list-group-item">Upload Photo And Signature</a>
-          <a href="./academicDetails.php" class="list-group-item">Academic Details</a>
-          <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="./uploadDocuments.php" class="list-group-item">Upload Documents</a>
-          <a href="./researchDegree.php" class="list-group-item">Research Degree</a>
+          <a href="./photo_sign.php" class="list-group-item">Upload Photo And Signature</a>
+          <a href="./academic.php" class="list-group-item">Academic Details</a>
+          <a href="./net.php" class="list-group-item">NET / SLET / SET / GATE</a>
+          <a href="./documents.php" class="list-group-item">Upload Documents</a>
+          <a href="./research.php" class="list-group-item">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
           <a href="./employment.php" class="list-group-item">Employment Details</a>
-          <a href="./fields.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./specialization.php" class="list-group-item">Field Of Specialization</a>
           <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
-          <a href="./academicContributions.php" class="list-group-item">Research & Academic Contributions</a>
-          <a href="./apiScore.php" class="list-group-item active">API score</a>
-          <a href="./otherDetails.php" class="list-group-item">Other Details</a>
+          <a href="./rac.php" class="list-group-item">Research & Academic Contributions</a>
+          <a href="./score.php" class="list-group-item active">API score</a>
+          <a href="./details.php" class="list-group-item">Other Details</a>
           <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
@@ -116,7 +87,7 @@ if($count==0) {
         <h5>Summary Of API score</h5>
 
         <!--  Development of E-learning Material Form -->
-        <form class="mt-4" action="apiScore.php" method='post'>
+        <form class="mt-4" action="score.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>

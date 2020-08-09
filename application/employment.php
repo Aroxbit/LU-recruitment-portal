@@ -6,19 +6,21 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
-//File Upload Function
-function upload($uid, $field_name){
-  print_r($_FILES);
-  $target_dir = "uploads/";
-  $file_name = $uid . "_" . time() . "_doc_" . basename($_FILES["$field_name"]["name"]);
-  $file_location = $target_dir . $file_name;
 
-  if (move_uploaded_file($_FILES["$field_name"]["tmp_name"], $file_location)) {
-    return $file_name;
-  } else {
-    echo "Sorry, there was an error uploading your file.";
-    return null;
-  }
+function create_and_update(){
+  global $uid;
+  $ug_from = $_POST["ug_from"];
+  $ug_to = $_POST["ug_to"];
+  $pg_from = $_POST["pg_from"];
+  $pg_to = $_POST["pg_to"];
+  $res_from = $_POST["res_from"];
+  $res_to = $_POST["res_to"];
+  $user = $uid;
+
+  $sql = "INSERT INTO employment_data (ug_from, ug_to, pg_from, pg_to, res_from, res_to, user)
+  VALUES ( '$ug_from', '$ug_to', '$pg_from', '$pg_to', '$res_from', '$res_to', '$user')";
+  updateRow("employment_data", $uid, $sql);
+  header("Location: specialization.php");
 }
 
 
@@ -36,12 +38,12 @@ if(isset($_POST["add"])){
   //insert new data in db
   $sql = "INSERT INTO employment (designation, job_nature, date_joined, date_left, pay, reason, document, user)
   VALUES ('$designation', '$job_nature', '$date_joined', '$date_left', '$pay', '$reason', '$document', '$uid')";
-  if ($dbc->query($sql) === TRUE) {
-    echo "Data Saved in DB.";
-  } else {
-    echo "Error: " . $sql . "<br>" . $dbc->error;
-  }
+  createRow($sql);
+}
 
+// if employment data is updated
+if(isset($_POST["submit"])){
+  create_and_update();
 }
 
 //if del btn is pressed
@@ -51,30 +53,10 @@ if(isset($_POST["del"])){
 }
 
 //get the existing employments
-$sql_get = "SELECT * FROM employment WHERE user='$uid'";
-$result_get = mysqli_query($dbc, $sql_get);
-$count_get  = mysqli_num_rows($result_get);
-if ($count_get == 0) {
-  echo "No Research Details Found!";
-} else {
-  // print_r($result_get);
-  $count_i = 1;
-}
-
-//get the existing employment data
-$ug_from = "";
-$ug_to = "";
-$pg_from = "";
-$pg_to = "";
-$res_from = "";
-$res_to = "";
-
-$result_get_data = mysqli_query($dbc, "SELECT * FROM employment_data WHERE user='$uid' LIMIT 1");
-$row_data = mysqli_fetch_assoc($result_get_data);
-$count_get_data  = mysqli_num_rows($result_get_data);
-if ($count_get_data == 0) {
-  echo "No Data Found!";
-} else {
+$result_get = getRow("employment", $uid, false);
+// Get the employment data
+$row_data = getRow("employment_data", $uid, true);
+if ($row_data){ 
   $ug_from = $row_data["ug_from"];
   $ug_to = $row_data["ug_to"];
   $pg_from = $row_data["pg_from"];
@@ -82,7 +64,14 @@ if ($count_get_data == 0) {
   $res_from = $row_data["res_from"];
   $res_to = $row_data["res_to"];
 }
-
+else{
+  $ug_from = "";
+  $ug_to = "";
+  $pg_from = "";
+  $pg_to = "";
+  $res_from = "";
+  $res_to = "";
+}
 
 ?>
 
@@ -114,24 +103,24 @@ if ($count_get_data == 0) {
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
           <a href="./candidate.php" class="list-group-item">Candidate Details</a>
-          <a href="./uploadPhoto.php" class="list-group-item">Upload Photo And Signature</a>
-          <a href="./academicDetails.php" class="list-group-item">Academic Details</a>
-          <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="./uploadDocuments.php" class="list-group-item">Upload Documents</a>
-          <a href="./researchDegree.php" class="list-group-item">Research Degree</a>
+          <a href="./photo_sign.php" class="list-group-item">Upload Photo And Signature</a>
+          <a href="./academic.php" class="list-group-item">Academic Details</a>
+          <a href="./net.php" class="list-group-item">NET / SLET / SET / GATE</a>
+          <a href="./documents.php" class="list-group-item">Upload Documents</a>
+          <a href="./research.php" class="list-group-item">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
           <a href="./employment.php" class="list-group-item active">Employment Details</a>
-          <a href="./fields.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./specialization.php" class="list-group-item">Field Of Specialization</a>
           <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
-          <a href="./academicContributions.php" class="list-group-item">Research & Academic Contributions</a>
-          <a href="./apiScore.php" class="list-group-item">API score</a>
-          <a href="./otherDetails.php" class="list-group-item">Other Details</a>
+          <a href="./rac.php" class="list-group-item">Research & Academic Contributions</a>
+          <a href="./score.php" class="list-group-item">API score</a>
+          <a href="./details.php" class="list-group-item">Other Details</a>
           <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
 
       <!-- Form Section -->
-      <div class="col">
+      <div class="col-9">
         <table class="table table-bordered mt-4">
           <thead>
             <tr>
@@ -150,6 +139,7 @@ if ($count_get_data == 0) {
           <tbody>
             <!-- Replace this section using javascript -->
             <?php
+              $count_i = 1;
               while($row_get = mysqli_fetch_assoc($result_get)){
                 echo "<tr scope='row'>";
                 echo "<td>" . $count_i . "</td>";
@@ -246,7 +236,7 @@ if ($count_get_data == 0) {
 
 
         <!-- Form for teaching experience -->
-        <form class="form" action="fields.php" method='post'>
+        <form class="form" action="employment.php" method='post'>
           <div class="inline-form">
             <label>Teaching Experience (In Years)</label>
             <div class="form-row">

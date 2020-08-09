@@ -1,61 +1,71 @@
 <?php
 session_start();
-
 if (!isset($_SESSION['email'])) {
   header("Location: index.php");
 }
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
-//initialize candidate vars
-$post = "";
-$post_code = "";
-$first_name = "";
-$last_name = "";
-$dob = "";
-$gender = "";
-$disability = "";
-$father_name = "";
-$mother_name = "";
-$nationality = "";
-$mother_tongue = "";
-$languages = "";
-$category = "";
-$category_for = "";
-$category_in = "";
-$marital_status = "";
+// 
+function updateAddressAndCandidate(){
+  global $dbc;
+  global $uid;
+  
+  // get the data from POST var for candidate
+  $post = $_POST["post"]; $post_code = $_POST["post_code"];
+  $first_name = $_POST["first_name"]; $last_name = $_POST["last_name"];
+  $dob = $_POST["dob"]; $gender = $_POST["gender"];
+  $father_name = $_POST["father_name"]; $mother_name = $_POST["mother_name"];
+  $nationality = $_POST["nationality"]; $mother_tongue = $_POST["mother_tongue"];
+  $languages = $_POST["languages"]; $category = $_POST["category"];
+  $category_for = $_POST["category_for"]; $category_in = $_POST["category_in"];
+  $marital_status = $_POST["marital_status"]; $disability = $_POST["disability"];
+  $user = $uid;
 
-//initialize address vars
-$address_one = "";
-$address_two = "";
-$address_three = "";
-$post_office = "";
-$police_station = "";
-$country = "";
-$state = "";
-$district = "";
-$pin = "";
-$parent_phone = "";
-$s_address_one = "";
-$s_address_two = "";
-$s_address_three = "";
-$s_post_office = "";
-$s_police_station = "";
-$s_country = "";
-$s_state = "";
-$s_district = "";
-$s_pin = "";
-$s_parent_phone = "";
+  //prepare SQL query
+  $sql = "INSERT INTO candidate (post, post_code, first_name, last_name, dob, gender, disability, father_name, mother_name, nationality, mother_tongue, languages, category, category_for, category_in, marital_status, user)
+  VALUES ('$post', '$post_code', '$first_name', '$last_name', '$dob', '$gender', '$disability', '$father_name', '$mother_name', '$nationality', '$mother_tongue', '$languages', '$category', '$category_for', '$category_in', '$marital_status', '$user')";
+
+  //Get the data from post var for address
+  $address_one = $_POST["address_one"]; $address_two = $_POST["address_two"];
+  $address_three = $_POST["address_three"]; $post_office = $_POST["post_office"];
+  $police_station = $_POST["police_station"]; $country = $_POST["country"];
+  $state = $_POST["state"]; $district = $_POST["district"];
+  $pin = $_POST["pin"]; $parent_phone = $_POST["parent_phone"];
+  $s_address_one = $_POST["s_address_one"]; $s_address_two = $_POST["s_address_two"];
+  $s_address_three = $_POST["s_address_three"]; $s_post_office = $_POST["s_post_office"];
+  $s_police_station = $_POST["s_police_station"]; $s_country = $_POST["s_country"];
+  $s_state = $_POST["s_state"]; $s_district = $_POST["s_district"];
+  $s_pin = $_POST["s_pin"]; $s_parent_phone = $_POST["s_parent_phone"];
+  $a_user = $uid;
+
+  //prepare SQL query
+  $s_sql = "INSERT INTO address (user, address_one, s_address_one, address_two, s_address_two, address_three, s_address_three, post_office, s_post_office, police_station, s_police_station, country, s_country, state, s_state, district, s_district, pin, s_pin, parent_phone, s_parent_phone)
+  VALUES ('$a_user', '$address_one', '$s_address_one', '$address_two', '$s_address_two', '$address_three', '$s_address_three', '$post_office', '$s_post_office', '$police_station', '$s_police_station', '$country', '$s_country', '$state', '$s_state', '$district', '$s_district', '$pin', '$s_pin', '$parent_phone', '$s_parent_phone')";
+
+  // initiate query
+  $cand_err = updateRow("candidate", $uid, $sql);
+  if($cand_err){
+    echo $cand_err;
+    die();
+  }
+  $address_err = updateRow("address", $uid, $s_sql);
+  if($address_err){
+    echo $address_err;
+    die();
+  }
+
+  // Once saved, load next page
+  header("Location: photo_sign.php");
+}
+
+//if new candidate data is posted 
+if (isset($_POST["post"])) updateAddressAndCandidate();
 
 
 //get candidate data
-$sql = "SELECT * FROM candidate WHERE user='$uid' LIMIT 1";
-$result = mysqli_query($dbc, $sql);
-$row = mysqli_fetch_assoc($result);
-$count  = mysqli_num_rows($result);
-if($count) {
-  //print_r($row);
-  // If candidate data is found, assign it to vars
+$row = getRow("candidate", $uid, true);
+if($row) {
   $post = $row["post"]; 
   $post_code = $row["post_code"]; 
   $first_name = $row["first_name"]; 
@@ -72,37 +82,73 @@ if($count) {
   $category_for = $row["category_for"]; 
   $category_in = $row["category_in"]; 
   $marital_status = $row["marital_status"];
-
-  //Search for address
-  $s_sql = "SELECT * FROM address WHERE user='$uid' LIMIT 1";
-  $s_result = mysqli_query($dbc, $s_sql);
-  $s_row = mysqli_fetch_assoc($s_result);
-  $s_count  = mysqli_num_rows($s_result);
-  if($s_count){
-    //print_r($s_row);
-    // If candidate data is found, assign it to vars
-    $address_one = $s_row["address_one"];
-    $address_two = $s_row["address_two"];
-    $address_three = $s_row["address_three"];
-    $post_office = $s_row["post_office"];
-    $police_station = $s_row["police_station"];
-    $country = $s_row["country"];
-    $state = $s_row["state"];
-    $district = $s_row["district"];
-    $pin = $s_row["pin"];
-    $parent_phone = $s_row["parent_phone"];
-    $s_address_one = $s_row["s_address_one"];
-    $s_address_two = $s_row["s_address_two"];
-    $s_address_three = $s_row["s_address_three"];
-    $s_post_office = $s_row["s_post_office"];
-    $s_police_station = $s_row["s_police_station"];
-    $s_country = $s_row["s_country"];
-    $s_state = $s_row["s_state"];
-    $s_district = $s_row["s_district"];
-    $s_pin = $s_row["s_pin"];
-    $s_parent_phone = $s_row["s_parent_phone"];
-  }
 }
+else{
+  $post = "";
+  $post_code = "";
+  $first_name = "";
+  $last_name = "";
+  $dob = "";
+  $gender = "";
+  $disability = "";
+  $father_name = "";
+  $mother_name = "";
+  $nationality = "";
+  $mother_tongue = "";
+  $languages = "";
+  $category = "";
+  $category_for = "";
+  $category_in = "";
+  $marital_status = "";
+}
+
+//Search for address
+$s_row = getRow("address", $uid, true);
+if($s_row){
+  $address_one = $s_row["address_one"];
+  $address_two = $s_row["address_two"];
+  $address_three = $s_row["address_three"];
+  $post_office = $s_row["post_office"];
+  $police_station = $s_row["police_station"];
+  $country = $s_row["country"];
+  $state = $s_row["state"];
+  $district = $s_row["district"];
+  $pin = $s_row["pin"];
+  $parent_phone = $s_row["parent_phone"];
+  $s_address_one = $s_row["s_address_one"];
+  $s_address_two = $s_row["s_address_two"];
+  $s_address_three = $s_row["s_address_three"];
+  $s_post_office = $s_row["s_post_office"];
+  $s_police_station = $s_row["s_police_station"];
+  $s_country = $s_row["s_country"];
+  $s_state = $s_row["s_state"];
+  $s_district = $s_row["s_district"];
+  $s_pin = $s_row["s_pin"];
+  $s_parent_phone = $s_row["s_parent_phone"];
+}
+else{
+  $address_one = "";
+  $address_two = "";
+  $address_three = "";
+  $post_office = "";
+  $police_station = "";
+  $country = "";
+  $state = "";
+  $district = "";
+  $pin = "";
+  $parent_phone = "";
+  $s_address_one = "";
+  $s_address_two = "";
+  $s_address_three = "";
+  $s_post_office = "";
+  $s_police_station = "";
+  $s_country = "";
+  $s_state = "";
+  $s_district = "";
+  $s_pin = "";
+  $s_parent_phone = "";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -132,18 +178,18 @@ if($count) {
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
           <a href="./candidate.php" class="list-group-item active">Candidate Details</a>
-          <a href="./uploadPhoto.php" class="list-group-item">Upload Photo And Signature</a>
-          <a href="./academicDetails.php" class="list-group-item">Academic Details</a>
-          <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="./uploadDocuments.php" class="list-group-item">Upload Documents</a>
-          <a href="./researchDegree.php" class="list-group-item">Research Degree</a>
+          <a href="./photo_sign.php" class="list-group-item">Upload Photo And Signature</a>
+          <a href="./academic.php" class="list-group-item">Academic Details</a>
+          <a href="./net.php" class="list-group-item">NET / SLET / SET / GATE</a>
+          <a href="./documents.php" class="list-group-item">Upload Documents</a>
+          <a href="./research.php" class="list-group-item">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
           <a href="./employment.php" class="list-group-item">Employment Details</a>
-          <a href="./fields.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./specialization.php" class="list-group-item">Field Of Specialization</a>
           <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
-          <a href="./academicContributions.php" class="list-group-item">Research & Academic Contributions</a>
-          <a href="./apiScore.php" class="list-group-item">API score</a>
-          <a href="./otherDetails.php" class="list-group-item">Other Details</a>
+          <a href="./rac.php" class="list-group-item">Research & Academic Contributions</a>
+          <a href="./score.php" class="list-group-item">API score</a>
+          <a href="./details.php" class="list-group-item">Other Details</a>
           <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
@@ -152,7 +198,7 @@ if($count) {
       <div class="col">
         <div class="d-flex justify-content-center">
 
-          <form method="post" action="uploadPhoto.php" class="mt-3 p-3 w-75">
+          <form method="post" action="candidate.php" class="mt-3 p-3 w-75">
             <label>Post</label>
 
             <select name="post" class="form-control mb-2 mr-sm-2" required>

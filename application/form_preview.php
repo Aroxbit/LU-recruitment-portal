@@ -30,7 +30,7 @@ $candidate_row = readData("candidate", true);
 $address_row = readData("address", true);
 
 // photo_sign TODO: change table name
-$photo_sign_row = readData("photos", true);
+$photo_sign_row = readData("photo_sign", true);
 
 // academic details
 $academic_row = readData("academic", true);

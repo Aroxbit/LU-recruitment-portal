@@ -6,20 +6,6 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
-//File Upload Function
-function upload($uid, $field_name){
-  print_r($_FILES);
-  $target_dir = "uploads/";
-  $file_name = $uid . "_" . time() . "_doc_" . basename($_FILES["$field_name"]["name"]);
-  $file_location = $target_dir . $file_name;
-  if (move_uploaded_file($_FILES["$field_name"]["tmp_name"], $file_location)) {
-    return $file_name;
-  } else {
-    echo "Sorry, there was an error uploading your file.";
-    die();
-    //return null;
-  }
-}
 
 //when add button is pressed
 function createData($sql){
@@ -150,18 +136,18 @@ $table_g = readData("rac_g");
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
           <a href="./candidate.php" class="list-group-item">Candidate Details</a>
-          <a href="./uploadPhoto.php" class="list-group-item">Upload Photo And Signature</a>
-          <a href="./academicDetails.php" class="list-group-item">Academic Details</a>
-          <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="./uploadDocuments.php" class="list-group-item">Upload Documents</a>
-          <a href="./researchDegree.php" class="list-group-item">Research Degree</a>
+          <a href="./photo_sign.php" class="list-group-item">Upload Photo And Signature</a>
+          <a href="./academic.php" class="list-group-item">Academic Details</a>
+          <a href="./net.php" class="list-group-item">NET / SLET / SET / GATE</a>
+          <a href="./documents.php" class="list-group-item">Upload Documents</a>
+          <a href="./research.php" class="list-group-item">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
           <a href="./employment.php" class="list-group-item">Employment Details</a>
-          <a href="./fields.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./specialization.php" class="list-group-item">Field Of Specialization</a>
           <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
-          <a href="./academicContributions.php" class="list-group-item active">Research & Academic Contributions</a>
-          <a href="./apiScore.php" class="list-group-item">API score</a>
-          <a href="./otherDetails.php" class="list-group-item">Other Details</a>
+          <a href="./rac.php" class="list-group-item active">Research & Academic Contributions</a>
+          <a href="./score.php" class="list-group-item">API score</a>
+          <a href="./details.php" class="list-group-item">Other Details</a>
           <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
@@ -203,7 +189,7 @@ $table_g = readData("rac_g");
                 echo "<td>" . $row["authorship"] . "</td>";
                 echo "<td>" . $row["score"] . "</td>";
                 echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
-                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<td><form action='rac.php' method='post'>";
                 echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
                 echo "<input type='text' name='table'  class='d-none' value='rac_a'>";
                 echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
@@ -214,7 +200,7 @@ $table_g = readData("rac_g");
           </tbody>
         </table>
         <!-- AAA -->
-        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
+        <form class="mt-4" enctype="multipart/form-data" action="rac.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -329,7 +315,7 @@ $table_g = readData("rac_g");
                 echo "<td>" . $row["single"] . "</td>";
                 echo "<td>" . $row["score"] . "</td>";
                 echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
-                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<td><form action='rac.php' method='post'>";
                 echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
                 echo "<input type='text' name='table'  class='d-none' value='rac_b'>";
                 echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
@@ -340,7 +326,7 @@ $table_g = readData("rac_g");
           </tbody>
         </table>
         <!-- BBB Books Published Form -->
-        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
+        <form class="mt-4" enctype="multipart/form-data" action="rac.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -462,7 +448,7 @@ $table_g = readData("rac_g");
                 echo "<td>" . $row["grand"] . "</td>";
                 echo "<td>" . $row["score"] . "</td>";
                 echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
-                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<td><form action='rac.php' method='post'>";
                 echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
                 echo "<input type='text' name='table'  class='d-none' value='rac_c'>";
                 echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
@@ -473,7 +459,7 @@ $table_g = readData("rac_g");
           </tbody>
         </table>
         <!-- Form -->
-        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
+        <form class="mt-4" enctype="multipart/form-data" action="rac.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -568,7 +554,7 @@ $table_g = readData("rac_g");
                 echo "<td>" . $row["degree"] . "</td>";
                 echo "<td>" . $row["score"] . "</td>";
                 echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
-                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<td><form action='rac.php' method='post'>";
                 echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
                 echo "<input type='text' name='table'  class='d-none' value='rac_d'>";
                 echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
@@ -579,7 +565,7 @@ $table_g = readData("rac_g");
           </tbody>
         </table>
         <!-- Research Guidance Form -->
-        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
+        <form class="mt-4" enctype="multipart/form-data" action="rac.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -674,7 +660,7 @@ $table_g = readData("rac_g");
                 echo "<td>" . $row["level"] . "</td>";
                 echo "<td>" . $row["score"] . "</td>";
                 echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
-                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<td><form action='rac.php' method='post'>";
                 echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
                 echo "<input type='text' name='table'  class='d-none' value='rac_e1'>";
                 echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
@@ -685,7 +671,7 @@ $table_g = readData("rac_g");
           </tbody>
         </table>
         <!--  Paper Presented in Confrences/Seminars Form -->
-        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
+        <form class="mt-4" enctype="multipart/form-data" action="rac.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -786,7 +772,7 @@ $table_g = readData("rac_g");
                 echo "<td>" . $row["level"] . "</td>";
                 echo "<td>" . $row["score"] . "</td>";
                 echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
-                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<td><form action='rac.php' method='post'>";
                 echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
                 echo "<input type='text' name='table'  class='d-none' value='rac_e2'>";
                 echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
@@ -797,7 +783,7 @@ $table_g = readData("rac_g");
           </tbody>
         </table>
         <!--  Invited Lectures in Confrences/Seminars Form -->
-        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
+        <form class="mt-4" enctype="multipart/form-data" action="rac.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -896,7 +882,7 @@ $table_g = readData("rac_g");
                 echo "<td>" . $row["year"] . "</td>";
                 echo "<td>" . $row["score"] . "</td>";
                 echo "<td><a target='_blank' href='./uploads/" . $row["document"] . "'>See your Document here</a></td>";
-                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<td><form action='rac.php' method='post'>";
                 echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
                 echo "<input type='text' name='table'  class='d-none' value='rac_f'>";
                 echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
@@ -907,7 +893,7 @@ $table_g = readData("rac_g");
           </tbody>
         </table>
         <!--  Development of E-learning Material Form -->
-        <form class="mt-4" enctype="multipart/form-data" action="academicContributions.php" method='post'>
+        <form class="mt-4" enctype="multipart/form-data" action="rac.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -990,7 +976,7 @@ $table_g = readData("rac_g");
                 echo "<td>" . $row["nature"] . "</td>";
                 echo "<td>" . $row["year"] . "</td>";
                 echo "<td>" . $row["organization"] . "</td>";
-                echo "<td><form action='academicContributions.php' method='post'>";
+                echo "<td><form action='rac.php' method='post'>";
                 echo "<input type='text' name='id'  class='d-none' value='" . $row["id"] . "'>";
                 echo "<input type='text' name='table'  class='d-none' value='rac_g'>";
                 echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
@@ -1001,7 +987,7 @@ $table_g = readData("rac_g");
           </tbody>
         </table>
         <!--  Development of E-learning Material Form -->
-        <form class="mt-4" action="academicContributions.php" method='post'>
+        <form class="mt-4" action="rac.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -1054,7 +1040,7 @@ $table_g = readData("rac_g");
 
 
         <div class="text-center">
-          <a href="./apiScore.php" class="btn btn-primary">Continue</a>
+          <a href="./score.php" class="btn btn-primary">Continue</a>
         </div>
       </div>
     </div>

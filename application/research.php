@@ -6,21 +6,6 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
-//File Upload Function
-function upload($uid, $field_name){
-  print_r($_FILES);
-  $target_dir = "uploads/";
-  $file_name = $uid . "_" . time() . "_doc_" . basename($_FILES["$field_name"]["name"]);
-  $file_location = $target_dir . $file_name;
-
-  if (move_uploaded_file($_FILES["$field_name"]["tmp_name"], $file_location)) {
-    return $file_name;
-  } else {
-    echo "Sorry, there was an error uploading your file.";
-    return null;
-  }
-}
-
 
 //if add button is pressed
 if(isset($_POST["add"])){
@@ -33,11 +18,7 @@ if(isset($_POST["add"])){
   //insert new data in db
   $sql = "INSERT INTO research (name, title, year, university, document, user)
   VALUES ('$name', '$title', '$year', '$university', '$document', '$uid')";
-  if ($dbc->query($sql) === TRUE) {
-    echo "Data Saved in DB.";
-  } else {
-    echo "Error: " . $sql . "<br>" . $dbc->error;
-  }
+  createRow($sql);
 
 }
 
@@ -48,17 +29,7 @@ if(isset($_POST["del"])){
 }
 
 //get the existing netdata
-$sql_get = "SELECT * FROM research WHERE user='$uid'";
-$result_get = mysqli_query($dbc, $sql_get);
-$count_get  = mysqli_num_rows($result_get);
-if ($count_get == 0) {
-  echo "No Research Details Found!";
-} else {
-  // print_r($result_get);
-  $count_i = 1;
-}
-
-
+$result_get = getRow("research", $uid, false);
 ?>
 
 
@@ -89,18 +60,18 @@ if ($count_get == 0) {
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
           <a href="./candidate.php" class="list-group-item">Candidate Details</a>
-          <a href="./uploadPhoto.php" class="list-group-item">Upload Photo And Signature</a>
-          <a href="./academicDetails.php" class="list-group-item">Academic Details</a>
-          <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="./uploadDocuments.php" class="list-group-item">Upload Documents</a>
-          <a href="./researchDegree.php" class="list-group-item active">Research Degree</a>
+          <a href="./photo_sign.php" class="list-group-item">Upload Photo And Signature</a>
+          <a href="./academic.php" class="list-group-item">Academic Details</a>
+          <a href="./net.php" class="list-group-item">NET / SLET / SET / GATE</a>
+          <a href="./documents.php" class="list-group-item">Upload Documents</a>
+          <a href="./research.php" class="list-group-item active">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
           <a href="./employment.php" class="list-group-item">Employment Details</a>
-          <a href="./fields.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./specialization.php" class="list-group-item">Field Of Specialization</a>
           <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
-          <a href="./academicContributions.php" class="list-group-item">Research & Academic Contributions</a>
-          <a href="./apiScore.php" class="list-group-item">API score</a>
-          <a href="./otherDetails.php" class="list-group-item">Other Details</a>
+          <a href="./rac.php" class="list-group-item">Research & Academic Contributions</a>
+          <a href="./score.php" class="list-group-item">API score</a>
+          <a href="./details.php" class="list-group-item">Other Details</a>
           <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
@@ -133,6 +104,7 @@ if ($count_get == 0) {
             </tr> -->
 
             <?php
+            $count_i = 1;
               while($row_get = mysqli_fetch_assoc($result_get)){
                 echo "<tr scope='row'>";
                 echo "<td>" . $count_i . "</td>";
@@ -141,7 +113,7 @@ if ($count_get == 0) {
                 echo "<td>" . $row_get["year"] . "</td>";
                 echo "<td>" . $row_get["university"] . "</td>";
                 echo "<td><a target='_blank' href='./uploads/" . $row_get["document"] . "'>See your Document here</a></td>";
-                echo "<td><form action='researchDegree.php' method='post'>";
+                echo "<td><form action='research.php' method='post'>";
                 echo "<input type='text' name='id'  class='d-none' value='" . $row_get["id"] . "'>";
                 echo "<input type='submit' name='del' value='Delete' class='btn btn-danger'> </form> </td> </tr>";
 
@@ -156,7 +128,7 @@ if ($count_get == 0) {
         </table>
 
         <!-- Form -->
-        <form class="mt-4" action="researchDegree.php" method='post' enctype="multipart/form-data">
+        <form class="mt-4" action="research.php" method='post' enctype="multipart/form-data">
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
@@ -209,7 +181,7 @@ if ($count_get == 0) {
 
           <div class="mb-3 mt-3 text-center">
             <input class="btn btn-warning" type="submit" name="add" value="Add">
-            <a href="./uploadDocuments.php" class="btn btn-primary">Continue</a>
+            <a href="./awards.php" class="btn btn-primary">Continue</a>
           </div>
         </form>
       </div>

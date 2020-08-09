@@ -6,38 +6,20 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
-function createData(){
-  global $dbc;
+function create_and_update(){
   global $uid;
-
   $detail = $_POST["detail"];
-
-  //insert new candidate data
   $sql = "INSERT INTO other (detail, user)
   VALUES ('$detail', '$uid')";
-  if ($dbc->query($sql) === TRUE) {
-    echo "Data Saved.";
-  } else {
-    echo "Error: " . $sql . "<br>" . $dbc->error;
-  }
+  createRow($sql);
 }
 
 //if new data is posted
-if (isset($_POST["detail"])) {
-  createData();
-}
+if (isset($_POST["detail"])) create_and_update();
 
 
 //get api score data
-$sql = "SELECT * FROM other WHERE user='$uid'";
-$result = mysqli_query($dbc, $sql);
-$count  = mysqli_num_rows($result);
-if($count==0) {
-  echo "No Data Found!";
-} else{
-  //print_r($row);
-  $count_i = 1;
-}
+$result = getRow("other", $uid, false);
 ?>
 
 
@@ -69,18 +51,18 @@ if($count==0) {
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
           <a href="./candidate.php" class="list-group-item">Candidate Details</a>
-          <a href="./uploadPhoto.php" class="list-group-item">Upload Photo And Signature</a>
-          <a href="./academicDetails.php" class="list-group-item">Academic Details</a>
-          <a href="./netSlet.php" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="./uploadDocuments.php" class="list-group-item">Upload Documents</a>
-          <a href="./researchDegree.php" class="list-group-item">Research Degree</a>
+          <a href="./photo_sign.php" class="list-group-item">Upload Photo And Signature</a>
+          <a href="./academic.php" class="list-group-item">Academic Details</a>
+          <a href="./net.php" class="list-group-item">NET / SLET / SET / GATE</a>
+          <a href="./documents.php" class="list-group-item">Upload Documents</a>
+          <a href="./research.php" class="list-group-item">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
           <a href="./employment.php" class="list-group-item">Employment Details</a>
-          <a href="./fields.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./specialization.php" class="list-group-item">Field Of Specialization</a>
           <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
-          <a href="./academicContributions.php" class="list-group-item">Research & Academic Contributions</a>
-          <a href="./apiScore.php" class="list-group-item">API score</a>
-          <a href="./otherDetails.php" class="list-group-item active">Other Details</a>
+          <a href="./rac.php" class="list-group-item">Research & Academic Contributions</a>
+          <a href="./score.php" class="list-group-item">API score</a>
+          <a href="./details.php" class="list-group-item active">Other Details</a>
           <a href="./declaration.php" class="list-group-item">Declaration</a>
         </div>
       </div>
@@ -99,6 +81,7 @@ if($count==0) {
           <tbody>
             <!-- Replace this section using javascript -->
             <?php
+            $count_i = 1;
               while($row_get = mysqli_fetch_assoc($result)){
                 echo "<tr scope='row'>";
                 echo "<td>" . $count_i . "</td>";
@@ -111,7 +94,7 @@ if($count==0) {
         </table>
 
         <!-- Form -->
-        <form class="mt-4" action="otherDetails.php" method='post'>
+        <form class="mt-4" action="details.php" method='post'>
           <table class="table table-bordered mt-4">
             <thead>
               <tr>
