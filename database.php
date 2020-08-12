@@ -74,4 +74,40 @@ function upload($uid, $field_name){
     return null;
   }
 }
+
+// get form
+function getForm($uid){
+  $form = getRow("form", $uid, true);
+  return $form;
+}
+
+// new form
+function newForm($uid){
+  $exists = getForm($uid);
+  if($exists) return;
+  $sql = "INSERT INTO form (user) VALUES ('$uid')";
+  createRow($sql);
+}
+
+// update form
+function updateForm($uid, $page){
+  $update = true;
+  $sql = "UPDATE form SET " . $page ."='$update' WHERE user='$uid'";
+  createRow($sql);
+}
+
+// verify form
+function verifyForm($uid){
+  $form = getForm($uid);
+  if(!$form['candidate']) return false;
+  if(!$form['photo_sign']) return false;
+  if(!$form['academic']) return false;
+  if(!$form['documents']) return false;
+  if(!$form['specialization']) return false;
+  return true;
+}
+
+if (isset($_SESSION['email'])) {
+  $myform = getForm($_SESSION['email']);
+}
 ?>

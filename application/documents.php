@@ -29,13 +29,11 @@ $net = '#';
 $other = '#';
 
 //check if the data already exists
-$doc_data = mysqli_query($dbc, "SELECT * FROM documents WHERE user='$uid' LIMIT 1");
-$doc_row = mysqli_fetch_assoc($doc_data);
-$doc_exists  = mysqli_num_rows($doc_data);
+$doc_row  = getRow("documents", $uid, true);
 //if no then create new data
-if ($doc_exists == 0) {
-  $sql_create = "INSERT INTO documents (c10, c12, ug, pg, net, other, user)
-  VALUES ('#', '#', '#', '#', '#', '#', '$uid')";
+if (!$doc_row) {
+  $sql_create = "INSERT INTO documents (user)
+  VALUES ('$uid')";
   if ($dbc->query($sql_create) === TRUE) {
     echo "New Document Table Created.";
   } else {
@@ -49,6 +47,8 @@ else{
   $pg = $doc_row["pg"];
   $net = $doc_row["net"];
   $other = $doc_row["other"];
+
+  if($doc_row['c10'] && $doc_row['c12'] && $doc_row['ug'] && $doc_row['pg'] && $doc_row['net'] && $doc_row['other']) updateForm($uid, "documents");
 }
 ?>
 
@@ -80,15 +80,45 @@ else{
     <div class="row">
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
-          <a href="./candidate.php" class="list-group-item">Candidate Details</a>
-          <a href="./photo_sign.php" class="list-group-item">Upload Photo And Signature</a>
-          <a href="./academic.php" class="list-group-item">Academic Details</a>
+          <a href="./candidate.php" class="list-group-item d-flex justify-content-between">
+            <span>Candidate Details</span> 
+            <?php
+            if($myform['candidate']) echo "<i class='ico-check text-success'></i>";
+            else echo "<i class='ico-wrong text-danger'></i>";
+            ?>
+          </a>
+          <a href="./photo_sign.php" class="list-group-item d-flex justify-content-between">
+            <span>Photo & Signature</span> 
+            <?php
+            if($myform['photo_sign']) echo "<i class='ico-check text-success'></i>";
+            else echo "<i class='ico-wrong text-danger'></i>";
+            ?>
+          </a>
+          <a href="./academic.php" class="list-group-item d-flex justify-content-between">
+            <span>Academic Details</span> 
+            <?php
+            if($myform['academic']) echo "<i class='ico-check text-success'></i>";
+            else echo "<i class='ico-wrong text-danger'></i>";
+            ?>  
+          </a>
           <a href="./net.php" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="./documents.php" class="list-group-item active">Upload Documents</a>
+          <a href="./documents.php" class="active list-group-item d-flex justify-content-between">
+            <span>Upload Documents</span> 
+            <?php
+            if($myform['documents']) echo "<i class='ico-check text-white'></i>";
+            else echo "<i class='ico-wrong text-white'></i>";
+            ?> 
+          </a>
           <a href="./research.php" class="list-group-item">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
           <a href="./employment.php" class="list-group-item">Employment Details</a>
-          <a href="./specialization.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./specialization.php" class="list-group-item d-flex justify-content-between">
+          <span>Field of Specialization</span> 
+            <?php
+            if($myform['specialization']) echo "<i class='ico-check text-success'></i>";
+            else echo "<i class='ico-wrong text-danger'></i>";
+            ?> 
+          </a>
           <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
           <a href="./rac.php" class="list-group-item">Research & Academic Contributions</a>
           <a href="./score.php" class="list-group-item">API score</a>

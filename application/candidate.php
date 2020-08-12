@@ -6,6 +6,8 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
+newForm($uid);
+
 // 
 function updateAddressAndCandidate(){
   global $dbc;
@@ -54,6 +56,9 @@ function updateAddressAndCandidate(){
     echo $address_err;
     die();
   }
+
+  // update the form
+  updateForm($uid, 'candidate');
 
   // Once saved, load next page
   header("Location: photo_sign.php");
@@ -177,15 +182,45 @@ else{
     <div class="row">
       <div class="col-3 p-0 bg-light">
         <div class="list-group">
-          <a href="./candidate.php" class="list-group-item active">Candidate Details</a>
-          <a href="./photo_sign.php" class="list-group-item">Upload Photo And Signature</a>
-          <a href="./academic.php" class="list-group-item">Academic Details</a>
+        <a href="./candidate.php" class="active list-group-item d-flex justify-content-between">
+            <span>Candidate Details</span> 
+            <?php
+            if($myform['candidate']) echo "<i class='ico-check text-white'></i>";
+            else echo "<i class='ico-wrong text-white'></i>";
+            ?>
+          </a>
+          <a href="./photo_sign.php" class="list-group-item d-flex justify-content-between">
+            <span>Photo & Signature</span> 
+            <?php
+            if($myform['photo_sign']) echo "<i class='ico-check text-success'></i>";
+            else echo "<i class='ico-wrong text-danger'></i>";
+            ?>
+          </a>
+          <a href="./academic.php" class="list-group-item d-flex justify-content-between">
+            <span>Academic Details</span> 
+            <?php
+            if($myform['academic']) echo "<i class='ico-check text-success'></i>";
+            else echo "<i class='ico-wrong text-danger'></i>";
+            ?>  
+          </a>
           <a href="./net.php" class="list-group-item">NET / SLET / SET / GATE</a>
-          <a href="./documents.php" class="list-group-item">Upload Documents</a>
+          <a href="./documents.php" class="list-group-item d-flex justify-content-between">
+            <span>Upload Documents</span> 
+            <?php
+            if($myform['documents']) echo "<i class='ico-check text-success'></i>";
+            else echo "<i class='ico-wrong text-danger'></i>";
+            ?> 
+          </a>
           <a href="./research.php" class="list-group-item">Research Degree</a>
           <a href="./awards.php" class="list-group-item">Fellowship / Awards</a>
           <a href="./employment.php" class="list-group-item">Employment Details</a>
-          <a href="./specialization.php" class="list-group-item">Field Of Specialization</a>
+          <a href="./specialization.php" class="list-group-item d-flex justify-content-between">
+          <span>Field of Specialization</span> 
+            <?php
+            if($myform['specialization']) echo "<i class='ico-check text-success'></i>";
+            else echo "<i class='ico-wrong text-danger'></i>";
+            ?> 
+          </a>
           <a href="./evaluations.php" class="list-group-item">Teaching, Learning & Evaluation related activities</a>
           <a href="./rac.php" class="list-group-item">Research & Academic Contributions</a>
           <a href="./score.php" class="list-group-item">API score</a>
@@ -372,25 +407,13 @@ else{
               <input class="form-control" type="number" placeholder="Enter Mobile Number" name='parent_phone' value="<?php echo $parent_phone ?>"/>
             </div>
 
-            <div class="inline-form">
-              <label>Landline Phone</label>
-              <div class="form-row">
-                <div class="col-3">
-                  <input type="number" class="form-control" placeholder="STD" />
-                </div>
-                <div class="col">
-                  <input type="number" class="form-control" placeholder="Number" />
-                </div>
-              </div>
-            </div>
-
             <hr class="mt-4" />
 
 
             <h4>Correspondence Address</h4>
             <!-- Checkbox if same as permanent Address -->
             <div class="form-check form-check-inline mb-3">
-              <input class="form-check-input" type="checkbox" id="Correspondence Address" value="">
+              <input onchange="handleCopyAddress()" class="form-check-input" type="checkbox" id="Correspondence Address" value="">
               <label class="form-check-label" for="Correspondence Address">Same as Permanent Address</label>
             </div>
 
@@ -444,18 +467,6 @@ else{
               <input class="form-control" type="number" placeholder="Enter Mobile Number" name='s_parent_phone' value="<?php echo $s_parent_phone ?>"/>
             </div>
 
-            <div class="inline-form">
-              <label>Landline Phone</label>
-              <div class="form-row">
-                <div class="col-3">
-                  <input type="number" class="form-control" placeholder="STD" />
-                </div>
-                <div class="col">
-                  <input type="number" class="form-control" placeholder="Number" />
-                </div>
-              </div>
-            </div>
-
             <hr class="mt-4">
 
             <!-- Email and phone number -->
@@ -475,5 +486,33 @@ else{
     </div>
   </div>
 </body>
+
+<script>
+  function handleCopyAddress() {
+    const address_one = document.getElementsByName('address_one')[0];
+    const address_two = document.getElementsByName('address_two')[0];
+    const address_three = document.getElementsByName('address_three')[0];
+    const post_office = document.getElementsByName('post_office')[0];
+    const police_station = document.getElementsByName('police_station')[0];
+    const country = document.getElementsByName('country')[0];
+    const state = document.getElementsByName('state')[0];
+    const district = document.getElementsByName('district')[0];
+    const pin = document.getElementsByName('pin')[0];
+    const parent_phone = document.getElementsByName('parent_phone')[0];
+
+    document.getElementsByName('s_address_one')[0].value = address_one.value;
+    document.getElementsByName('s_address_two')[0].value = address_two.value;
+    document.getElementsByName('s_address_three')[0].value = address_three.value;
+    document.getElementsByName('s_post_office')[0].value = post_office.value;
+    document.getElementsByName('s_police_station')[0].value = police_station.value;
+    document.getElementsByName('s_country')[0].value = country.value;
+    document.getElementsByName('s_state')[0].value = state.value;
+    document.getElementsByName('s_district')[0].value = district.value;
+    document.getElementsByName('s_pin')[0].value = pin.value;
+    document.getElementsByName('s_parent_phone')[0].value = parent_phone.value;
+
+    
+  }
+</script>
 
 </html>
