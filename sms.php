@@ -1,27 +1,12 @@
 <?php
-// 9044349954+9565507527
-// $request = new HttpRequest();
-// $request->setUrl('http://Loginsms.ewyde.com/rest/services/sendSMS/sendGroupSms');
-// $request->setMethod(HTTP_METH_GET);
+$to = "ppranjalmishra@gmail.com";
+$subject = "Hello World";
+$message = "Please verify your email address.";
+$headers = "From: 14sarthi@gmail.com";
 
-// $request->setQueryData(array(
-//   'AUTH_KEY' => '',
-//   'message' => 'message',
-//   'senderId' => 'DEMOOS',
-//   'routeId' => '8',
-//   'mobileNos' => '8687452468',
-//   'smsContentType' => 'english'
-// ));
-
-// $request->setHeaders(array(
-//   'Cache-Control' => 'no-cache'
-// ));
-
-// try {
-//   $response = $request->send();
-
-//   echo $response->getBody();
-// } catch (HttpException $ex) {
-//   echo $ex;
-// }
+if(mail($to, $subject, $message, $headers)){
+    echo "Email sent!";
+}else{
+    echo "Email failed!";
+}
 ?>

@@ -309,6 +309,7 @@ else{
         <hr />
         <div class="text-center mb-4">
           <input class="btn btn-primary" name='submit' value='Save & Continue' type='submit'>
+          <a href="./specialization.php" class="btn btn-warning">Skip</a>
         </div>
         </form>
 

@@ -85,7 +85,7 @@ $other_table = readData("other", false);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./src/main.css" />
+    <link rel="stylesheet" href="../src/main.css" />
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -97,7 +97,7 @@ $other_table = readData("other", false);
 
   <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-light border-bottom">
+    <div id='preview_form_nav' class="d-flex justify-content-between align-items-center navbar-light border-bottom pl-1 pr-1">
       <div class="navbar-brand">
         Application No. <?php echo $candidate_row['id'] ?>
       </div>
@@ -138,7 +138,7 @@ $other_table = readData("other", false);
           width="120"
         />
       </div>
-    </nav>
+    </div>
 
     <div class="container-fluid mt-4 border-bottom">
       <div class="text-center mb-3">
@@ -832,16 +832,31 @@ $other_table = readData("other", false);
           </tbody>
         </table>
       </div>
-
-      <p>You won't be able to edit the form if you continue.</p>
-
-      <div class="text-center mb-2">
-        <a href='../dashboard.php' class="btn btn-primary">Accept & Continue</a>
+      
+      <div id="actionButtons">
+        <p>You won't be able to edit the form if you continue.</p>
+        
+        <div class="text-center mb-2">
+          <a href='../dashboard.php' class="btn btn-primary">Accept & Continue</a>
+          <button onclick="handlePrint()" class="btn btn-warning">Print</button>
+        </div>
       </div>
     </div>
-
+      
     <footer class="text-center pt-4 pb-4">
       © 2020 Lucknow University
     </footer>
   </body>
+
+  <script>
+    function handlePrint() {
+      document.getElementById("actionButtons").style = "display:none";
+
+      const resolvePromise = Promise.resolve(window.print())
+
+      resolvePromise.then(() => {
+      document.getElementById("actionButtons").style = "display:block";
+      })
+    }
+  </script>
 </html>
