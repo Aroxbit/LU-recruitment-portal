@@ -1,3 +1,32 @@
+<?php
+session_start();
+require_once('./database.php');
+if (!isset($_SESSION['email'])) {
+  header("Location: index.php");
+}
+
+$mesg = "";
+
+if(isset($_POST["submit"])){
+  $email = $_SESSION['email'];
+  $pass = $_POST["currentPass"];
+  $newPass = $_POST["newPass"];
+
+  $result = mysqli_query($dbc,"SELECT * FROM users WHERE email='" . $email . "' and pass = '". $pass."'");
+  $count  = mysqli_num_rows($result);
+  $the_user = mysqli_fetch_assoc($result);
+  if($count==0) {
+    $mesg = "You entered wrong current password.";
+  }
+  else{
+    $sql = "UPDATE users SET pass='$newPass' WHERE email='$email'";
+    createRow($sql);
+    header("Location: dashboard.php");
+  }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +61,7 @@
       <h4 class="text-center mt-3 color-green">Change Password</h4>
 
       <div class="d-flex justify-content-center">
-        <form onsubmit="handleValidation()" method="post" action="changePassword.php" class="card form-width-400 mt-3 p-3">
+        <form onsubmit="handleValidation()" method="post" action="changePassword.php" class="card form-width-400 mt-3 p-3" action='changePassword.php'>
           <div class="form-group">
             <label>Current Password *</label>
             <input name="currentPass" type="password" class="form-control" placeholder="Enter Current Password" required />
@@ -47,7 +76,8 @@
             <label>Confirm New Password *</label>
             <input id="confirmNewPass" name="confirmNewPass" type="password" class="form-control" placeholder="Confirm New Password" required />
           </div>
-          <button type="submit" class="btn btn-primary">Change Password</button>
+          <p class='text-danger'><?php echo $mesg ?></p>
+          <button type="submit" class="btn btn-primary" name="submit">Change Password</button>
         </form>
       </div>
     </div>

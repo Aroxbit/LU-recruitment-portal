@@ -93,6 +93,7 @@ if(isset($_GET["verify"])){
           </div>
           <p class='text-danger'><?php echo $mesg ?></p>
           <button type="submit" class="btn btn-primary">Sign In</button>
+          <a style="margin-top: 20px;" class="text-center" href='forgotPass.php'>Forgot Password?</a>
         </form>
       </div>
     </div>
