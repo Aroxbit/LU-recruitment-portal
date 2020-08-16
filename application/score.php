@@ -21,7 +21,7 @@ function create_and_update(){
 }
 
 //if new data is posted
-if (isset($_POST["teaching"])) create_and_update();
+//if (isset($_POST["teaching"])) create_and_update();
 
 //get api score data
 $row = getRow("score", $uid, true);
@@ -57,7 +57,7 @@ else{
       <h5>Application Form</h5>
     </div>
     <div class="inline-flex">
-      <a href="#" class="btn btn-primary">Back to Application</a>
+      <a href="../dashboard.php" class="btn btn-primary">Back to Application</a>
     </div>
   </nav>
 
@@ -115,7 +115,7 @@ else{
       <!-- Form Section -->
       <div class="col p-2">
         <h5>Summary Of API score</h5>
-
+        <p>The API Scores will be calculated later, Skip It.</p>
         <!--  Development of E-learning Material Form -->
         <form class="mt-4" action="score.php" method='post'>
           <table class="table table-bordered mt-4">
@@ -130,44 +130,45 @@ else{
             <tbody>
               <tr scope="row">
                 <td>I</td>
-                <td>Teaching Learning and Evaluation Related Activities. *</td>
+                <td>Teaching Learning and Evaluation Related Activities.</td>
 
                 <td>
-                  <input name="teaching" value='<?php echo $teaching ?>' type="text" class="form-control" required />
+                  <input disabled name="teaching" value='<?php echo $teaching ?>' type="text" class="form-control" required />
                 </td>
               </tr>
 
               <tr scope="row">
                 <td>II</td>
-                <td>Professional Development, Co-curricular and extension Activities. *</td>
+                <td>Professional Development, Co-curricular and extension Activities.</td>
 
                 <td>
-                  <input name="extension" value='<?php echo $extension ?>' type="text" class="form-control" required />
+                  <input disabled name="extension" value='<?php echo $extension ?>' type="text" class="form-control" required />
                 </td>
               </tr>
 
               <tr scope="row">
                 <td></td>
-                <td>Total (I + II) *</td>
+                <td>Total (I + II)</td>
 
                 <td>
-                  <input name="total" value='<?php echo $total ?>' type="text" class="form-control" required />
+                  <input disabled name="total" value='<?php echo $total ?>' type="text" class="form-control" required />
                 </td>
               </tr>
 
               <tr scope="row">
                 <td>III</td>
-                <td>Research and Academic Contributions. *</td>
+                <td>Research and Academic Contributions.</td>
 
                 <td>
-                  <input name="research" value='<?php echo $research ?>' type="text" class="form-control" required />
+                  <input disabled name="research" value='<?php echo $research ?>' type="text" class="form-control" required />
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mb-3 mt-3 text-center">
-            <button class="btn btn-primary" type="submit" name='submit'>Save & Continue</button>
+            <!-- <button class="btn btn-primary" type="submit" name='submit'>Save & Continue</button> -->
+            <a class="btn btn-primary" href='details.php'>Continue</a>
           </div>
         </form>
       </div>

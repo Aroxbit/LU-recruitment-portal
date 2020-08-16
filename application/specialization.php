@@ -46,7 +46,7 @@ if ($row_data) {
       <h5>Application Form</h5>
     </div>
     <div class="inline-flex">
-      <a href="#" class="btn btn-primary">Back to Application</a>
+      <a href="../dashboard.php" class="btn btn-primary">Back to Application</a>
     </div>
   </nav>
 
@@ -105,7 +105,7 @@ if ($row_data) {
       <div class="col p-3">
         <h5>Enter field of specializations</h5>
         <form action="specialization.php" method='post'>
-          <textarea name='specialization' class="form-control" name="" id="" rows="10" placeholder="Enter field of specialization."> <?php echo $specialization ?> </textarea>
+          <textarea name='specialization' class="form-control" name="" id="" rows="10" placeholder="Enter field of specialization." required> <?php echo $specialization ?> </textarea>
 
           <div class="text-center">
             <input type="submit" class="btn btn-primary mt-3" value='Save & Continue'>

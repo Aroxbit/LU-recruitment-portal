@@ -51,7 +51,7 @@ $result_get = getRow("research", $uid, false);
       <h5>Application Form</h5>
     </div>
     <div class="inline-flex">
-      <a href="#" class="btn btn-primary">Back to Application</a>
+      <a href="../dashboard.php" class="btn btn-primary">Back to Application</a>
     </div>
   </nav>
 

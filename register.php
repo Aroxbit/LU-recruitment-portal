@@ -66,11 +66,11 @@ if(isset($_POST["submit"])){
       <h4 class="text-center mt-3">Registration</h4>
 
       <div class="d-flex justify-content-center">
-        <form method="post" action="register.php" class="card registration-form mt-3 p-3">
+        <form onsubmit="handleValidation()" method="post" action="register.php" class="card registration-form mt-3 p-3">
           <div class="form-group">
-            <p><?php echo $mesg ?></p>
+            <p class="text-danger"><?php echo $mesg ?></p>
             <label>Email Address *</label>
-            <input name="email" type="email" class="form-control" placeholder="Enter email" required />
+            <input id="email" name="email" type="email" class="form-control" placeholder="Enter email" required />
             <small class="form-text text-muted">
               Please note all the communication related to your application
               will be sent to this email id.
@@ -79,21 +79,21 @@ if(isset($_POST["submit"])){
 
           <div class="form-group">
             <label>Confirm Email Address *</label>
-            <input type="email" class="form-control" placeholder="Confirm email" required />
+            <input id="confirmemail" type="email" class="form-control" placeholder="Confirm email" required />
           </div>
 
           <div class="form-group">
             <label>Password</label>
-            <input name="pass" type="password" class="form-control" placeholder="Password" required />
+            <input id="password" name="pass" type="password" class="form-control" placeholder="Password *" required />
           </div>
 
           <div class="form-group">
             <label>Confirm Password *</label>
-            <input type="password" class="form-control" placeholder="Password" required />
+            <input id="confirmpassword" type="password" class="form-control" placeholder="Password *" required />
           </div>
 
           <div class="form-group">
-            <label>Candidate Name</label>
+            <label>Candidate Name *</label>
             <div class="form-row">
               <div class="col">
                 <input name="first_name" type="text" class="form-control" placeholder="First name" required />
@@ -121,12 +121,12 @@ if(isset($_POST["submit"])){
 
           <div class="form-group">
             <label>Mobile No. *</label>
-            <input name="phone" class="form-control" type="text" placeholder="Mobile No." required />
+            <input id="phone" name="phone" class="form-control" type="text" placeholder="Mobile No." required />
           </div>
 
           <div class="form-group">
             <label>Confirm Mobile No. *</label>
-            <input class="form-control" type="text" placeholder="Mobile No." required />
+            <input id="confirmphone" class="form-control" type="text" placeholder="Mobile No." required />
           </div>
 
           <button type="submit" class="btn btn-primary" name='submit'>Register</button>
@@ -143,5 +143,24 @@ if(isset($_POST["submit"])){
     © 2020 Lucknow University
   </footer>
 </body>
+
+<script>
+  function handleValidation() {
+    check("email", event);
+    check("password", event);
+    check("phone", event);
+  }
+
+  function check(idName, event){
+    const type = document.getElementById(idName);
+    const confirmtype = document.getElementById("confirm"+idName);
+
+    if(type.value !== confirmtype.value) {
+    event.preventDefault();
+      alert(idName + " did not match.");
+      confirmtype.focus();
+    }
+  }
+</script>
 
 </html>

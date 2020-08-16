@@ -63,7 +63,7 @@ if ($count_get == 0) {
       <h5>Application Form</h5>
     </div>
     <div class="inline-flex">
-      <a href="#" class="btn btn-primary">Back to Application</a>
+      <a href="../dashboard.php" class="btn btn-primary">Back to Application</a>
     </div>
   </nav>
 
@@ -181,7 +181,7 @@ if ($count_get == 0) {
 
                 <td>
                   <select name='level' class="custom-select" required>
-                    <option>Select Level</option>
+                    <option value="">Select Level</option>
                     <option value="University">University</option>
                     <option value="State">State</option>
                     <option value="National">National</option>
@@ -207,10 +207,10 @@ if ($count_get == 0) {
               </tr>
 
               <tr scope="row">
-                <td>API score *</td>
+                <td>API score</td>
 
                 <td>
-                  <input name='score' type="text" class="form-control" placeholder="Enter API Score" required />
+                  <input name='score' type="text" class="form-control" placeholder="API Score will be calculated later" disabled />
                 </td>
               </tr>
 

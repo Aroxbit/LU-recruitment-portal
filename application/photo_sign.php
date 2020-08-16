@@ -51,7 +51,7 @@ if($row) {
       <h5>Application Form</h5>
     </div>
     <div class="inline-flex">
-      <a href="#" class="btn btn-primary">Back to Application</a>
+      <a href="../dashboard.php" class="btn btn-primary">Back to Application</a>
     </div>
   </nav>
 
@@ -140,7 +140,8 @@ if($row) {
           </div>
 
           <div class="text-center mt-4">
-            <button name="submit" type="submit" class="btn btn-primary text-white">Upload & Continue</button>
+            <button name="submit" type="submit" class="btn btn-warning">Upload</button>
+            <a href="./academic.php" class="btn btn-primary">Continue</a>
           </div>
         </form>
       </div>

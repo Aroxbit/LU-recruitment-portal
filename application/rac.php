@@ -127,7 +127,7 @@ $table_g = readData("rac_g");
       <h5>Application Form</h5>
     </div>
     <div class="inline-flex">
-      <a href="#" class="btn btn-primary">Back to Application</a>
+      <a href="../dashboard.php" class="btn btn-primary">Back to Application</a>
     </div>
   </nav>
 
@@ -289,10 +289,10 @@ $table_g = readData("rac_g");
               </tr>
 
               <tr scope="row">
-                <td>API score *</td>
+                <td>API score</td>
 
                 <td>
-                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="API Score will be calculated later" disabled />
                 </td>
               </tr>
 
@@ -426,10 +426,10 @@ $table_g = readData("rac_g");
               </tr>
 
               <tr scope="row">
-                <td>API score *</td>
+                <td>API score</td>
 
                 <td>
-                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="API Score will be calculated later" disabled />
                 </td>
               </tr>
 
@@ -532,10 +532,10 @@ $table_g = readData("rac_g");
               </tr>
 
               <tr scope="row">
-                <td>API score *</td>
+                <td>API score</td>
 
                 <td>
-                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="API Score will be calculated later" disabled />
                 </td>
               </tr>
 
@@ -638,10 +638,10 @@ $table_g = readData("rac_g");
               </tr>
 
               <tr scope="row">
-                <td>API score *</td>
+                <td>API score</td>
 
                 <td>
-                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="API Score will be calculated later" disabled />
                 </td>
               </tr>
 
@@ -750,10 +750,10 @@ $table_g = readData("rac_g");
               </tr>
 
               <tr scope="row">
-                <td>API score *</td>
+                <td>API score</td>
 
                 <td>
-                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="API Score will be calculated later" disabled />
                 </td>
               </tr>
 
@@ -862,10 +862,10 @@ $table_g = readData("rac_g");
               </tr>
 
               <tr scope="row">
-                <td>API score *</td>
+                <td>API score</td>
 
                 <td>
-                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="API Score will be calculated later" disabled />
                 </td>
               </tr>
 
@@ -958,10 +958,10 @@ $table_g = readData("rac_g");
               </tr>
 
               <tr scope="row">
-                <td>API score *</td>
+                <td>API score</td>
 
                 <td>
-                  <input name='score' type="text" class="form-control" placeholder="Enter API score" required />
+                  <input name='score' type="text" class="form-control" placeholder="API Score will be calculated later" disabled />
                 </td>
               </tr>
 

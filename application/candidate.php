@@ -174,7 +174,7 @@ else{
       <h5>Application Form</h5>
     </div>
     <div class="inline-flex">
-      <a href="#" class="btn btn-primary">Back to Application</a>
+      <a href="../dashboard.php" class="btn btn-primary">Back to Application</a>
     </div>
   </nav>
 
@@ -234,7 +234,7 @@ else{
         <div class="d-flex justify-content-center">
 
           <form method="post" action="candidate.php" class="mt-3 p-3 w-75">
-            <label>Post</label>
+            <label>Post *</label>
 
             <select name="post" class="form-control mb-2 mr-sm-2" required>
               <option value="<?php echo $post ?>"><?php echo "Select: " . $post ?></option>
@@ -244,15 +244,15 @@ else{
             </select>
 
             <div class="form-group">
-              <label for="Post Code">Post Code</label>
-              <input name="post_code" class="form-control" type="text" name="Post Code" value="<?php echo $post_code ?>" placeholder="Enter Post Code"/>
+              <label for="Post Code">Post Code *</label>
+              <input name="post_code" class="form-control" type="text" name="Post Code" value="<?php echo $post_code ?>" placeholder="Enter Post Code" required/>
             </div>
 
             <div class="form-group">
               <label>Candidate Name *</label>
               <div class="form-row">
                 <div class="col">
-                  <input name="first_name" type="text" class="form-control" placeholder="First name" required  value="<?php echo $first_name ?>"/>
+                  <input name="first_name" type="text" class="form-control" placeholder="First name" required value="<?php echo $first_name ?>"/>
                 </div>
                 <div class="col">
                   <input name="last_name" type="text" class="form-control" placeholder="Last name" required value="<?php echo $last_name ?>"/>
@@ -285,7 +285,7 @@ else{
 
             <div class="form-group">
               <label>Father's Name</label>
-              <input name="father_name" class="form-control" type="text" placeholder="Father's Name" value="<?php echo $father_name ?>"/>
+              <input name="father_name" class="form-control" type="text" placeholder="Father's Name *" required value="<?php echo $father_name ?>"/>
               <small class="form-text text-muted">
                 In capital letters only.
               </small>
@@ -293,7 +293,7 @@ else{
 
             <div class="form-group">
               <label>Mother's Name</label>
-              <input name="mother_name" class="form-control" type="text" placeholder="Mother's Name" value="<?php echo $mother_name ?>"/>
+              <input name="mother_name" class="form-control" type="text" placeholder="Mother's Name *" required value="<?php echo $mother_name ?>"/>
               <small class="form-text text-muted">
                 In capital letters only.
               </small>
@@ -358,53 +358,53 @@ else{
             <h4>Permanent Address</h4>
 
             <div class="form-group">
-              <label>House no./Street/Area</label>
-              <input class="form-control" type="text" placeholder="Address Line 1" name='address_one' value="<?php echo $address_one ?>"/>
+              <label>House no./Street/Area *</label>
+              <input required class="form-control" type="text" placeholder="Address Line 1" name='address_one' value="<?php echo $address_one ?>"/>
             </div>
 
             <div class="form-group">
-              <label>Block/Municipality</label>
-              <input class="form-control" type="text" placeholder="Address Line 2"  name='address_two' value="<?php echo $address_two ?>"/>
+              <label>Block/Municipality *</label>
+              <input required class="form-control" type="text" placeholder="Address Line 2"  name='address_two' value="<?php echo $address_two ?>"/>
             </div>
 
             <div class="form-group">
-              <label>City/Town/Village</label>
-              <input class="form-control" type="text" placeholder="Address Line 3" name='address_three' value="<?php echo $address_three ?>"/>
+              <label>City/Town/Village *</label>
+              <input required class="form-control" type="text" placeholder="Address Line 3" name='address_three' value="<?php echo $address_three ?>"/>
             </div>
 
             <div class="form-group">
-              <label>Post Office</label>
-              <input class="form-control" type="text" placeholder="Post Office" name='post_office' value="<?php echo $post_office ?>"/>
+              <label>Post Office *</label>
+              <input required class="form-control" type="text" placeholder="Post Office" name='post_office' value="<?php echo $post_office ?>"/>
             </div>
 
             <div class="form-group">
-              <label>Police Station</label>
-              <input class="form-control" type="text" placeholder="Police Station" name='police_station' value="<?php echo $police_station ?>"/>
+              <label>Police Station *</label>
+              <input required class="form-control" type="text" placeholder="Police Station" name='police_station' value="<?php echo $police_station ?>"/>
             </div>
 
             <div class="form-group">
-              <label>Country</label>
-              <input class="form-control" type="text" placeholder="Country" name='country' value="<?php echo $country ?>"/>
+              <label>Country *</label>
+              <input required class="form-control" type="text" placeholder="Country" name='country' value="<?php echo $country ?>"/>
             </div>
 
             <div class="form-group">
-              <label>State</label>
-              <input class="form-control" type="text" placeholder="State" name='state' value="<?php echo $state ?>"/>
+              <label>State *</label>
+              <input required class="form-control" type="text" placeholder="State" name='state' value="<?php echo $state ?>"/>
             </div>
 
             <div class="form-group">
-              <label>District</label>
-              <input class="form-control" type="text" placeholder="District" name='district' value="<?php echo $district ?>"/>
+              <label>District *</label>
+              <input required class="form-control" type="text" placeholder="District" name='district' value="<?php echo $district ?>"/>
             </div>
 
             <div class="form-group">
-              <label>PIN</label>
-              <input class="form-control" type="text" placeholder="PIN" name='pin' value="<?php echo $pin ?>"/>
+              <label>PIN *</label>
+              <input required class="form-control" type="text" placeholder="PIN" name='pin' value="<?php echo $pin ?>"/>
             </div>
 
             <div class="form-group">
-              <label>Father/Guardian's Mobile Number</label>
-              <input class="form-control" type="number" placeholder="Enter Mobile Number" name='parent_phone' value="<?php echo $parent_phone ?>"/>
+              <label>Father/Guardian's Mobile Number *</label>
+              <input required class="form-control" type="number" placeholder="Enter Mobile Number" name='parent_phone' value="<?php echo $parent_phone ?>"/>
             </div>
 
             <hr class="mt-4" />
@@ -418,53 +418,53 @@ else{
             </div>
 
             <div class="form-group">
-              <label>House no/Street/Area</label>
-              <input class="form-control" type="text" placeholder="Address Line 1" name='s_address_one' value="<?php echo $s_address_one ?>"/>
+              <label>House no/Street/Area *</label>
+              <input required class="form-control" type="text" placeholder="Address Line 1" name='s_address_one' value="<?php echo $s_address_one ?>"/>
             </div>
 
             <div class="form-group">
-              <label>Block/Municipality</label>
-              <input class="form-control" type="text" placeholder="Address Line 2" name='s_address_two' value="<?php echo $s_address_two ?>"/>
+              <label>Block/Municipality *</label>
+              <input required class="form-control" type="text" placeholder="Address Line 2" name='s_address_two' value="<?php echo $s_address_two ?>"/>
             </div>
 
             <div class="form-group">
-              <label>City/Town/Village</label>
-              <input class="form-control" type="text" placeholder="Address Line 3" name='s_address_three' value="<?php echo $s_address_three ?>"/>
+              <label>City/Town/Village *</label>
+              <input required class="form-control" type="text" placeholder="Address Line 3" name='s_address_three' value="<?php echo $s_address_three ?>"/>
             </div>
 
             <div class="form-group">
-              <label>Post Office</label>
-              <input class="form-control" type="text" placeholder="Post Office" name='s_post_office' value="<?php echo $s_post_office ?>"/>
+              <label>Post Office *</label>
+              <input required class="form-control" type="text" placeholder="Post Office" name='s_post_office' value="<?php echo $s_post_office ?>"/>
             </div>
 
             <div class="form-group">
-              <label>Police Station</label>
-              <input class="form-control" type="text" placeholder="Police Station" name='s_police_station' value="<?php echo $s_police_station ?>"/>
+              <label>Police Station *</label>
+              <input required class="form-control" type="text" placeholder="Police Station" name='s_police_station' value="<?php echo $s_police_station ?>"/>
             </div>
 
             <div class="form-group">
-              <label>Country</label>
-              <input class="form-control" type="text" placeholder="Country" name='s_country' value="<?php echo $s_country ?>"/>
+              <label>Country *</label>
+              <input required class="form-control" type="text" placeholder="Country" name='s_country' value="<?php echo $s_country ?>"/>
             </div>
 
             <div class="form-group">
-              <label>State</label>
-              <input class="form-control" type="text" placeholder="State" name='s_state' value="<?php echo $s_state ?>"/>
+              <label>State *</label>
+              <input required class="form-control" type="text" placeholder="State" name='s_state' value="<?php echo $s_state ?>"/>
             </div>
 
             <div class="form-group">
-              <label>District</label>
-              <input class="form-control" type="text" placeholder="District" name='s_district' value="<?php echo $s_district ?>"/>
+              <label>District *</label>
+              <input required class="form-control" type="text" placeholder="District" name='s_district' value="<?php echo $s_district ?>"/>
             </div>
 
             <div class="form-group">
-              <label>PIN</label>
-              <input class="form-control" type="text" placeholder="PIN" name='s_pin' value="<?php echo $s_pin ?>"/>
+              <label>PIN *</label>
+              <input required class="form-control" type="text" placeholder="PIN" name='s_pin' value="<?php echo $s_pin ?>"/>
             </div>
 
             <div class="form-group">
-              <label>Father/Guardian's Mobile Number</label>
-              <input class="form-control" type="number" placeholder="Enter Mobile Number" name='s_parent_phone' value="<?php echo $s_parent_phone ?>"/>
+              <label>Father/Guardian's Mobile Number *</label>
+              <input required class="form-control" type="number" placeholder="Enter Mobile Number" name='s_parent_phone' value="<?php echo $s_parent_phone ?>"/>
             </div>
 
             <hr class="mt-4">

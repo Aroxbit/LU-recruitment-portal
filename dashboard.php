@@ -30,7 +30,7 @@ if (!isset($_SESSION['email'])) {
     </a>
 
     <div class="inline-flex">
-      <a href="#" class="btn btn-primary">Change Password</a>
+      <a href="./changePassword.php" class="btn btn-primary">Change Password</a>
       <a href="./signin.php?logout" class="btn btn-info">Logout <?php echo $_SESSION["email"] ?></a>
     </div>
   </nav>

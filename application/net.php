@@ -50,7 +50,7 @@ $result_get = getRow("net", $uid, false);
       <h5>Application Form</h5>
     </div>
     <div class="inline-flex">
-      <a href="#" class="btn btn-primary">Back to Application</a>
+      <a href="../dashboard.php" class="btn btn-primary">Back to Application</a>
     </div>
   </nav>
 
@@ -167,7 +167,7 @@ $result_get = getRow("net", $uid, false);
 
                 <td>
                   <select name='type' class="custom-select" required>
-                    <option>Select Type</option>
+                    <option value="">Select Type</option>
                     <option value="NET">NET</option>
                     <option value="SLET">SLET</option>
                     <option value="SET">SET</option>
