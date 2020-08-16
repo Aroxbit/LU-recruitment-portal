@@ -8,9 +8,18 @@ if(isset($_POST["email"]) && isset($_POST["pass"])){
   $pass = $_POST["pass"];
   $result = mysqli_query($dbc,"SELECT * FROM users WHERE email='" . $email . "' and pass = '". $pass."'");
   $count  = mysqli_num_rows($result);
+  $the_user = mysqli_fetch_assoc($result);
   if($count==0) {
     $mesg = "Wrong Email or Password";
-  } else {
+  }
+  else if(!$the_user["verified"]){
+    $_mail_to = $_POST["email"];
+    $_mail_subject = "Verify Your Account";
+    $_mail_body = "To verify your account in the Lucknow University Recruitment, <a href='" . $perm_url ."signin.php?verify=". $the_user["v_id"] ."'>click here</a>.";
+    require_once('./mail.php');
+    $mesg = "Please Check Your Email & Verify Your Account to Signin. If you can't find it in your inbox, check your spam folder.";
+  } 
+  else {
       $_SESSION["email"] = $email;
       header("Location: dashboard.php");
   }
@@ -18,6 +27,22 @@ if(isset($_POST["email"]) && isset($_POST["pass"])){
 
 if(isset($_GET["logout"])){
   session_destroy();
+}
+
+if(isset($_GET["verify"])){
+  $v_id = $_GET["verify"];
+  $_result = mysqli_query($dbc,"SELECT * FROM users WHERE v_id='" . $v_id . "'");
+  $_count  = mysqli_num_rows($_result);
+  $_the_user = mysqli_fetch_assoc($_result);
+  if($_count==0) {
+    $mesg = "Can't find the account";
+    die();
+  }
+  $sql = "UPDATE users SET verified=true WHERE v_id='$v_id'";
+  createRow($sql);
+  // $_SESSION["email"] = $_the_user["email"];
+  // header("Location: dashboard.php");
+  $mesg = "Your email is verified. Please Signin to Continue.";
 }
 ?>
 
@@ -66,7 +91,7 @@ if(isset($_GET["logout"])){
             <label>Password *</label>
             <input name="pass" type="password" class="form-control" placeholder="Password" required />
           </div>
-          <p><?php echo $mesg ?></p>
+          <p class='text-danger'><?php echo $mesg ?></p>
           <button type="submit" class="btn btn-primary">Sign In</button>
         </form>
       </div>

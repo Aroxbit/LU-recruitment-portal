@@ -2,6 +2,9 @@
 $mesg = "";
 require_once('./database.php');
 
+echo "A verification email has been sent to your account. Please click on the link in the email to verify your account and <a href='signin.php'>sign in</a>.";
+die();
+
 if(isset($_POST["submit"])){
   $email = $_POST['email'];
   $first_name = $_POST['first_name'];
@@ -23,6 +26,8 @@ if(isset($_POST["submit"])){
     VALUES ('$email', '$first_name', '$last_name', '$phone', '$gender', '$dob', '$pass')";
     if ($dbc->query($sql) === TRUE) {
       header("Location: signin.php");
+      // echo "A verification email has been sent to your account. Please click on the link in the email to verify your account and sign in.";
+      die();
     } else {
       echo "Error: " . $sql . "<br>" . $dbc->error;
     }
