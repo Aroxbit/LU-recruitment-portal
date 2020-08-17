@@ -4,6 +4,10 @@ session_start();
 if (!isset($_SESSION['email'])) {
   header("Location: index.php");
 }
+$uid = $_SESSION['email'];
+require_once('./database.php');
+
+
 ?>
 
 <!DOCTYPE html>

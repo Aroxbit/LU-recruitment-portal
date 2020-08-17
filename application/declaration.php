@@ -7,6 +7,12 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
+// check if form is not complete
+if(!verifyForm($uid)){
+  
+}
+
+
 //initialize candidate vars
 $first_name = "{Your";
 $last_name = "Name}"; 
@@ -106,16 +112,22 @@ if($count==0) {
       <!-- Form Section -->
       <div class="col p-3">
         <h5 class="text-center">DECLARATION</h5>
-
+        <?php
+          $class_name = "";
+          if(!verifyForm($uid)){
+            echo "Please fill all the required fields first.";
+            $class_name = "d-none";
+          }
+        ?>
         <!-- Enter Name here -->
-        <p class="">
+        <p class='<?php echo $class_name ?>'>
           I <?php echo $first_name . " " . $last_name ?>, Son/Daughter of <?php echo $father_name . " & " . $mother_name ?>, hereby declare that all statements and entries
           made in the application are true, complete and correct to the best of my knowledge and belief. In the event
           of any information found being false or incorrect or inelligiblity being detected before or after the Selection
           Committee and Executive Council Meet, my candidature / appointment is liable to be cancelled by University.
         </p>
 
-        <div class="text-center mt-3">
+        <div class='text-center mt-3 <?php echo $class_name ?>'>
           <a href='./form_preview.php' class="btn btn-primary">Accept & Continue</a>
         </div>
       </div>

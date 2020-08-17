@@ -7,6 +7,8 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('../database.php');
 
+if(!verifyForm($uid)) header("Location: ../dashboard.php");
+
 //get existing data
 function readData($table_name, $one){
   global $dbc;
@@ -24,6 +26,9 @@ function readData($table_name, $one){
 
 //user data
 $user_row = readData("users", true);
+
+// form data
+$form_row = getForm($uid);
 
 // candidate
 $candidate_row = readData("candidate", true);
@@ -99,7 +104,7 @@ $other_table = readData("other", false);
     <!-- Navigation Bar -->
     <div id='preview_form_nav' class="d-flex justify-content-between align-items-center navbar-light border-bottom pl-1 pr-1">
       <div class="navbar-brand">
-        Application No. <?php echo $candidate_row['id'] ?>
+        Application No. <?php echo $form_row['id'] ?>
       </div>
 
       <div class="inline-flex">
@@ -837,7 +842,7 @@ $other_table = readData("other", false);
         <p>You won't be able to edit the form if you continue.</p>
         
         <div class="text-center mb-2">
-          <a href='../dashboard.php' class="btn btn-primary">Accept & Continue</a>
+          <a href='../dashboard.php' class="btn btn-primary">Continue To Dashboard</a>
           <button onclick="handlePrint()" class="btn btn-warning">Print</button>
         </div>
       </div>

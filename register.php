@@ -2,9 +2,6 @@
 $mesg = "";
 require_once('./database.php');
 
-echo "A verification email has been sent to your account. Please click on the link in the email to verify your account and <a href='signin.php'>sign in</a>.";
-die();
-
 if(isset($_POST["submit"])){
   $email = $_POST['email'];
   $first_name = $_POST['first_name'];
