@@ -5,6 +5,7 @@ if (!isset($_SESSION['email'])) {
 }
 $uid = $_SESSION['email'];
 require_once('../database.php');
+canEdit($uid);
 
 function create_and_update(){
   global $uid;

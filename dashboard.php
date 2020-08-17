@@ -7,7 +7,11 @@ if (!isset($_SESSION['email'])) {
 $uid = $_SESSION['email'];
 require_once('./database.php');
 
-
+$form = getForm($uid);
+$payment = $form["payment"];
+$is_complete = verifyForm($uid);
+if($payment) $cl2 = "text-success";
+if($is_complete) $cl1 = "text-success";
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +52,7 @@ require_once('./database.php');
             <circle cx="12" cy="7" r="4" />
             <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
           </svg>
-          My application
+          <span class='<?php echo $cl1 ?>'>My Application</span>
         </a>
         
         <a href="./application/form_preview.php" class="list-group-item list-group-item-action">
@@ -58,7 +62,7 @@ require_once('./database.php');
             <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />
             <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" />
           </svg>
-          Preview Form
+          <span class='<?php echo $cl1 ?>'>Preview Form</span>
         </a>
 
         <a href="#" class="list-group-item list-group-item-action">
@@ -68,7 +72,7 @@ require_once('./database.php');
             <circle cx="14" cy="14" r="2" />
             <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2" />
           </svg>
-          Make Payment
+          <span class='<?php echo $cl2 ?>'>Make Payment</span>
         </a>
       </div>
     </div>

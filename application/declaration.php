@@ -6,11 +6,8 @@ if (!isset($_SESSION['email'])) {
 }
 $uid = $_SESSION['email'];
 require_once('../database.php');
+canEdit($uid);
 
-// check if form is not complete
-if(!verifyForm($uid)){
-  
-}
 
 
 //initialize candidate vars

@@ -5,6 +5,7 @@ if (!isset($_SESSION['email'])) {
 }
 $uid = $_SESSION['email'];
 require_once('../database.php');
+canEdit($uid);
 
 newForm($uid);
 
@@ -328,8 +329,8 @@ else{
               <label>Category Applied For *</label>
               <select name="category_for" class="form-control" required>
                 <option value="<?php echo $category_for ?>"><?php echo "Select: " . $category_for ?></option>
-                <option value="R">R</option>
-                <option value="UR">UR</option>
+                <option value="Reserved">Reserved</option>
+                <option value="Unreserved">Unreserved</option>
               </select>
             </div>
 

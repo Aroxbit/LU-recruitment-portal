@@ -108,6 +108,14 @@ function verifyForm($uid){
   return true;
 }
 
+// can edit?
+function canEdit($uid){
+  $form = getForm($uid);
+  if($form["payment"]){
+    header("Location: ../dashboard.php");
+  }
+}
+
 if (isset($_SESSION['email'])) {
   $myform = getForm($_SESSION['email']);
 }

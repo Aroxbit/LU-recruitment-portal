@@ -5,7 +5,7 @@ if (!isset($_SESSION['email'])) {
 }
 $uid = $_SESSION['email'];
 require_once('../database.php');
-
+canEdit($uid);
 
 //To create/update academic data
 function create_and_update(){
