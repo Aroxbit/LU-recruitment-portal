@@ -6,7 +6,7 @@
 
 // Defined as constants so that they can't be changed
 DEFINE ('DB_USER', 'root');
-DEFINE ('DB_PASSWORD', '');
+DEFINE ('DB_PASSWORD', '123');
 DEFINE ('DB_HOST', 'localhost');
 DEFINE ('DB_NAME', 'recruitment');
 $perm_url = 'http://localhost/main/';
