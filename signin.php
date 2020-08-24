@@ -2,6 +2,7 @@
 session_start();
 require_once('./database.php');
 
+
 $mesg = "";
 if(isset($_POST["email"]) && isset($_POST["pass"])){
   $email = $_POST["email"];
@@ -13,9 +14,18 @@ if(isset($_POST["email"]) && isset($_POST["pass"])){
     $mesg = "Wrong Email or Password";
   }
   else if(!$the_user["verified"]){
+    if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') $link = "https"; 
+    else $link = "http"; 
+    $link .= "://"; 
+    $link .= $_SERVER['HTTP_HOST']; 
+    $link .= $_SERVER['REQUEST_URI']; 
+    $link .= "?verify=";
+    $link .= $the_user["v_id"];
+    echo $link;
+
     $_mail_to = $_POST["email"];
     $_mail_subject = "Verify Your Account";
-    $_mail_body = "To verify your account in the Lucknow University Recruitment, <a href='" . $perm_url ."signin.php?verify=". $the_user["v_id"] ."'>click here</a>.";
+    $_mail_body = "<h1>Lucknow Recruitment Account Verification</h1><p>To verify your account in the Lucknow University Recruitment, <a href='". $link ."'>click here</a>.</p><p>If you can't click the link, copy and and paste it: ". $link ."</p>";
     require_once('./mail.php');
     $mesg = "Please Check Your Email & Verify Your Account to Signin. If you can't find it in your inbox, check your spam folder.";
   } 

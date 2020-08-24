@@ -3,7 +3,7 @@
 require './PHPMailer/PHPMailerAutoload.php';
 //$mail = new PHPMailer;
 
-$email_address = "projectlooteratt01@gmail.com";
+$email_address = "lucknowunirecruitment@gmail.com";
 $email_pass = "AlphaGod123";
 $contact_email = "contact@lucknowuniversity.com";
 

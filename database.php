@@ -6,10 +6,9 @@
 
 // Defined as constants so that they can't be changed
 DEFINE ('DB_USER', 'root');
-DEFINE ('DB_PASSWORD', '123');
+DEFINE ('DB_PASSWORD', '');
 DEFINE ('DB_HOST', 'localhost');
 DEFINE ('DB_NAME', 'recruitment');
-$perm_url = 'http://localhost/main/';
 
 // $dbc will contain a resource link to the database
 // @ keeps the error from showing in the browser

@@ -13,7 +13,7 @@ if(isset($_POST["submit"])){
     else{
         $_mail_to = $_POST["email"];
         $_mail_subject = "Lucknow Recruitment Account Recovery";
-        $_mail_body = "You have requested to access your password for Lucknow University Recruitment account. The password for your account is: " . $the_user["pass"] ."";
+        $_mail_body = "<h1>Lucknow Recruitment Account Recovery</h1><p>You have requested to access your password for Lucknow University Recruitment account. The password for your account is: <b>" . $the_user["pass"] ."</b></p>";
         require_once('./mail.php');
         $mesg = "We have sent your password to your Email. If you can't find it in your inbox, check your spam folder.";
     }
